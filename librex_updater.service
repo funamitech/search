@@ -10,8 +10,8 @@ Type=simple
 User=librex
 Group=librex
 
-WorkingDirectory=/path/to/librex
-ExecStart=/path/to/librex/auto_updater.sh
+WorkingDirectory=/var/www/librex
+ExecStart=/var/www/librex/auto_updater.sh
 
 Restart=always
 

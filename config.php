@@ -14,12 +14,12 @@
             Preset privacy friendly frontends for users, these can be overwritten by users in settings
             e.g.: "invidious" => "https://yewtu.be",
         */
-        "invidious" => "",
-        "bibliogram" => "",
-        "nitter" => "",
-        "libreddit" => "",
+        "invidious" => "https://yt.funami.tech",
+        "bibliogram" => "https://ig.funami.tech",
+        "nitter" => "https://twt.funami.tech",
+        "libreddit" => "https://rd.funami.tech",
         "proxitok" => "",
-        "wikiless" => "",
+        "wikiless" => "https://wikiless.funami.tech",
 
         /*
             To send requests trough a proxy uncomment CURLOPT_PROXY and CURLOPT_PROXYTYPE:

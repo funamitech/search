@@ -1,10 +1,10 @@
 <?php require "misc/header.php"; ?>
 
-<title> <?php echo $_REQUEST["q"]; ?> - LibreX</title>
+<title> <?php echo $_REQUEST["q"]; ?> - YuruSearch</title>
 </head>
     <body>
         <form class="sub-search-container" method="post" enctype="multipart/form-data" autocomplete="off">
-            <a href="./"><img class="logo" src="static/images/librex.png" alt="librex logo"></a>
+            <a href="./"><img class="logo" height="100vh" src="static/images/librex.png" alt="librex logo"></a>
             <input type="text" name="q" 
                 <?php
                     $query = htmlspecialchars(trim($_REQUEST["q"]));
