@@ -50,7 +50,7 @@
                 require "misc/header.php";
 ?>
 
-    <title>LibreX - Settings</title>
+    <title>YuruSearch - Settings</title>
     </head>
     <body>
         <div class="misc-container">

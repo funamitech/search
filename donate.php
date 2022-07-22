@@ -2,13 +2,15 @@
     require "misc/header.php";
 
     // Feel free to add your donation options here, but please don't remove mine.
+    // Why not? I'm gonna remove yours. LMAO jkjk I'll leave them.
 ?>
 
-    <title>LibreX - Donate</title>
+    <title>YuruSearch - Donate</title>
     </head>
     <body>
         <div class="misc-container">
-              <h1>Donate</h1>
+              <a href="https://toss.me/yuifmirror"><h1>Donate to YuruVerse</h1></a>
+              <h1>Donate to LibreX</h1>
                <h3>Bitcoin (BTC):</h3>
                <p>bc1qs43kh6tvhch02dtsp7x7hcrwj8fwe4rzy7lp0h</p>
                <img src="static/images/btc.png" alt="btc qr code" width="150" height="150"/>
