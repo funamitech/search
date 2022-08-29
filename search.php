@@ -3,9 +3,10 @@
 <title> <?php echo $_REQUEST["q"]; ?> - YuruSearch</title>
 </head>
     <body>
-        <form class="sub-search-container" method="post" enctype="multipart/form-data" autocomplete="off">
-            <a href="./"><img class="logo" height="100vh" src="static/images/librex.png" alt="librex logo"></a>
-            <input type="text" name="q" 
+        <form class="sub-search-container" method="get" autocomplete="off">
+            <h1 class="logomobile"><a class="noDecoration" href="./">Yuru<span class="X">Search</span></a></h1>
+            <a href="./"><img class="logo" src="static/images/librex.png" alt="librex logo"></a>
+            <input type="text" name="q"
                 <?php
                     $query = htmlspecialchars(trim($_REQUEST["q"]));
                     $query_encoded = urlencode($query);
@@ -14,15 +15,15 @@
                     {
                         header("Location: ./");
                         die();
-                    } 
- 
+                    }
+
                     echo "value=\"$query\"";
                 ?>
             >
             <br>
             <?php
                 $type = isset($_REQUEST["type"]) ? (int) $_REQUEST["type"] : 0;
-                echo "<input type=\"hidden\" name=\"type\" value=\"$type\"/>";
+                echo "<button class=\"hide\" name=\"type\" value=\"$type\"/></button>";
             ?>
             <button type="submit" class="hide"></button>
             <input type="hidden" name="p" value="0">
@@ -40,7 +41,7 @@
             require "misc/tools.php";
 
             $page = isset($_REQUEST["p"]) ? (int) $_REQUEST["p"] : 0;
-        
+
             $start_time = microtime(true);
             switch ($type)
             {
@@ -78,7 +79,7 @@
                         print_merged_torrent_results($results);
                         break;
                     }
-                    
+
                     break;
 
                 default:
@@ -94,12 +95,12 @@
             {
                 echo "<div class=\"next-page-button-wrapper\">";
 
-                    if ($page != 0) 
+                    if ($page != 0)
                     {
-                        print_next_page_button("&lt;&lt;", 0, $query, $type); 
+                        print_next_page_button("&lt;&lt;", 0, $query, $type);
                         print_next_page_button("&lt;", $page - 10, $query, $type);
                     }
-                    
+
                     for ($i=$page / 10; $page / 10 + 10 > $i; $i++)
                         print_next_page_button($i + 1, $i * 10, $query, $type);
 
