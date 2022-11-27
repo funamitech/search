@@ -19,12 +19,15 @@
             else if (!empty($config->$frontend))
                 $frontend = $config->$frontend;
 
-            if ($original == "instagram.com") 
+            if ($original == "instagram.com")
             {
                 if (!strpos($url, "/p/"))
                     $frontend .= "/u";
             }
-           
+
+            if (empty(trim($frontend)))
+                return $url;
+
             $url =  $frontend . explode($original, $url)[1];
 
             return $url;
@@ -35,6 +38,9 @@
 
     function check_for_privacy_frontend($url)
     {
+        if (isset($_COOKIE["disable_frontends"]))
+            return $url;
+
         $frontends = array(
             "youtube.com" => "invidious",
             "instagram.com" => "bibliogram",
@@ -59,10 +65,14 @@
     function check_ddg_bang($query)
     {
 
-        $bangs_json = file_get_contents("static/misc/ddg_bang.json"); 
+        $bangs_json = file_get_contents("static/misc/ddg_bang.json");
         $bangs = json_decode($bangs_json, true);
+
+        if (substr($query, 0, 1) == "!")
+            $search_word = substr(explode(" ", $query)[0], 1);
+        else
+            $search_word = substr(end(explode(" ", $query)), 1);
         
-        $search_word = substr(explode(" ", $query)[0], 1);
         $bang_url = null;
 
         foreach($bangs as $bang)
@@ -85,6 +95,51 @@
             header("Location: " . $request_url);
             die();
         }
+    }
+
+    function check_for_special_search($query)
+    {
+        if (isset($_COOKIE["disable_special"]) || isset($_REQUEST["disable_special"]))
+            return 0;
+
+         $query_lower = strtolower($query);
+         $split_query = explode(" ", $query);
+
+         if (strpos($query_lower, "to") && count($split_query) >= 4) // currency
+         {
+            $amount_to_convert = floatval($split_query[0]);
+            if ($amount_to_convert != 0)
+                return 1;
+         }
+         else if (strpos($query_lower, "mean") && count($split_query) >= 2) // definition
+         {
+             return 2;
+         }
+         else if (strpos($query_lower, "my") !== false)
+         {
+            if (strpos($query_lower, "ip"))
+            {
+                return 3;
+            }
+            else if (strpos($query_lower, "user agent") || strpos($query_lower, "ua"))
+            {
+                return 4;
+            }
+         }
+         else if (strpos($query_lower, "weather") !== false)
+         {
+                return 5;
+         }
+         else if ($query_lower == "tor")
+         {
+                return 6;
+         }
+         else if (3 > count(explode(" ", $query))) // wikipedia
+         {
+             return 7;
+         }
+
+        return 0;
     }
 
     function get_xpath($response)
@@ -117,9 +172,8 @@
 
     function remove_special($string)
     {
-        $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
-
-        return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+        $string = preg_replace("/[\r\n]+/", "\n", $string);
+        return trim(preg_replace("/\s+/", ' ', $string));
      }
 
     function print_elapsed_time($start_time)
@@ -131,9 +185,16 @@
     function print_next_page_button($text, $page, $query, $type)
     {
         echo "<form class=\"page\" action=\"search.php\" target=\"_top\" method=\"get\" autocomplete=\"off\">";
+        foreach($_REQUEST as $key=>$value)
+        {
+            if ($key != "q" && $key != "p" && $key != "t")
+            {
+                echo "<input type=\"hidden\" name=\"$key\" value=\"$value\"/>";
+            }
+        }
         echo "<input type=\"hidden\" name=\"p\" value=\"" . $page . "\" />";
         echo "<input type=\"hidden\" name=\"q\" value=\"$query\" />";
-        echo "<input type=\"hidden\" name=\"type\" value=\"$type\" />";
+        echo "<input type=\"hidden\" name=\"t\" value=\"$type\" />";
         echo "<button type=\"submit\">$text</button>";
         echo "</form>";
     }

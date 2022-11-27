@@ -1,32 +1,9 @@
 <?php
-     function check_for_special_search($query)
-     {
-        if (isset($_COOKIE["disable_special"]) || isset($_REQUEST["disable_special"]))
-            return 0;
-
-         $query_lower = strtolower($query);
-         $split_query = explode(" ", $query);
-
-         if (strpos($query_lower, "to") && count($split_query) >= 4) // currency
-         {
-            $amount_to_convert = floatval($split_query[0]);
-            if ($amount_to_convert != 0)
-                return 1;
-         }
-         else if (strpos($query_lower, "mean") && count($split_query) >= 2) // definition
-             return 2;
-         else if (3 > count(explode(" ", $query))) // wikipedia
-             return 3;
-
-        return 0;
-     }
-
-    function get_text_results($query, $page=0)
+    function get_text_results($query, $page)
     {
         global $config;
 
         $mh = curl_multi_init();
-        $query_lower = strtolower($query);
         $query_encoded = urlencode($query);
         $results = array();
 
@@ -35,8 +12,7 @@
         curl_setopt_array($google_ch, $config->curl_settings);
         curl_multi_add_handle($mh, $google_ch);
 
-
-        $special_search = $page == 0 ? check_for_special_search($query) : 0;
+        $special_search = check_for_special_search($query);
         $special_ch = null;
         $url = null;
         if ($special_search != 0)
@@ -52,21 +28,30 @@
                     $word_to_define = $reversed_split_q[1];
                     $url = "https://api.dictionaryapi.dev/api/v2/entries/en/$word_to_define";
                     break;
-                case 3:
+                case 5:
+                    $url = "https://wttr.in/@" . $_SERVER["REMOTE_ADDR"] . "?format=j1";
+                    break;
+                case 6:
+                    $url = "https://check.torproject.org/torbulkexitlist";
+                    break;
+                case 7:
                     $url = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts%7Cpageimages&exintro&explaintext&redirects=1&pithumbsize=500&titles=$query_encoded";
                     break;
             }
-
-            $special_ch = curl_init($url);
-            curl_setopt_array($special_ch, $config->curl_settings);
-            curl_multi_add_handle($mh, $special_ch);
+            
+            if ($url != NULL)
+            {
+                $special_ch = curl_init($url);
+                curl_setopt_array($special_ch, $config->curl_settings);
+                curl_multi_add_handle($mh, $special_ch);
+            }
         }
-
 
         $running = null;
         do {
             curl_multi_exec($mh, $running);
         } while ($running);
+
 
         if ($special_search != 0)
         {
@@ -82,7 +67,24 @@
                     require "engines/special/definition.php";
                     $special_result = definition_results($query, curl_multi_getcontent($special_ch));
                     break;
+
                 case 3:
+                    require "engines/special/ip.php";
+                    $special_result = ip_result();
+                    break;
+                case 4:
+                    require "engines/special/user_agent.php";
+                    $special_result = user_agent_result();
+                    break;
+                case 5:
+                    require "engines/special/weather.php";
+                    $special_result = weather_results(curl_multi_getcontent($special_ch));
+                    break;
+                case 6:
+                    require "engines/special/tor.php";
+                    $special_result = tor_result(curl_multi_getcontent($special_ch));
+                    break;
+                case 7:
                     require "engines/special/wikipedia.php";
                     $special_result = wikipedia_results($query, curl_multi_getcontent($special_ch));
                     break;
@@ -145,12 +147,13 @@
                 echo "<img src=\"image_proxy.php?url=$image_url\">";
             }
             echo $response;
-            echo "<a href=\"$source\" target=\"_blank\">$source</a>";
+            if ($source)
+                echo "<a href=\"$source\" target=\"_blank\">$source</a>";
             echo "</p>";
 
             array_shift($results);
         }
-        
+
         echo "<div class=\"text-result-container\">";
 
         foreach($results as $result)

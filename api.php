@@ -4,11 +4,11 @@
 
     if (!isset($_REQUEST["q"]))
     {
-        echo "<p>Example API request: <a href=\"./api.php?q=gentoo&p=2&type=0\">./api.php?q=gentoo&p=2&type=0</a></p>
+        echo "<p>Example API request: <a href=\"./api.php?q=gentoo&p=2&t=0\">./api.php?q=gentoo&p=2&t=0</a></p>
         <br/>
         <p>\"q\" is the keyword</p>
         <p>\"p\" is the result page (the first page is 0)</p>
-        <p>\"type\" is the search type (0=text, 1=image, 2=video, 3=torrent)</p>
+        <p>\"t\" is the search type (0=text, 1=image, 2=video, 3=torrent)</p>
         <br/>
         <p>The results are going to be in JSON format.</p>
         <p>The API supports both POST and GET requests.</p>";
@@ -19,7 +19,7 @@
     $query = $_REQUEST["q"];
     $query_encoded = urlencode($query);
     $page = isset($_REQUEST["p"]) ? (int) $_REQUEST["p"] : 0;
-    $type = isset($_REQUEST["type"]) ? (int) $_REQUEST["type"] : 0;
+    $type = isset($_REQUEST["t"]) ? (int) $_REQUEST["t"] : 0;
 
     $results = array();
 
@@ -34,8 +34,8 @@
             $results = get_image_results($query_encoded, $page);
             break;
         case 2:
-            require "engines/google/video.php";
-            $results = get_video_results($query_encoded, $page);
+            require "engines/brave/video.php";
+            $results = get_video_results($query_encoded);
             break;
         case 3:
             if ($config->disable_bittorent_search)
@@ -46,6 +46,15 @@
                 $results = get_merged_torrent_results($query_encoded);
             }       
             break;
+        case 4:
+            if ($config->disable_hidden_service_search)
+                $results = array("error" => "disabled");
+            else
+            {
+                require "engines/ahmia/hidden_service.php";
+                $results = get_hidden_service_results($query_encoded);
+            }       
+            break;
         default:
             require "engines/google/text.php";
             $results = get_text_results($query_encoded, $page);
@@ -53,5 +62,5 @@
     }
 
     header("Content-Type: application/json");
-    echo json_encode($results, JSON_PRETTY_PRINT);
+    echo json_encode($results);
 ?>

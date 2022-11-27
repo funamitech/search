@@ -1,14 +1,16 @@
 <?php require "misc/header.php"; ?>
 
-<title> <?php echo $_REQUEST["q"]; ?> - YuruSearch</title>
+<title>
+<?php
+  $query = htmlspecialchars(trim($_REQUEST["q"]));
+  echo $query;
+?> - YuruSearch</title>
 </head>
     <body>
         <form class="sub-search-container" method="get" autocomplete="off">
-            <h1 class="logomobile"><a class="noDecoration" href="./">Yuru<span class="X">Search</span></a></h1>
-            <a href="./"><img class="logo" src="static/images/librex.png" alt="librex logo"></a>
+            <h1 class="logomobile"><a class="no-decoration" href="./">Yuru<span class="X">Search</span></a></h1>
             <input type="text" name="q"
                 <?php
-                    $query = htmlspecialchars(trim($_REQUEST["q"]));
                     $query_encoded = urlencode($query);
 
                     if (1 > strlen($query) || strlen($query) > 256)
@@ -22,16 +24,25 @@
             >
             <br>
             <?php
-                $type = isset($_REQUEST["type"]) ? (int) $_REQUEST["type"] : 0;
-                echo "<button class=\"hide\" name=\"type\" value=\"$type\"/></button>";
+                foreach($_REQUEST as $key=>$value)
+                {
+                    if ($key != "q" && $key != "p" && $key != "t")
+                    {
+                        echo "<input type=\"hidden\" name=\"$key\" value=\"$value\"/>";
+                    }
+                }
+
+                $type = isset($_REQUEST["t"]) ? (int) $_REQUEST["t"] : 0;
+                echo "<button class=\"hide\" name=\"t\" value=\"$type\"/></button>";
             ?>
             <button type="submit" class="hide"></button>
             <input type="hidden" name="p" value="0">
             <div class="sub-search-button-wrapper">
-                <button name="type" value="0"><img src="static/images/text_result.png" alt="text result" />General</button>
-                <button name="type" value="1"><img src="static/images/image_result.png" alt="image result" />Images</button>
-                <button name="type" value="2"><img src="static/images/video_result.png" alt="video result" />Videos</button>
-                <button name="type" value="3"><img src="static/images/torrent_result.png" alt="torrent result" />Torrents</button>
+                <button name="t" value="0"><img src="static/images/text_result.png" alt="text result" />General</button>
+                <button name="t" value="1"><img src="static/images/image_result.png" alt="image result" />Images</button>
+                <button name="t" value="2"><img src="static/images/video_result.png" alt="video result" />Videos</button>
+                <button name="t" value="3"><img src="static/images/torrent_result.png" alt="torrent result" />Torrents</button>
+                <button name="t" value="4"><img src="static/images/hidden_service_result.png" alt="hidden service result" />Hidden services</button>
             </div>
         <hr>
         </form>
@@ -40,13 +51,16 @@
             $config = require "config.php";
             require "misc/tools.php";
 
+
             $page = isset($_REQUEST["p"]) ? (int) $_REQUEST["p"] : 0;
 
             $start_time = microtime(true);
             switch ($type)
             {
                 case 0:
-                    if (substr($query, 0, 1) == "!")
+                    $query_parts = explode(" ", $query);
+                    $last_word_query = end($query_parts);
+                    if (substr($query, 0, 1) == "!" || substr($last_word_query, 0, 1) == "!")
                         check_ddg_bang($query);
                     require "engines/google/text.php";
                     $results = get_text_results($query, $page);
@@ -62,8 +76,8 @@
                     break;
 
                 case 2:
-                    require "engines/google/video.php";
-                    $results = get_video_results($query_encoded, $page);
+                    require "engines/brave/video.php";
+                    $results = get_video_results($query_encoded);
                     print_elapsed_time($start_time);
                     print_video_results($results);
                     break;
@@ -77,9 +91,19 @@
                         $results = get_merged_torrent_results($query_encoded);
                         print_elapsed_time($start_time);
                         print_merged_torrent_results($results);
-                        break;
                     }
+                    break;
 
+                case 4:
+                    if ($config->disable_hidden_service_search)
+                        echo "<p class=\"text-result-container\">The host disabled this feature! :C</p>";
+                    else
+                    {
+                        require "engines/ahmia/hidden_service.php";
+                        $results = get_hidden_service_results($query_encoded);
+                        print_elapsed_time($start_time);
+                        print_hidden_service_results($results);
+                    }
                     break;
 
                 default:
@@ -91,7 +115,7 @@
             }
 
 
-            if ($type != 3)
+            if (2 > $type)
             {
                 echo "<div class=\"next-page-button-wrapper\">";
 
