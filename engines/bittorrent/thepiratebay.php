@@ -8,9 +8,13 @@
         $results = array();
         $json_response = json_decode($response, true);
 
+        if (empty($json_response))
+        {
+            return $results;
+        }
+
         foreach ($json_response as $response)
         {
-
             $size = human_filesize($response["size"]);
             $hash = $response["info_hash"]; 
             $name = $response["name"];
@@ -26,8 +30,8 @@
                 array (
                     "size" => htmlspecialchars($size),
                     "name" => htmlspecialchars($name),
-                    "seeders" => htmlspecialchars($seeders),
-                    "leechers" => htmlspecialchars($leechers),
+                    "seeders" => (int) htmlspecialchars($seeders),
+                    "leechers" => (int) htmlspecialchars($leechers),
                     "magnet" => htmlspecialchars($magnet),
                     "source" => "thepiratebay.org"
                 )
