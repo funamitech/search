@@ -22,6 +22,9 @@
         "libreddit" => "https://rd.funami.tech",
         "proxitok" => "",
         "wikiless" => "https://wikiless.funami.tech",
+        "quetre" => "", // quora
+        "libremdb" => "", // imdb,
+        "breezewiki" => "", // fandom
 
         /*
             To send requests trough a proxy uncomment CURLOPT_PROXY and CURLOPT_PROXYTYPE:

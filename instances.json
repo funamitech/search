@@ -73,10 +73,34 @@
               "country": "NZ"
           },
           {
-              "clearnet": "https://librex.kitscomputer.tk/",
+              "clearnet": "https://search.milivojevic.in.rs/",
               "tor": null,
               "i2p": null,
-              "country": "US"
+              "country": "NL"
+          },
+          {
+              "clearnet": "https://librex.ratakor.com/",
+              "tor": null,
+              "i2p": null,
+              "country": "FR"
+          },
+          {
+              "clearnet": "https://search.tildevarsh.in/",
+              "tor": null,
+              "i2p": null,
+              "country": "IN"
+          },
+          {
+              "clearnet": "https://librex.yogeshlamichhane.com.np/",
+              "tor": null,
+              "i2p": null,
+              "country": "GB"
+          },
+          {
+              "clearnet": "https://librex.myroware.eu",
+              "tor": null,
+              "i2p": null,
+              "country": "DE"
           }
     ]
 }
