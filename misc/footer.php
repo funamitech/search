@@ -1,8 +1,8 @@
 <div class="footer-container">
     <a href="https://github.com/funamitech/search">Powered by LibreX</a>
-    <a href="./settings.php">Settings</a>
-    <a href="./api.php" target="_blank">API</a>
-    <a href="https://github.com/sponsors/NoaHimesaka1873">Donate ❤️</a>
+    <a href="/settings.php">Settings</a>
+    <a href="/api.php" target="_blank">API</a>
+    <a href="/donate.php">Donate ❤️</a>
 </div>
 <div class="git-container">
     <?php

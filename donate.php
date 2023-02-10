@@ -9,8 +9,10 @@
     </head>
     <body>
         <div class="misc-container">
-              <a href="https://toss.me/yuifmirror"><h1>Donate to YuruVerse</h1></a>
-              <h1>Donate to LibreX</h1>
+	    <h1>Donate to YuruVerse</h1>
+	      <a href="https://toss.me/yuifmirror">Toss (South Korean residents only)</a>
+	      <a href="https://github.com/sponsors/NoaHimesaka1873">GitHub Sponsors</a>
+              <h1>Donate to original developer</h1>
                <h3>Bitcoin (BTC):</h3>
                <p>bc1qs43kh6tvhch02dtsp7x7hcrwj8fwe4rzy7lp0h</p>
                <img src="static/images/btc.png" alt="btc qr code" width="150" height="150"/>
