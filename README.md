@@ -1,11 +1,11 @@
 <h1 align="center">LibreX</h1>
 
-<p float="left">
-  <img src="https://user-images.githubusercontent.com/49120638/207549667-c731a4f2-b9b0-4385-96be-9c17a8bb2984.png" width="400">
-  <img src="https://user-images.githubusercontent.com/49120638/207550159-4fa639a5-24e6-42e0-9e58-f04e5d18e391.png" width="400">
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/49120638/215327189-76c54dec-8b19-4faf-8c39-29a61aa3b143.png" width="400">
+  <img src="https://user-images.githubusercontent.com/49120638/215327239-b2a1cb07-3773-4ae7-bb3b-738de2cc3161.png" width="400">
 </p>
 
-<p align="center">A privacy respecting free as in freedom meta search engine</p>
+<p align="center">Framework and javascript free privacy respecting meta search engine</p>
 
 <br>
 
@@ -13,14 +13,14 @@
 
 | Clearnet | TOR | I2P | Country |
 |-|-|-|-|
-| [librex.beparanoid.de](https://librex.beparanoid.de/) | [✅](http://librex.2356uhnbpv5nk3bni5bv6jg2cd6lgj664kwx3lhyelstpttpyv4kk2qd.onion/) | ❌ | 🇭🇺 HU (OFFICIAL INSTANCE) |
+| [search.femboy.hu](https://search.femboy.hu/) | [✅](http://search.cepyxplublbyw2f4axy4pyztfbxmf63lrt2c7uwv6wl4iixz53czload.onion/) | ❌ | 🇭🇺 HU (OFFICIAL INSTANCE) |
 | [lx.vern.cc](https://lx.vern.cc/) | [✅](http://lx.vernccvbvyi5qhfzyqengccj7lkove6bjot2xhh5kajhwvidqafczrad.onion/) | [✅](http://vernziqfqvweijfaacmwazohgpdo2bt2ib2jlupt2pwwu27bhgxq.b32.i2p/) | 🇺🇸 US |
-| [lx.sesu.cc](https://lx.sesu.cc/) | [✅](http://lx.swxoebbpeqiiixyhbuh3vbw53pdrmtbiaj2sqveol6kkn5rpapfi4aad.onion/) | [✅](http://37bw4xelfgivsih5s4s5cozkxkhgoeqx5bjfjnrnmv5utdtk45sa.b32.i2p/) |  🇨🇱 CL |
+| [librex.sesu.cc](https://librex.sesu.cc/) | [✅](http://librex.swxoebbpeqiiixyhbuh3vbw53pdrmtbiaj2sqveol6kkn5rpapfi4aad.onion/) | [✅](http://lqbchqljxiwl3bbjt4vqe76luovk5ly6khqhg7mt5qcqfn6e4sbq.b32.i2p/) |  🇨🇱 CL |
+| [librex.zzls.xyz](https://librex.zzls.xyz/) | [✅](http://librex.zzlsghu6mvvwyy75mvga6gaf4znbp3erk5xwfzedb4gg6qqh2j6rlvid.onion/) | [✅](http://7huurwog32tny663wkglrhozfoyqyqmsuxjbd7dtudccx44awjda.b32.i2p) | 🇨🇱 CL |
 | [librex.mikata.ru](https://librex.mikata.ru/) | [✅](http://f7ssz7l3biu4fugwctfpcx4txg5yq4gqhrt473ledsuc3ivtd3omniid.onion/) | ❌ | 🇺🇸 US |
-| [librex.terryiscool160.xyz](https://librex.terryiscool160.xyz/) | [✅](http://librex.n53wt4ivvfdfaqkwldgdzfsubszukie2an6auja6x2wp3e3oa7v2gqyd.onion/) | ❌ | 🇬🇧 UK |
 | [search.milivojevic.in.rs](https://search.milivojevic.in.rs/) | [✅](http://librex2xsek6qnh2i4yufuzqjumfdwtw7io7omgmimpzna6llqudqzyd.onion/) | ❌ | 🇳🇱 NL |
+| [librex.nekus.gay](https://librex.nekus.gay/) | [✅](http://5yblccekvswxl4n43bn5eg4pr7c4xygvu5lhhdb6ulzmislvahmhitad.onion/) | ❌ | 🇵🇱 PL |
 | [search.davidovski.xyz](https://search.davidovski.xyz/) | ❌ | ❌ | 🇬🇧 UK |
-| [search.funami.tech](https://search.funami.tech/) | ❌ | ❌ | 🇰🇷 KR |
 | [search.madreyk.xyz](https://search.madreyk.xyz/) | ❌ | ❌ | 🇩🇪 DE |
 | [search.pabloferreiro.es](https://search.pabloferreiro.es/) | ❌ | ❌ | 🇩🇪 DE |
 | [buscar.weblibre.org](https://buscar.weblibre.org/) | ❌ | ❌ | 🇨🇱 CL |
@@ -28,8 +28,10 @@
 | [librex.pufe.org](https://librex.pufe.org/) | ❌ | ❌ | :new_zealand: NZ |
 | [librex.ratakor.com](https://librex.ratakor.com/) | ❌ | ❌ | 🇫🇷 FR |
 | [search.tildevarsh.in](https://search.tildevarsh.in/) | ❌ | ❌ | 🇮🇳  IN |
-| [librex.yogeshlamichhane.com.np](https://librex.yogeshlamichhane.com.np/) | ❌ | ❌ | 🇬🇧 GB |
 | [librex.myroware.eu](https://librex.myroware.eu/) | ❌ | ❌ | 🇩🇪 DE |
+| [lx.drain.win](https://lx.drain.win/) | ❌ | ❌ | 🇸🇬 SG |
+| [librex.bloatcat.tk](https://librex.bloatcat.tk/) | ❌ | ❌ | 🇮🇸 IS |
+| [librex.retro-hax.net](https://librex.retro-hax.net/) | ❌ | ❌ | 🇩🇪 DE |
 <br>
 
 ### Thanks rms
@@ -42,19 +44,15 @@ Huge thanks to Richard Stallman for using LibreX and featuring it on his [websit
 
 ### About LibreX
 
-LibreX gives you results from Google, Brave, Qwant, Ahmia and popular torrent sites without spying on you.
+LibreX gives you results from Google, Qwant, Ahmia and popular torrent sites without spying on you.
+<br>LibreX doesn't save any type of data about the user, there are no logs, no caches.
 <br>
 <br>
 If you would like to learn more about LibreX check out the [Wiki](https://github.com/hnhx/librex/wiki).
 <br>
 <br>
 
-### Mirror
 
-You can access the source code via this git mirror
-```
-git clone https://git.beparanoid.de/librex
-```
 ### LibreX compared to other metasearch engines
 
 | Name |  Works without JS | Privacy frontend redirect | Torrent results | API | No 3rd party libs used |

@@ -1,4 +1,9 @@
-<?php require "misc/header.php"; ?>
+<?php 
+    require "misc/header.php";
+
+    $config = require "config.php";
+    require "misc/tools.php";
+?>
 
 <title>
 <?php
@@ -24,14 +29,6 @@
             >
             <br>
             <?php
-                foreach($_REQUEST as $key=>$value)
-                {
-                    if ($key != "q" && $key != "p" && $key != "t")
-                    {
-                        echo "<input type=\"hidden\" name=\"" . htmlspecialchars($key) . "\" value=\"" . htmlspecialchars($value) . "\"/>";
-                    }
-                }
-
                 $type = isset($_REQUEST["t"]) ? (int) $_REQUEST["t"] : 0;
                 echo "<button class=\"hide\" name=\"t\" value=\"$type\"/></button>";
             ?>
@@ -39,22 +36,26 @@
             <input type="hidden" name="p" value="0">
             <div class="sub-search-button-wrapper">
                 <?php
-                    echo "
-                        <a href=\"/search.php?q=$query&p=0&t=0\"><img src=\"static/images/text_result.png\" alt=\"text result\" />General</a>
-                        <a href=\"/search.php?q=$query&p=0&t=1\"><img src=\"static/images/image_result.png\" alt=\"image result\" />Images</a>
-                        <a href=\"/search.php?q=$query&p=0&t=2\"><img src=\"static/images/video_result.png\" alt=\"video result\" />Videos</a>
-                        <a href=\"/search.php?q=$query&p=0&t=3\"><img src=\"static/images/torrent_result.png\" alt=\"torrent result\" />Torrents</a>
-                        <a href=\"/search.php?q=$query&p=0&t=4\"><img src=\"static/images/tor_result.png\" alt=\"tor result\" />Tor</a>
-                    ";
+                    $categories = array("general", "images", "videos", "torrents", "tor");
+
+                    foreach ($categories as $category)
+                    {
+                        $category_index = array_search($category, $categories);
+
+                        if (($config->disable_bittorent_search && $category_index == 3) ||
+                            ($config->disable_hidden_service_search && $category_index ==4))
+                        {
+                            continue;
+                        }
+
+                        echo "<a " . (($category_index == $type) ? "class=\"active\"" : "") . "href=\"/search.php?q=" . $query . "&p=0&t=" . $category_index . "\"><img src=\"static/images/" . $category . "_result.png\" alt=\"" . $category . " result\" />" . ucfirst($category)  . "</a>";
+                    }
                 ?>
             </div>
         <hr>
         </form>
 
         <?php
-            $config = require "config.php";
-            require "misc/tools.php";
-
 
             $page = isset($_REQUEST["p"]) ? (int) $_REQUEST["p"] : 0;
 
@@ -80,7 +81,7 @@
                     break;
 
                 case 2:
-                    require "engines/brave/video.php";
+                    require "engines/invidious/video.php";
                     $results = get_video_results($query_encoded);
                     print_elapsed_time($start_time);
                     print_video_results($results);
@@ -111,10 +112,14 @@
                     break;
 
                 default:
+                    $query_parts = explode(" ", $query);
+                    $last_word_query = end($query_parts);
+                    if (substr($query, 0, 1) == "!" || substr($last_word_query, 0, 1) == "!")
+                        check_ddg_bang($query);
                     require "engines/google/text.php";
-                    $results = get_text_results($query_encoded, $page);
-                    print_text_results($results);
+                    $results = get_text_results($query, $page);
                     print_elapsed_time($start_time);
+                    print_text_results($results);
                     break;
             }
 

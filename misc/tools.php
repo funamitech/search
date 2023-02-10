@@ -6,20 +6,29 @@
         return $base_url;
     }
 
+    function get_root_domain($url)
+    {
+        $split_url = explode("/", $url);
+        $base_url = $split_url[2];
+
+        $base_url_main_split = explode(".", strrev($base_url));
+        $root_domain = strrev($base_url_main_split[1]) . "." . strrev($base_url_main_split[0]);
+    
+        return $root_domain;
+    }
+
     function try_replace_with_frontend($url, $frontend, $original)
     {
         $config = require "config.php";
 
-        if (isset($_COOKIE[$frontend]) || isset($_REQUEST[$frontend]) || !empty($config->$frontend))
+        if (isset($_COOKIE[$frontend]) || !empty($config->$frontend))
         {
             if (isset($_COOKIE[$frontend]))
                 $frontend = $_COOKIE[$frontend];
-            else if (isset($_REQUEST[$frontend]))
-                $frontend = $_REQUEST[$frontend];
             else if (!empty($config->$frontend))
                 $frontend = $config->$frontend;
 
-            if ($original == "instagram.com")
+           if ($original == "instagram.com")
             {
                 if (!strpos($url, "/p/"))
                     $frontend .= "/u";
@@ -66,13 +75,18 @@
         $frontends = array(
             "youtube.com" => "invidious",
             "instagram.com" => "bibliogram",
+            "imgur.com" => "rimgo",
+            "medium.com" => "scribe",
+            "github.com" => "gothub",
+            "odysee.com" => "librarian",
             "twitter.com" => "nitter",
             "reddit.com" => "libreddit",
             "tiktok.com" => "proxitok",
             "wikipedia.org" => "wikiless",
             "quora.com" => "quetre",
             "imdb.com" => "libremdb",
-            "fandom.com" => "breezewiki"
+            "fandom.com" => "breezewiki",
+            "stackoverflow.com" => "anonymousoverflow"
         );
 
         foreach($frontends as $original => $frontend)
@@ -124,7 +138,7 @@
 
     function check_for_special_search($query)
     {
-        if (isset($_COOKIE["disable_special"]) || isset($_REQUEST["disable_special"]))
+        if (isset($_COOKIE["disable_special"]))
             return 0;
 
          $query_lower = strtolower($query);
@@ -210,13 +224,6 @@
     function print_next_page_button($text, $page, $query, $type)
     {
         echo "<form class=\"page\" action=\"search.php\" target=\"_top\" method=\"get\" autocomplete=\"off\">";
-        foreach($_REQUEST as $key=>$value)
-        {
-            if ($key != "q" && $key != "p" && $key != "t")
-            {
-                echo "<input type=\"hidden\" name=\"$key\" value=\"$value\"/>";
-            }
-        }
         echo "<input type=\"hidden\" name=\"p\" value=\"" . $page . "\" />";
         echo "<input type=\"hidden\" name=\"q\" value=\"$query\" />";
         echo "<input type=\"hidden\" name=\"t\" value=\"$type\" />";

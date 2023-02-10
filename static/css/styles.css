@@ -35,6 +35,11 @@ a,
     color: #bd93f9;
 }
 
+.sub-search-button-wrapper .active {
+    border-bottom: 2px #bd93f9 solid;
+    padding-bottom: 6px;
+}
+
 a:hover,
 .text-result-wrapper h2:hover {
     text-decoration: underline;
@@ -164,12 +169,12 @@ a:hover,
     text-decoration: underline;
 }
 
-.instances-container div {
+.settings-textbox-container div {
     text-align: left;
     margin-bottom: 25px;
 }
 
-.instances-container input {
+.settings-textbox-container input {
     color: inherit;
     background-color: inherit;
     padding: 5px;
@@ -241,7 +246,7 @@ a:hover,
 }
 
 .next-page-button-wrapper {
-    margin-top: -50px;
+    margin-top: -40px;
     margin-bottom: 100px;
 }
 
@@ -465,5 +470,9 @@ a[title] {
     .next-page-button-wrapper {
         margin-left: 20px;
         max-width: 90%;
+    }
+
+    .next-page-button-wrapper {
+        margin-top: 30px;
     }
 }
