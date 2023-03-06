@@ -103,17 +103,19 @@ a:hover,
 .logomobile {
     position: absolute;
     margin-top: 0px;
-    top: 25px;
+    top: 18px;
     left: 20px;
 }
 
 .no-decoration {
     text-decoration: none;
     color: var(--main-fg);
+    font-size: 65%;
 }
 
 .no-decoration:hover {
     text-decoration: none;
+    font-size: 65%;
 }
 
 .sub-search-button-wrapper {
