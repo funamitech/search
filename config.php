@@ -5,34 +5,112 @@
         "google_domain" => "com",
 
         // Google results will be in this language
-        "google_language" => "en",
+        "google_language_site" => "",
+        "google_language_results" => "",
+
+        // You can set a language for results in wikipedia
+        "wikipedia_language" => "en",
 
         // You can use any Invidious instance here
-        "invidious_instance_for_video_results" => "https://invidious.namazso.eu",
+        "invidious_instance_for_video_results" => "https://invidious.snopyta.org",
 
         "disable_bittorent_search" => false,
-        "bittorent_trackers" => "&tr=http%3A%2F%2Fnyaa.tracker.wf%3A7777%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce",
+        "bittorent_trackers" => "&tr=http://nyaa.tracker.wf:7777/announce&tr=udp://open.stealth.si:80/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://exodus.desync.com:6969/announce&tr=udp://tracker.torrent.eu.org:451/announce",
 
         "disable_hidden_service_search" => false,
 
         /*
-            Preset privacy friendly frontends for users, these can be overwritten by users in settings
-            e.g.: "invidious" => "https://yewtu.be",
+            Preset privacy friendly frontends for users, these can be overwritten by users in the settings
+            e.g.: Preset the invidious instance URL: "instance_url" => "https://yewtu.be",
         */
-        "invidious" => "https://yt.funami.tech",
-        "bibliogram" => "",
-        "nitter" => "https://twt.funami.tech",
-        "libreddit" => "https://rd.funami.tech",
-        "proxitok" => "",
-        "wikiless" => "https://wikiless.funami.tech",
-        "rimgo" => "", // imgur
-        "scribe" => "", // medium
-        "librarian" => "", // odysee
-        "gothub" => "", // github
-        "quetre" => "", // quora
-        "libremdb" => "", // imdb,
-        "breezewiki" => "", // fandom,
-        "anonymousoverflow" => "", // stackoverflow
+        "frontends" => array(
+            "invidious" => array(
+                "instance_url" => "yt.funami.tech",
+                "project_url" => "https://docs.invidious.io/instances/", 
+                "original_name" => "YouTube",
+                "original_url" => "youtube.com"
+            ),
+            "bibliogram" => array(
+                "instance_url" => "",
+                "project_url" => "https://git.sr.ht/~cadence/bibliogram-docs/tree/master/docs/Instances.md", 
+                "original_name" => "Instagram",
+                "original_url" => "instagram.com"
+            ),
+            "rimgo" => array(
+                "instance_url" => "",
+                "project_url" => "https://codeberg.org/video-prize-ranch/rimgo#instances", 
+                "original_name" => "Imgur",
+                "original_url" => "imgur.com"
+            ),
+            "scribe" => array(
+                "instance_url" => "",
+                "project_url" => "https://git.sr.ht/~edwardloveall/scribe/tree/main/docs/instances.md", 
+                "original_name" => "Medium",
+                "original_url" => "medium.com"
+            ),
+            "gothub" => array(
+                "instance_url" => "",
+                "project_url" => "https://codeberg.org/gothub/gothub#instances", 
+                "original_name" => "GitHub",
+                "original_url" => "github.com"
+            ),
+            "librarian" => array(
+                "instance_url" => "",
+                "project_url" => "https://codeberg.org/librarian/librarian#clearnet", 
+                "original_name" => "Odysee",
+                "original_url" => "odysee.com"
+            ),
+
+            "nitter" => array(
+                "instance_url" => "twt.funami.tech",
+                "project_url" => "https://github.com/zedeus/nitter/wiki/Instances", 
+                "original_name" => "Twitter",
+                "original_url" => "twitter.com"
+            ),
+
+            "libreddit" => array(
+                "instance_url" => "rd.funami.tech",
+                "project_url" => "https://github.com/libreddit/libreddit-instances/blob/master/instances.md", 
+                "original_name" => "Reddit",
+                "original_url" => "reddit.com"
+            ),
+            "proxitok" => array(
+                "instance_url" => "",
+                "project_url" => "https://github.com/pablouser1/ProxiTok/wiki/Public-instances", 
+                "original_name" => "TikTok",
+                "original_url" => "tiktok.com"
+            ),
+            "wikiless" => array(
+                "instance_url" => "wikiless.funami.tech",
+                "project_url" => "https://github.com/Metastem/wikiless#instances", 
+                "original_name" => "Wikipedia",
+                "original_url" => "wikipedia.org"
+            ),
+            "quetre" => array(
+                "instance_url" => "",
+                "project_url" => "https://github.com/zyachel/quetre#instances", 
+                "original_name" => "Quora",
+                "original_url" => "quora.com"
+            ),
+            "libremdb" => array(
+                "instance_url" => "",
+                "project_url" => "https://github.com/zyachel/libremdb#instances", 
+                "original_name" => "IMDb",
+                "original_url" => "imdb.com"
+            ),
+            "breezewiki" => array(
+                "instance_url" => "",
+                "project_url" => "https://docs.breezewiki.com/Links.html", 
+                "original_name" => "Fandom",
+                "original_url" => "fandom.com"
+            ),
+            "anonymousoverflow" => array(
+                "instance_url" => "",
+                "project_url" => "https://github.com/httpjamesm/AnonymousOverflow#clearnet-instances", 
+                "original_name" => "StackOverflow",
+                "original_url" => "stackoverflow.com"
+            )
+        ),
 
         /*
             To send requests trough a proxy uncomment CURLOPT_PROXY and CURLOPT_PROXYTYPE:
@@ -53,7 +131,7 @@
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_USERAGENT => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
-            CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4,
+            CURLOPT_IPRESOLVE => CURL_IPRESOLVE_WHATEVER,
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_PROTOCOLS => CURLPROTO_HTTPS | CURLPROTO_HTTP,
             CURLOPT_REDIR_PROTOCOLS => CURLPROTO_HTTPS | CURLPROTO_HTTP,
@@ -61,6 +139,5 @@
             CURLOPT_TIMEOUT => 18,
             CURLOPT_VERBOSE => false
         )
-
     );
 ?>

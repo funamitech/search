@@ -1,6 +1,8 @@
 <?php
     function wikipedia_results($query, $response) 
     {
+        global $config;
+
         $query_encoded = urlencode($query);
 
         $json_response = json_decode($response, true);
@@ -11,7 +13,9 @@
         {
             $description = substr($first_page["extract"], 0, 250) . "...";
 
-            $source = check_for_privacy_frontend("https://en.wikipedia.org/wiki/$query");
+            $wikipedia_language = isset($_COOKIE["wikipedia_language"]) ? trim(htmlspecialchars($_COOKIE["wikipedia_language"])) : $config->wikipedia_language;
+
+            $source = check_for_privacy_frontend("https://$wikipedia_language.wikipedia.org/wiki/$query");
             $response = array(
                 "special_response" => array(
                     "response" => htmlspecialchars($description),
