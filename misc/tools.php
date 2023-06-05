@@ -30,12 +30,6 @@
             else if (!empty($frontends[$frontend]["instance_url"]))
                 $frontend = $frontends[$frontend]["instance_url"];
 
-           if ($original == "instagram.com")
-            {
-                if (!strpos($url, "/p/"))
-                    $frontend .= "/u";
-            }
-
             if (empty(trim($frontend)))
                 return $url;
 
@@ -56,6 +50,11 @@
                     $wiki_name = explode("://", $fandom_split[0])[1];
                     $url =  $frontend . "/" . $wiki_name . explode($original, $url)[1];
                 }
+            }
+            else if (strpos($url, "gist.github.com") !== false)
+            {
+                $gist_path = explode("gist.github.com", $url)[1];
+                $url = $frontend . "/gist" . $gist_path;
             }
             else
             {
