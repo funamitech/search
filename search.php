@@ -9,7 +9,7 @@
 <?php
   $query = htmlspecialchars(trim($_REQUEST["q"]));
   echo $query;
-?> - LibreX</title>
+?> - LibreY</title>
 </head>
     <body>
         <form class="sub-search-container" method="get" autocomplete="off">

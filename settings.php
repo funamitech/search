@@ -39,7 +39,7 @@
                 require "misc/header.php";
 ?>
 
-    <title>LibreX - Settings</title>
+    <title>LibreY - Settings</title>
     </head>
     <body>
         <div class="misc-container">

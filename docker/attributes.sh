@@ -7,14 +7,14 @@
 # If these locations do not already exist within the Docker container, they will be created
 export CONFIG_PHP_TEMPLATE="$(pwd)/config.php"
 export CONFIG_OPEN_SEARCH_TEMPLATE="$(pwd)/opensearch.xml"
-export CONFIG_NGINX_TEMPLATE="/etc/nginx/http.d/librex.conf"
+export CONFIG_NGINX_TEMPLATE="/etc/nginx/http.d/librey.conf"
 
-# Configure 'opensearch.xml' with Librex configuration metadata, such as the encoding and the host that stores the site
+# Configure 'opensearch.xml' with librey configuration metadata, such as the encoding and the host that stores the site
 # These configurations will replace the 'opensearch.xml' inside '.dockers/templates' for the best setup for your instance
-export OPEN_SEARCH_TITLE=${OPEN_SEARCH_TITLE:-"LibreX"}
+export OPEN_SEARCH_TITLE=${OPEN_SEARCH_TITLE:-"LibreY"}
 export OPEN_SEARCH_DESCRIPTION=${OPEN_SEARCH_DESCRIPTION:-"Framework and javascript free privacy respecting meta search engine"}
 export OPEN_SEARCH_ENCODING=${OPEN_SEARCH_ENCODING:-"UTF-8"}
-export OPEN_SEARCH_LONG_NAME=${OPEN_SEARCH_LONG_NAME:-"LibreX Search"}
+export OPEN_SEARCH_LONG_NAME=${OPEN_SEARCH_LONG_NAME:-"LibreY Search"}
 export OPEN_SEARCH_HOST=${OPEN_SEARCH_HOST:-"127.0.0.1"}
 
 # Replace the 'config.php' script, which contains the most common search engine configurations, with these environment setups
@@ -27,12 +27,12 @@ export CONFIG_HIDDEN_SERVICE_SEARCH=${CONFIG_HIDDEN_SERVICE_SEARCH:-false}
 export CONFIG_DISABLE_BITTORRENT_SEARCH=${CONFIG_DISABLE_BITTORRENT_SEARCH:-false}
 export CONFIG_BITTORRENT_TRACKERS="${CONFIG_BITTORRENT_TRACKERS:-"&tr=http://nyaa.tracker.wf:7777/announce&tr=udp://open.stealth.si:80/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://exodus.desync.com:6969/announce&tr=udp://tracker.torrent.eu.org:451/announce"}"
 
-# The settings that will be used to handle Wikipedia results displayed on the libreX search page
+# The settings that will be used to handle Wikipedia results displayed on the librey search page
 # the settings below can be edited via environment variables.
 export CONFIG_WIKIPEDIA_LANGUAGE=${CONFIG_WIKIPEDIA_LANGUAGE:-${CONFIG_GOOGLE_LANGUAGE}}
 
 # Supported apps integration configuration. These empty spaces can be set up using free hosts as pointers
-# A particular example is using the "https://yewtu.be" or a self-hosted host to integrate the invidious app to librex
+# A particular example is using the "https://yewtu.be" or a self-hosted host to integrate the invidious app to librey
 export APP_INVIDIOUS=${APP_INVIDIOUS:-""}
 export APP_RIMGO=${APP_RIMGO:-""}
 export APP_SCRIBE=${APP_SCRIBE:-""}

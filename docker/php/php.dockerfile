@@ -1,12 +1,12 @@
 # Set this argument during build time to indicate that the path is for php's www.conf
 ARG WWW_CONFIG="/etc/php8/php-fpm.d/www.conf"
 
-# Configure 'opensearch.xml' with Librex configuration metadata, such as the encoding and the host that stores the site
+# Configure 'opensearch.xml' with librey configuration metadata, such as the encoding and the host that stores the site
 # These configurations will replace the 'opensearch.xml' inside '.dockers/templates' for the best setup for your instance
-ENV OPEN_SEARCH_TITLE="LibreX"
+ENV OPEN_SEARCH_TITLE="LibreY"
 ENV OPEN_SEARCH_DESCRIPTION="Framework and javascript free privacy respecting meta search engine"
 ENV OPEN_SEARCH_ENCODING="UTF-8"
-ENV OPEN_SEARCH_LONG_NAME="LibreX search"
+ENV OPEN_SEARCH_LONG_NAME="LibreY search"
 ENV OPEN_SEARCH_HOST="http://127.0.0.1:${NGINX_PORT}"
 
 # Replace the 'config.php' script, which contains the most common search engine configurations, with these environment setups
@@ -20,7 +20,7 @@ ENV CONFIG_DISABLE_BITTORRENT_SEARCH=false
 ENV CONFIG_BITTORRENT_TRACKERS="&tr=http://nyaa.tracker.wf:7777/announce&tr=udp://open.stealth.si:80/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://exodus.desync.com:6969/announce&tr=udp://tracker.torrent.eu.org:451/announce"
 
 # Supported apps integration configuration. These empty spaces can be set up using free hosts as pointers
-# A particular example is using the "https://yewtu.be" or a self-hosted host to integrate the invidious app to librex
+# A particular example is using the "https://yewtu.be" or a self-hosted host to integrate the invidious app to librey
 ENV APP_INVIDIOUS=""
 ENV APP_RIMGO=""
 ENV APP_SCRIBE=""

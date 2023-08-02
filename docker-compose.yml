@@ -1,8 +1,8 @@
 version: "2.1"
 services:
-  librex:
-    image: librex/librex:latest
-    container_name: librex
+  librey:
+    image: ahwxorg/librey:latest
+    container_name: librey
     network_mode: bridge
     ports:
       - 8080:8080
