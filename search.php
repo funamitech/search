@@ -13,7 +13,7 @@
 </head>
     <body>
         <form class="sub-search-container" method="get" autocomplete="off">
-            <h1 class="logomobile"><a class="no-decoration" href="./">Libre<span class="X">X</span></a></h1>
+            <h1 class="logomobile"><a class="no-decoration" href="./">Libre<span class="Y">Y</span></a></h1>
             <input type="text" name="q"
                 <?php
                     $query_encoded = urlencode($query);
