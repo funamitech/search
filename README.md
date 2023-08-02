@@ -1,4 +1,6 @@
-<h1 align="center">LibreX</h1>
+<h1 align="center">LibreY</h1>
+
+# LibreY is a fork of LibreX, made by [hnhx](https://github.com/hnhx). LibreY removed some features like automatic redirection.
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/49120638/215327189-76c54dec-8b19-4faf-8c39-29a61aa3b143.png" width="400">
