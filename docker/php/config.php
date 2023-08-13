@@ -36,13 +36,6 @@
                 "original_name" => "GitHub",
                 "original_url" => "github.com"
             ),
-            "librarian" => array(
-                "instance_url" => "${APP_LIBRARIAN}",
-                "project_url" => "https://codeberg.org/librarian/librarian#clearnet",
-                "original_name" => "Odysee",
-                "original_url" => "odysee.com"
-            ),
-
             "nitter" => array(
                 "instance_url" => "${APP_NITTER}",
                 "project_url" => "https://github.com/zedeus/nitter/wiki/Instances",
