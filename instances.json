@@ -2,9 +2,21 @@
     "instances": [
           {
               "clearnet": "https://search.ahwx.org",
-              "tor": null,
+              "tor": "http://hyy7rcvknwb22v4nnoar635wntiwr4uwzhiuyimemyl4fz6k7tahj5id.onion",
               "i2p": null,
-              "country": "NL"
+              "country": "FR"
+          },
+          {
+              "clearnet": "https://librex.me",
+              "tor": "librex.revvybrr6pvbx4n3j4475h4ghw4elqr4t5xo2vtd3gfpu2nrsnhh57id.onion",
+              "i2p": "revekebotog64xrrammtsmjwtwlg3vqyzwdurzt2pu6botg4bejq.b32.i2p",
+              "country": "CA"
+          },
+          {
+              "clearnet": "https://librex.revvy.de",
+              "tor": "librex.revvybrr6pvbx4n3j4475h4ghw4elqr4t5xo2vtd3gfpu2nrsnhh57id.onion",
+              "i2p": "revekebotog64xrrammtsmjwtwlg3vqyzwdurzt2pu6botg4bejq.b32.i2p",
+              "country": "CA"
           },
     ]
 }
