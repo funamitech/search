@@ -12,7 +12,7 @@
         $results_language = isset($_COOKIE["google_language_results"]) ? trim(htmlspecialchars($_COOKIE["google_language_results"])) : $config->google_language_results;
         $number_of_results = isset($_COOKIE["google_number_of_results"]) ? trim(htmlspecialchars($_COOKIE["google_number_of_results"])) : $config->google_number_of_results;
 
-        $url = "https://www.google.$domain/search?q=$query_encoded&start=$page";
+        $url = "https://www.google.$domain/search?q=$query_encoded&nfpr=1&start=$page";
 
         if (3 > strlen($site_language) && 0 < strlen($site_language))
             $url .= "&hl=$site_language";
@@ -77,9 +77,10 @@
             return get_librex_results($query, $page);
         }
 
+
+        $special_result = array();
         if ($special_search != 0)
         {
-            $special_result = null;
 
             switch ($special_search)
             {
@@ -113,12 +114,19 @@
                     $special_result = wikipedia_results($query, curl_multi_getcontent($special_ch));
                     break;
             }
-
-            if ($special_result != null)
-                array_push($results, $special_result);
         }
 
         $xpath = get_xpath(curl_multi_getcontent($google_ch));
+
+        $didyoumean = $xpath->query(".//a[@class='gL9Hy']")[0];
+
+        if (!is_null($didyoumean))
+            $special_result["did_you_mean"] = $didyoumean->textContent;
+
+        if (!empty($special_result))
+            array_push($results, $special_result);
+
+
 
         foreach($xpath->query("//div[@id='search']//div[contains(@class, 'g')]") as $result)
         {
@@ -158,8 +166,19 @@
 
     function print_text_results($results)
     {
+
         $special = $results[0];
-        if (array_key_exists("special_response", $special))
+
+        if (array_key_exists("did_you_mean", $special)) 
+        {
+            $didyoumean = $special["did_you_mean"];
+            $new_url = "/search.php?q="  . urlencode($didyoumean);
+            echo "<p class\"did-you-mean\">Did you mean ";
+            echo "<a href=\"$new_url\">$didyoumean</a>";
+            echo "?</p>";
+        }
+
+        if (array_key_exists("special_response", $special)) 
         {
             $response = $special["special_response"]["response"];
             $source = $special["special_response"]["source"];
@@ -174,14 +193,15 @@
             if ($source)
                 echo "<a href=\"$source\" target=\"_blank\">$source</a>";
             echo "</p>";
-
-            array_shift($results);
         }
 
         echo "<div class=\"text-result-container\">";
 
         foreach($results as $result)
         {
+            if (!array_key_exists("title", $result))
+                continue;
+
             $title = $result["title"];
             $url = $result["url"];
             $base_url = $result["base_url"];
