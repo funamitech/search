@@ -237,4 +237,20 @@
             curl_setopt( $curl, CURLOPT_COOKIE, $_SERVER['HTTP_COOKIE'] );
     }
 
+    
+    function get_country_emote($code)
+    {
+        $emoji = [];
+        foreach(str_split($code) as $c) {
+            if(($o = ord($c)) > 64 && $o % 32 < 27) {
+                $emoji[] = hex2bin("f09f87" . dechex($o % 32 + 165));
+                continue;
+            }
+            
+            $emoji[] = $c;
+        }
+
+        return join($emoji);
+    }
+
 ?>
