@@ -173,7 +173,7 @@
         {
             $didyoumean = $special["did_you_mean"];
             $new_url = "/search.php?q="  . urlencode($didyoumean);
-            echo "<p class\"did-you-mean\">Did you mean ";
+            echo "<p class=\"did-you-mean\">Did you mean ";
             echo "<a href=\"$new_url\">$didyoumean</a>";
             echo "?</p>";
         }
