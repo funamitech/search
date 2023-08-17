@@ -10,6 +10,7 @@
     - [Search Config](#search-config)
     - [Wikipedia](#wikipedia)
     - [Applications](#applications)
+    - [Engines](#engines)
     - [Curl](#curl)
 - [Docker version issues](#docker-version-issues)
 - [Building a docker image](#building-a-docker-image)
@@ -87,6 +88,8 @@ This docker image was developed with high configurability in mind, so here is th
 |:----------|:-------------|:---------|:------|
 | CONFIG_GOOGLE_DOMAIN |  "com" | "com", "com.br", "com.es" | Defines which Google domain the search will be done, change according to your country |
 | CONFIG_GOOGLE_LANGUAGE | "en" | "pt", "es", "ru" | Defines the language in which searches will be done, see the list of supported languages [here](https://developers.google.com/custom-search/docs/ref_languages). |
+| CONFIG_GOOGLE_NUMBER_OF_RESULTS | "10" | "10", "20", "30" | Number of results for Google to return each page. |
+| CONFIG_INSTANCE_FALLBACK | true | boolean | Choose whether or not to use the API on the backend to request to another LibreX/Y instance in case of rate limiting. |
 | CONFIG_INVIDIOUS_INSTANCE | "https://invidious.namazso.eu" | string | Defines the host that will be used to do video searches using invidious |
 | CONFIG_HIDDEN_SERVICE_SEARCH | false | boolean | Defines whether safesearch will be enabled or disabled |
 | CONFIG_DISABLE_BITTORRENT_SEARCH | false | boolean | Defines whether bittorrent support will be enabled or disabled |
@@ -99,6 +102,13 @@ This docker image was developed with high configurability in mind, so here is th
 | Variables | Default | Examples | Description |
 |:----------|:-------------|:---------|:------|
 | CONFIG_WIKIPEDIA_LANGUAGE | "en" | "pt", "es", "hu" | Adds language support for Wikipedia results |
+
+<br>
+
+### Engines
+| Variables | Default | Examples | Description |
+|:----------|:-------------|:---------|:------|
+| CONFIG_TEXT_SEARCH_ENGINE | "google" | "google", "duckduckgo" | Change your text search engine. |
 
 <br>
 
@@ -129,6 +139,7 @@ This docker image was developed with high configurability in mind, so here is th
 |:----------|:-------------|:---------|:------|
 | CURLOPT_PROXY_ENABLED | false | boolean | If you want to use a proxy, you need to set this variable to true. |
 | CURLOPT_PROXY | "" | "127.0.0.1:8080" | Set the proxy using the ip and port to be used |
+| CURLOPT_PROXYTYPE | "CURLPROXY_HTTP" | "CURLPROXY_SOCKS4A" "CURLPROXY_SOCKS5" "CURLPROXY_SOCKS5_HOSTNAME" | Set the type of proxy connection (if you enabled it). |
 | CURLOPT_RETURNTRANSFER | true | boolean | **TODO** |
 | CURLOPT_ENCODING | "" | string | Defines the encode that curl should use to display the texts correctly |
 | CURLOPT_USERAGENT | "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" | string | This variable defines the 'User-Agent' that curl will use to attempt to avoid being blocked |

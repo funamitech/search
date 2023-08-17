@@ -22,6 +22,8 @@ export OPEN_SEARCH_HOST=${OPEN_SEARCH_HOST:-"127.0.0.1"}
 export CONFIG_GOOGLE_DOMAIN="${CONFIG_GOOGLE_DOMAIN:-"com"}"
 export CONFIG_GOOGLE_LANGUAGE_SITE="${CONFIG_GOOGLE_LANGUAGE_SITE:-"en"}"
 export CONFIG_GOOGLE_LANGUAGE_RESULTS="${CONFIG_GOOGLE_LANGUAGE_RESULTS:-"en"}"
+export CONFIG_GOOGLE_NUMBER_OF_RESULTS="${CONFIG_GOOGLE_NUMBER_OF_RESULTS:-"10"}"
+export CONFIG_INSTANCE_FALLBACK="${CONFIG_INSTANCE_FALLBACK}:-true}
 export CONFIG_INVIDIOUS_INSTANCE="${CONFIG_INVIDIOUS_INSTANCE:-"invidious.snopyta.org"}"
 export CONFIG_HIDDEN_SERVICE_SEARCH=${CONFIG_HIDDEN_SERVICE_SEARCH:-false}
 export CONFIG_DISABLE_BITTORRENT_SEARCH=${CONFIG_DISABLE_BITTORRENT_SEARCH:-false}
@@ -48,10 +50,13 @@ export APP_ANONYMOUS_OVERFLOW=${APP_ANONYMOUS_OVERFLOW:-""}
 export APP_SUDS=${APP_SUDS:-""}
 export APP_BIBLIOREADS=${APP_BIBLIOREADS:-""}
 
+export CONFIG_TEXT_SEARCH_ENGINE=${CONFIG_TEXT_SEARCH_ENGINE:-"google"}
+
 # GNU/Curl configurations. Leave 'CURLOPT_PROXY' blank whether you don't need to use a proxy for requests
 # Generally, a proxy is needed when your IP address is blocked by search engines in response to multiple requests within a short time frame. In these cases, it is recommended to use rotating proxies
 export CURLOPT_PROXY_ENABLED=${CURLOPT_PROXY_ENABLED:-false}
 export CURLOPT_PROXY=${CURLOPT_PROXY:-""}
+export CURLOPT_PROXYTYPE=${CURLOPT_PROXYTYPE:-"CURLPROXY_HTTP"}
 export CURLOPT_RETURNTRANSFER=${CURLOPT_RETURNTRANSFER:-true}
 export CURLOPT_ENCODING=${CURLOPT_ENCODING:-""}
 export CURLOPT_USERAGENT="${CURLOPT_USERAGENT:-"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"}"

@@ -14,6 +14,8 @@ services:
       - CONFIG_GOOGLE_DOMAIN=com
       - CONFIG_GOOGLE_LANGUAGE_SITE=en
       - CONFIG_GOOGLE_LANGUAGE_RESULTS=en
+      - CONFIG_TEXT_SEARCH_ENGINE=google
+      - CONFIG_INSTANCE_FALLBACK=true
       - CONFIG_WIKIPEDIA_LANGUAGE=en
     volumes:
       - ./nginx_logs:/var/log/nginx

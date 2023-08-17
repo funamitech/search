@@ -14,6 +14,8 @@ ENV OPEN_SEARCH_HOST="http://127.0.0.1:${NGINX_PORT}"
 ENV CONFIG_GOOGLE_DOMAIN="com"
 ENV CONFIG_GOOGLE_LANGUAGE_SITE="en"
 ENV CONFIG_GOOGLE_LANGUAGE_RESULTS="en"
+ENV CONFIG_GOOGLE_NUMBER_OF_RESULTS="10"
+ENV CONFIG_INSTANCE_FALLBACK=true
 ENV CONFIG_INVIDIOUS_INSTANCE="https://invidious.snopyta.org"
 ENV CONFIG_HIDDEN_SERVICE_SEARCH=false
 ENV CONFIG_DISABLE_BITTORRENT_SEARCH=false
@@ -36,11 +38,14 @@ ENV APP_ANONYMOUS_OVERFLOW=""
 ENV APP_SUDS=""
 ENV APP_BIBLIOREADS=""
 
+# Preferred search engines.
+ENV CONFIG_TEXT_SEARCH_ENGINE="google"
 
 # GNU/Curl configurations. Leave 'CURLOPT_PROXY' blank whether you don't need to use a proxy for requests
 # Generally, a proxy is needed when your IP address is blocked by search engines in response to multiple requests within a short time frame. In these cases, it is recommended to use rotating proxies
 ENV CURLOPT_PROXY_ENABLED=false
 ENV CURLOPT_PROXY=""
+ENV CURLOPT_PROXYTYPE="CURLPROXY_HTTP"
 ENV CURLOPT_RETURNTRANSFER=true
 ENV CURLOPT_ENCODING=""
 ENV CURLOPT_USERAGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
