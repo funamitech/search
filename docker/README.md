@@ -87,6 +87,7 @@ This docker image was developed with high configurability in mind, so here is th
 |:----------|:-------------|:---------|:------|
 | CONFIG_GOOGLE_DOMAIN |  "com" | "com", "com.br", "com.es" | Defines which Google domain the search will be done, change according to your country |
 | CONFIG_GOOGLE_LANGUAGE | "en" | "pt", "es", "ru" | Defines the language in which searches will be done, see the list of supported languages [here](https://developers.google.com/custom-search/docs/ref_languages). |
+| CONFIG_GOOGLE_NUMBER_OF_RESULTS | "10" | "10", "20", "30" | Number of results for Google to return each page. |
 | CONFIG_INVIDIOUS_INSTANCE | "https://invidious.namazso.eu" | string | Defines the host that will be used to do video searches using invidious |
 | CONFIG_HIDDEN_SERVICE_SEARCH | false | boolean | Defines whether safesearch will be enabled or disabled |
 | CONFIG_DISABLE_BITTORRENT_SEARCH | false | boolean | Defines whether bittorrent support will be enabled or disabled |
