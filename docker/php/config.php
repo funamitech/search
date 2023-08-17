@@ -102,7 +102,7 @@
 
         "curl_settings" => array(
             CURLOPT_PROXY => "${CURLOPT_PROXY}",
-            CURLOPT_PROXYTYPE => CURLPROXY_HTTP,
+            CURLOPT_PROXYTYPE => "${CURLOPT_PROXYTYPE}",
             CURLOPT_RETURNTRANSFER => ${CURLOPT_RETURNTRANSFER},
             CURLOPT_ENCODING => "${CURLOPT_ENCODING}",
             CURLOPT_USERAGENT => "${CURLOPT_USERAGENT}",

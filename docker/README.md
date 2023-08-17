@@ -130,6 +130,7 @@ This docker image was developed with high configurability in mind, so here is th
 |:----------|:-------------|:---------|:------|
 | CURLOPT_PROXY_ENABLED | false | boolean | If you want to use a proxy, you need to set this variable to true. |
 | CURLOPT_PROXY | "" | "127.0.0.1:8080" | Set the proxy using the ip and port to be used |
+| CURLOPT_PROXYTYPE | "CURLPROXY_HTTP" | "CURLPROXY_SOCKS4A" "CURLPROXY_SOCKS5" "CURLPROXY_SOCKS5_HOSTNAME" | Set the type of proxy connection (if you enabled it). |
 | CURLOPT_RETURNTRANSFER | true | boolean | **TODO** |
 | CURLOPT_ENCODING | "" | string | Defines the encode that curl should use to display the texts correctly |
 | CURLOPT_USERAGENT | "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" | string | This variable defines the 'User-Agent' that curl will use to attempt to avoid being blocked |

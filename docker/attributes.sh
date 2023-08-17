@@ -53,6 +53,7 @@ export APP_BIBLIOREADS=${APP_BIBLIOREADS:-""}
 # Generally, a proxy is needed when your IP address is blocked by search engines in response to multiple requests within a short time frame. In these cases, it is recommended to use rotating proxies
 export CURLOPT_PROXY_ENABLED=${CURLOPT_PROXY_ENABLED:-false}
 export CURLOPT_PROXY=${CURLOPT_PROXY:-""}
+export CURLOPT_PROXYTYPE=${CURLOPT_PROXYTYPE:-"CURLPROXY_HTTP"}
 export CURLOPT_RETURNTRANSFER=${CURLOPT_RETURNTRANSFER:-true}
 export CURLOPT_ENCODING=${CURLOPT_ENCODING:-""}
 export CURLOPT_USERAGENT="${CURLOPT_USERAGENT:-"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"}"
