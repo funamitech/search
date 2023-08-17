@@ -63,6 +63,8 @@
             {
                 case 0:
 					$engine=$config->preferred_engines['text'];
+                    if (is_null($engine))
+                        $engine = "google";
                     $query_parts = explode(" ", $query);
                     $last_word_query = end($query_parts);
                     if (substr($query, 0, 1) == "!" || substr($last_word_query, 0, 1) == "!")
