@@ -100,6 +100,10 @@
             )
         ),
 
+        "preferred_engines" => array(
+            "text" => "${CONFIG_TEXT_SEARCH_ENGINE}"
+        ),
+
         "curl_settings" => array(
             CURLOPT_PROXY => "${CURLOPT_PROXY}",
             CURLOPT_PROXYTYPE => "${CURLOPT_PROXYTYPE}",

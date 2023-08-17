@@ -10,6 +10,7 @@
     - [Search Config](#search-config)
     - [Wikipedia](#wikipedia)
     - [Applications](#applications)
+    - [Engines](#engines)
     - [Curl](#curl)
 - [Docker version issues](#docker-version-issues)
 - [Building a docker image](#building-a-docker-image)
@@ -100,6 +101,13 @@ This docker image was developed with high configurability in mind, so here is th
 | Variables | Default | Examples | Description |
 |:----------|:-------------|:---------|:------|
 | CONFIG_WIKIPEDIA_LANGUAGE | "en" | "pt", "es", "hu" | Adds language support for Wikipedia results |
+
+<br>
+
+### Engines
+| Variables | Default | Examples | Description |
+|:----------|:-------------|:---------|:------|
+| CONFIG_TEXT_SEARCH_ENGINE | "google" | "google", "duckduckgo" | Change your text search engine. |
 
 <br>
 

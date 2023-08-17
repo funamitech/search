@@ -49,6 +49,8 @@ export APP_ANONYMOUS_OVERFLOW=${APP_ANONYMOUS_OVERFLOW:-""}
 export APP_SUDS=${APP_SUDS:-""}
 export APP_BIBLIOREADS=${APP_BIBLIOREADS:-""}
 
+export CONFIG_TEXT_SEARCH_ENGINE=${CONFIG_TEXT_SEARCH_ENGINE:-"google"}
+
 # GNU/Curl configurations. Leave 'CURLOPT_PROXY' blank whether you don't need to use a proxy for requests
 # Generally, a proxy is needed when your IP address is blocked by search engines in response to multiple requests within a short time frame. In these cases, it is recommended to use rotating proxies
 export CURLOPT_PROXY_ENABLED=${CURLOPT_PROXY_ENABLED:-false}
