@@ -11,6 +11,7 @@
         "disable_bittorent_search" => ${CONFIG_DISABLE_BITTORRENT_SEARCH},
         "bittorent_trackers" => "${CONFIG_BITTORRENT_TRACKERS}",
         "disable_hidden_service_search" => ${CONFIG_HIDDEN_SERVICE_SEARCH},
+        "instance_fallback" => ${CONFIG_INSTANCE_FALLBACK},
 
         "frontends" => array(
             "invidious" => array(
