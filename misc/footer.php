@@ -1,6 +1,7 @@
 <div class="footer-container">
     <a href="./">LibreY</a>
-    <a href="https://github.com/Ahwxorg/librey/" target="_blank">Source &amp; Instances</a>
+    <a href="https://github.com/Ahwxorg/librey/" target="_blank">Source</a>
+    <a href="./instances.php" target="_blank">Instances</a>
     <a href="./settings.php">Settings</a>
     <a href="./api.php" target="_blank">API</a>
     <a href="./donate.php">Donate ❤️</a>
