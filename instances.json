@@ -22,6 +22,13 @@
               "librey": true
           },
           {
+              "clearnet": "https://librex.zzls.xyz/",
+              "tor": "http://librex.zzlsghu6mvvwyy75mvga6gaf4znbp3erk5xwfzedb4gg6qqh2j6rlvid.onion/",
+              "i2p": "http://zzlsaymhcfla7vibo3a223bybeecu3bd5z6rmw2u4y76maqeu76q.b32.i2p/",
+              "country": "CL",
+              "librey": true
+          },
+          {
               "clearnet": "https://search.davidovski.xyz/",
               "tor": null,
               "i2p": null,
@@ -33,13 +40,6 @@
               "tor": null,
               "i2p": null,
               "country": "FR",
-              "librey": true
-          },
-          {
-              "clearnet": "https://librex.zzls.xyz/",
-              "tor": "http://librex.zzlsghu6mvvwyy75mvga6gaf4znbp3erk5xwfzedb4gg6qqh2j6rlvid.onion/",
-              "i2p": "http://zzlsaymhcfla7vibo3a223bybeecu3bd5z6rmw2u4y76maqeu76q.b32.i2p/",
-              "country": "CL",
               "librey": true
           },
           {
