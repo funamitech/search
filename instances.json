@@ -40,7 +40,14 @@
               "tor": "http://librex.zzlsghu6mvvwyy75mvga6gaf4znbp3erk5xwfzedb4gg6qqh2j6rlvid.onion/",
               "i2p": "http://zzlsaymhcfla7vibo3a223bybeecu3bd5z6rmw2u4y76maqeu76q.b32.i2p/",
               "country": "CL",
-              "librey": false
+              "librey": true
+          },
+          {
+              "clearnet": "https://search.bloatcat.tk/",
+              "tor": null,
+              "i2p": null,
+              "country": "IS",
+              "librey": true
           },
           {
               "clearnet": "https://lx.vern.cc/",
@@ -89,13 +96,6 @@
               "tor": null,
               "i2p": null,
               "country": "DE",
-              "librey": false
-          },
-          {
-              "clearnet": "https://librex.bloatcat.tk/",
-              "tor": null,
-              "i2p": null,
-              "country": "IS",
               "librey": false
           },
           {
