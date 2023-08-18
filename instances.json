@@ -43,7 +43,7 @@
               "librey": true
           },
           {
-              "clearnet": "https://search.bloatcat.tk/",
+              "clearnet": "https://librey.bloatcat.tk/index",
               "tor": null,
               "i2p": null,
               "country": "IS",
