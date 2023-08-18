@@ -50,6 +50,13 @@
               "librey": false
           },
           {
+              "clearnet": "https://lx.owo.si/",
+              "tor": "http://lx.pk47sgwhncn5cgidm7bofngmh7lc7ukjdpk5bjwfemmyp27ovl25ikyd.onion/",
+              "i2p": "http://d4vi3tvfui2rfzsxr33tin4a6542heulf4mhkokdpbhbcejlg3la.b32.i2p/",
+              "country": "DE",
+              "librey": false
+          },
+          {
               "clearnet": "https://search.spaceint.fr/",
               "tor": null,
               "i2p": null,
@@ -138,13 +145,6 @@
               "tor": null,
               "i2p": null,
               "country": "US",
-              "librey": false
-          },
-          {
-              "clearnet": "https://lx.owo.si/",
-              "tor": "http://lx.pk47sgwhncn5cgidm7bofngmh7lc7ukjdpk5bjwfemmyp27ovl25ikyd.onion/",
-              "i2p": "http://d4vi3tvfui2rfzsxr33tin4a6542heulf4mhkokdpbhbcejlg3la.b32.i2p/",
-              "country": "DE",
               "librey": false
           },
           {
