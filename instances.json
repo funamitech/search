@@ -29,24 +29,17 @@
               "librey": true
           },
           {
+              "clearnet": "https://librey.spaceint.fr/",
+              "tor": null,
+              "i2p": null,
+              "country": "FR",
+              "librey": true
+          },
+          {
               "clearnet": "https://librex.zzls.xyz/",
               "tor": "http://librex.zzlsghu6mvvwyy75mvga6gaf4znbp3erk5xwfzedb4gg6qqh2j6rlvid.onion/",
               "i2p": "http://zzlsaymhcfla7vibo3a223bybeecu3bd5z6rmw2u4y76maqeu76q.b32.i2p/",
               "country": "CL",
-              "librey": false
-          },
-          {
-              "clearnet": "https://librex.me/",
-              "tor": "http://librex.revvybrr6pvbx4n3j4475h4ghw4elqr4t5xo2vtd3gfpu2nrsnhh57id.onion/",
-              "i2p": "http://revekebotog64xrrammtsmjwtwlg3vqyzwdurzt2pu6botg4bejq.b32.i2p/",
-              "country": "CA",
-              "librey": false
-          },
-          {
-              "clearnet": "https://s.dyox.in/",
-              "tor": "http://ddhigxwjz7elcl2erm7qzzukda4qmovoy4cepcueahggpwrpu24mi6qd.onion/",
-              "i2p": "http://s.dyoxin.i2p/",
-              "country": "IS",
               "librey": false
           },
           {
@@ -57,24 +50,10 @@
               "librey": false
           },
           {
-              "clearnet": "https://search.ahwx.org/",
-              "tor": "http://cosrpybbddzdfjquer3zfmb2h5avtacnctnbu4gucwocdb42s63gcqqd.onion/",
-              "i2p": null,
-              "country": "NL",
-              "librey": false
-          },
-          {
               "clearnet": "https://search.spaceint.fr/",
-              "tor": "http://6d4nqt2rndvmhogpwrbqfvj2ur6e6nm2r6dzi7ny4wj6ai3j5hnvbhyd.onion/",
-              "i2p": null,
-              "country": "FR",
-              "librey": false
-          },
-          {
-              "clearnet": "https://search.madreyk.xyz/",
               "tor": null,
               "i2p": null,
-              "country": "DE",
+              "country": "FR",
               "librey": false
           },
           {
@@ -82,13 +61,6 @@
               "tor": null,
               "i2p": null,
               "country": "DE",
-              "librey": false
-          },
-          {
-              "clearnet": "https://librex.pufe.org/",
-              "tor": null,
-              "i2p": null,
-              "country": "NZ",
               "librey": false
           },
           {
@@ -145,13 +117,6 @@
               "tor": null,
               "i2p": null,
               "country": "PL",
-              "librey": false
-          },
-          {
-              "clearnet": "https://librex.yogeshlamichhane.com.np/",
-              "tor": null,
-              "i2p": null,
-              "country": "US",
               "librey": false
           },
           {
