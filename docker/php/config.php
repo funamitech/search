@@ -3,6 +3,7 @@
         "google_domain" => "${CONFIG_GOOGLE_DOMAIN}",
         "google_language_site" => "${CONFIG_GOOGLE_LANGUAGE_SITE}",
         "google_language_results" => "${CONFIG_GOOGLE_LANGUAGE_RESULTS}",
+        "google_number_of_results" => "${CONFIG_GOOGLE_NUMBER_OF_RESULTS}",
 
         "wikipedia_language" => "${CONFIG_WIKIPEDIA_LANGUAGE}",
         "invidious_instance_for_video_results" => "${CONFIG_INVIDIOUS_INSTANCE}",
@@ -10,6 +11,7 @@
         "disable_bittorent_search" => ${CONFIG_DISABLE_BITTORRENT_SEARCH},
         "bittorent_trackers" => "${CONFIG_BITTORRENT_TRACKERS}",
         "disable_hidden_service_search" => ${CONFIG_HIDDEN_SERVICE_SEARCH},
+        "instance_fallback" => ${CONFIG_INSTANCE_FALLBACK},
 
         "frontends" => array(
             "invidious" => array(
@@ -36,13 +38,6 @@
                 "original_name" => "GitHub",
                 "original_url" => "github.com"
             ),
-            "librarian" => array(
-                "instance_url" => "${APP_LIBRARIAN}",
-                "project_url" => "https://codeberg.org/librarian/librarian#clearnet",
-                "original_name" => "Odysee",
-                "original_url" => "odysee.com"
-            ),
-
             "nitter" => array(
                 "instance_url" => "${APP_NITTER}",
                 "project_url" => "https://github.com/zedeus/nitter/wiki/Instances",
@@ -106,9 +101,13 @@
             )
         ),
 
+        "preferred_engines" => array(
+            "text" => "${CONFIG_TEXT_SEARCH_ENGINE}"
+        ),
+
         "curl_settings" => array(
             CURLOPT_PROXY => "${CURLOPT_PROXY}",
-            CURLOPT_PROXYTYPE => CURLPROXY_HTTP,
+            CURLOPT_PROXYTYPE => "${CURLOPT_PROXYTYPE}",
             CURLOPT_RETURNTRANSFER => ${CURLOPT_RETURNTRANSFER},
             CURLOPT_ENCODING => "${CURLOPT_ENCODING}",
             CURLOPT_USERAGENT => "${CURLOPT_USERAGENT}",

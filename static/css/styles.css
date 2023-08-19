@@ -30,6 +30,7 @@ a,
 
 .text-result-wrapper a:visited h2,
 .special-result-container a,
+.did-you-mean a,
 .sub-search-button-wrapper a,
 .sub-search-button-wrapper a:visited{
     color: #bd93f9;
@@ -187,7 +188,8 @@ a:hover,
 
 .text-result-container,
 #time,
-.next-page-button-wrapper {
+.next-page-button-wrapper,
+.did-you-mean {
     margin-left: 170px;
 }
 
@@ -325,7 +327,7 @@ a[title] {
     display: none;
 }
 
-.X {
+.Y {
     color: #bd93f9;
 }
 

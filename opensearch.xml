@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
   <ShortName>YuruSearch</ShortName>
-  <Description>A privacy respecting meta search engine.</Description>
+  <Description>Framework and javascript free privacy respecting meta search engine</Description>
   <InputEncoding>UTF-8</InputEncoding>
   <LongName>YuruSearch</LongName>
-  <Url rel="results" type="text/html" method="get" template="http://search.funami.tech/search.php?q={searchTerms}" />
+  <Url rel="results" type="text/html" method="get" template="https://search.funami.tech/search.php?q={searchTerms}" />
   <Url type="application/opensearchdescription+xml"
       rel="self"
       template="/opensearch.xml?method=GET" />

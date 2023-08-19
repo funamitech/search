@@ -13,7 +13,7 @@
 </head>
     <body>
         <form class="sub-search-container" method="get" autocomplete="off">
-            <h1 class="logomobile"><a class="no-decoration" href="./">Yuru<span class="X">Search</span></a></h1>
+            <h1 class="logomobile"><a class="no-decoration" href="./">Yuru<span class="Y">Search</span></a></h1>
             <input type="text" name="q"
                 <?php
                     $query_encoded = urlencode($query);
@@ -48,7 +48,7 @@
                             continue;
                         }
 
-                        echo "<a " . (($category_index == $type) ? "class=\"active\" " : "") . "href=\"/search.php?q=" . $query . "&p=0&t=" . $category_index . "\"><img src=\"static/images/" . $category . "_result.png\" alt=\"" . $category . " result\" />" . ucfirst($category)  . "</a>";
+                        echo "<a " . (($category_index == $type) ? "class=\"active\" " : "") . "href=\"./search.php?q=" . $query . "&p=0&t=" . $category_index . "\"><img src=\"static/images/" . $category . "_result.png\" alt=\"" . $category . " result\" />" . ucfirst($category)  . "</a>";
                     }
                 ?>
             </div>
@@ -58,16 +58,18 @@
         <?php
 
             $page = isset($_REQUEST["p"]) ? (int) $_REQUEST["p"] : 0;
-
             $start_time = microtime(true);
             switch ($type)
             {
                 case 0:
+					$engine=$config->preferred_engines['text'];
+                    if (is_null($engine))
+                        $engine = "google";
                     $query_parts = explode(" ", $query);
                     $last_word_query = end($query_parts);
                     if (substr($query, 0, 1) == "!" || substr($last_word_query, 0, 1) == "!")
                         check_ddg_bang($query);
-                    require "engines/google/text.php";
+					require "engines/$engine/text.php";
                     $results = get_text_results($query, $page);
                     print_elapsed_time($start_time);
                     print_text_results($results);
