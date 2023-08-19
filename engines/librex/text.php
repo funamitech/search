@@ -27,14 +27,12 @@
         do {
             $tries++;
 
-            // after "too many" requests, give up
-            if ($tries > 5)
-                return array();
-
             $instance = array_pop($instances);
 
             if (parse_url($instance)["host"] == parse_url($_SERVER['HTTP_HOST'])["host"])
                 continue;
+
+            error_log("trying to call instance $instance");
 
             $url = $instance . "api.php?q=$query_encoded&p=$page&t=0&nfb=1";
 
@@ -47,7 +45,10 @@
             $code = curl_getinfo($librex_ch)["http_code"];
             $results = json_decode($response, true);
 
-        } while ( $results == null || count($results) <= 1);
+        } while ( !empty($instances) && ($results == null || count($results) <= 1));
+
+        if (empty($instances))
+            return array();
 
         return array_values($results);
     }
