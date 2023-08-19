@@ -32,8 +32,6 @@
             if (parse_url($instance)["host"] == parse_url($_SERVER['HTTP_HOST'])["host"])
                 continue;
 
-            error_log("trying to call instance $instance");
-
             $url = $instance . "api.php?q=$query_encoded&p=$page&t=0&nfb=1";
 
             $librex_ch = curl_init($url);

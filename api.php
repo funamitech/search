@@ -26,7 +26,10 @@
     switch ($type)
     {
         case 0:
-            require "engines/google/text.php";
+            $engine=$config->preferred_engines['text'];
+            if (is_null($engine))
+                $engine = "google";
+            require "engines/$engine/text.php";
             $results = get_text_results($query, $page);
             break;
         case 1:
