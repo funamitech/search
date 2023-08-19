@@ -21,7 +21,7 @@
         "disable_hidden_service_search" => false,
 
         // Fallback to another librex instance if google search fails
-        "instance_fallback" => true,
+        "instance_fallback" => false, // This might generate a 504 Gateway Timeout error, we are looking into this.
 
         /*
             Preset privacy friendly frontends for users, these can be overwritten by users in the settings
