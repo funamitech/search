@@ -1,7 +1,8 @@
 <?php
                 $config = require "config.php";
 
-                if (isset($_REQUEST["reset"]))
+                // Reset all cookies when resetting, or before saving new cookies
+                if (isset($_REQUEST["reset"]) || isset($_REQUEST["save"]))
                 {
                     if (isset($_SERVER["HTTP_COOKIE"]))
                     {
@@ -101,7 +102,7 @@
                     <input type="checkbox" name="disable_frontends" <?php echo isset($_COOKIE["disable_frontends"]) ? "checked"  : ""; ?> >
                 </div>
 
-                <h2>Google settings</h2>
+                <h2>Search settings</h2>
                 <div class="settings-textbox-container">
                     <div>
                         <span>Site language</span>

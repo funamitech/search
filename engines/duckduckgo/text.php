@@ -7,13 +7,13 @@
         $query_encoded = urlencode($query);
         $results = array();
 
-        $domain = $config->google_domain;
+        // $domain = $config->google_domain;
+        $domain = 'com';
         $site_language = isset($_COOKIE["google_language_site"]) ? trim(htmlspecialchars($_COOKIE["google_language_site"])) : $config->google_language_site;
         $results_language = isset($_COOKIE["google_language_results"]) ? trim(htmlspecialchars($_COOKIE["google_language_results"])) : $config->google_language_results;
         $number_of_results = isset($_COOKIE["google_number_of_results"]) ? trim(htmlspecialchars($_COOKIE["google_number_of_results"])) : $config->google_number_of_results;
 
-        $url = "https://www.google.$domain/search?q=$query_encoded&nfpr=1&start=$page";
-
+        $url = "https://html.duckduckgo.$domain/html/?q=$query_encoded&kd=-1&s=" . 3 * $page;
         if (3 > strlen($site_language) && 0 < strlen($site_language))
             $url .= "&hl=$site_language";
 
@@ -58,7 +58,7 @@
                         $url = "https://$wikipedia_language.wikipedia.org/w/api.php?format=json&action=query&prop=extracts%7Cpageimages&exintro&explaintext&redirects=1&pithumbsize=500&titles=$query_encoded";
                     break;
             }
-
+            
             if ($url != NULL)
             {
                 $special_ch = curl_init($url);
@@ -72,16 +72,10 @@
             curl_multi_exec($mh, $running);
         } while ($running);
 
-        if (curl_getinfo($google_ch)['http_code'] != '200') 
-        {
-            require "engines/librex/text.php";
-            return get_librex_results($query, $page);
-        }
 
-
-        $special_result = array();
         if ($special_search != 0)
         {
+            $special_result = null;
 
             switch ($special_search)
             {
@@ -115,25 +109,18 @@
                     $special_result = wikipedia_results($query, curl_multi_getcontent($special_ch));
                     break;
             }
+
+            if ($special_result != null)
+                array_push($results, $special_result);
         }
 
         $xpath = get_xpath(curl_multi_getcontent($google_ch));
-
-        $didyoumean = $xpath->query(".//a[@class='gL9Hy']")[0];
-
-        if (!is_null($didyoumean))
-            $special_result["did_you_mean"] = $didyoumean->textContent;
-
-        if (!empty($special_result))
-            array_push($results, $special_result);
-
-
-
-        foreach($xpath->query("//div[@id='search']//div[contains(@class, 'g')]") as $result)
-        {
-            $url = $xpath->evaluate(".//div[@class='yuRUbf']//a/@href", $result)[0];
-
-            if ($url == null)
+		
+		foreach($xpath->query("/html/body/div[1]/div[". count($xpath->query('/html/body/div[1]/div')) ."]/div/div/div/div") as $result)
+		{
+            $url = $xpath->evaluate(".//h2[@class='result__title']//a/@href", $result)[0];
+			
+			if ($url == null)
                 continue;
 
             if (!empty($results)) // filter duplicate results, ignore special result
@@ -147,8 +134,8 @@
 
             $url = check_for_privacy_frontend($url);
 
-            $title = $xpath->evaluate(".//h3", $result)[0];
-            $description = $xpath->evaluate(".//div[contains(@class, 'VwiC3b')]", $result)[0];
+            $title = $xpath->evaluate(".//h2[@class='result__title']", $result)[0];
+            $description = $xpath->evaluate(".//a[@class='result__snippet']", $result)[0];
 
             array_push($results,
                 array (
@@ -160,26 +147,15 @@
                                       htmlspecialchars($description->textContent)
                 )
             );
-        }
+       }
 
         return $results;
     }
 
     function print_text_results($results)
-    {
-
+	{
         $special = $results[0];
-
-        if (array_key_exists("did_you_mean", $special)) 
-        {
-            $didyoumean = $special["did_you_mean"];
-            $new_url = "/search.php?q="  . urlencode($didyoumean);
-            echo "<p class=\"did-you-mean\">Did you mean ";
-            echo "<a href=\"$new_url\">$didyoumean</a>";
-            echo "?</p>";
-        }
-
-        if (array_key_exists("special_response", $special)) 
+        if (array_key_exists("special_response", $special))
         {
             $response = $special["special_response"]["response"];
             $source = $special["special_response"]["source"];
@@ -194,15 +170,14 @@
             if ($source)
                 echo "<a href=\"$source\" target=\"_blank\">$source</a>";
             echo "</p>";
+
+            array_shift($results);
         }
 
         echo "<div class=\"text-result-container\">";
 
         foreach($results as $result)
         {
-            if (!array_key_exists("title", $result))
-                continue;
-
             $title = $result["title"];
             $url = $result["url"];
             $base_url = $result["base_url"];

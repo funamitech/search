@@ -20,6 +20,9 @@
 
         "disable_hidden_service_search" => false,
 
+        // Fallback to another librex instance if google search fails
+        "instance_fallback" => true,
+
         /*
             Preset privacy friendly frontends for users, these can be overwritten by users in the settings
             e.g.: Preset the invidious instance URL: "instance_url" => "https://yewtu.be",
@@ -49,13 +52,6 @@
                 "original_name" => "GitHub",
                 "original_url" => "github.com"
             ),
-            "librarian" => array(
-                "instance_url" => "",
-                "project_url" => "https://codeberg.org/librarian/librarian#clearnet", 
-                "original_name" => "Odysee",
-                "original_url" => "odysee.com"
-            ),
-
             "nitter" => array(
                 "instance_url" => "",
                 "project_url" => "https://github.com/zedeus/nitter/wiki/Instances", 
@@ -118,6 +114,16 @@
                 "original_url" => "goodreads.com"
             )
         ),
+        
+
+        "preferred_engines" => array(
+            
+            /* replace with "text" => "duckduckgo" to use duckduckgo instead
+            * (recommended if being ratelimited */
+            "text" => "google"
+            // "text" => "duckduckgo"
+        ),
+
 
         /*
             To send requests trough a proxy uncomment CURLOPT_PROXY and CURLOPT_PROXYTYPE:
@@ -137,7 +143,7 @@
             // CURLOPT_PROXYTYPE => CURLPROXY_HTTP,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
-            CURLOPT_USERAGENT => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+            CURLOPT_USERAGENT => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36", // For a normal Windows 10 PC running Firefox x64
             CURLOPT_IPRESOLVE => CURL_IPRESOLVE_WHATEVER,
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_PROTOCOLS => CURLPROTO_HTTPS | CURLPROTO_HTTP,

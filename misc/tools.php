@@ -128,7 +128,7 @@
             $bang_query_array = explode("!" . $search_word, $query);
             $bang_query = trim(implode("", $bang_query_array));
 
-            $request_url = str_replace("{{{s}}}", $bang_query, $bang_url);
+            $request_url = str_replace("{{{s}}}", str_replace('%26quot%3B','%22', urlencode($bang_query)), $bang_url);
             $request_url = check_for_privacy_frontend($request_url);
 
             header("Location: " . $request_url);
@@ -230,4 +230,27 @@
         echo "<button type=\"submit\">$text</button>";
         echo "</form>";
     }
+
+    function copy_cookies($curl)
+    {
+        if (array_key_exists("HTTP_COOKIE", $_SERVER))
+            curl_setopt( $curl, CURLOPT_COOKIE, $_SERVER['HTTP_COOKIE'] );
+    }
+
+    
+    function get_country_emote($code)
+    {
+        $emoji = [];
+        foreach(str_split($code) as $c) {
+            if(($o = ord($c)) > 64 && $o % 32 < 27) {
+                $emoji[] = hex2bin("f09f87" . dechex($o % 32 + 165));
+                continue;
+            }
+            
+            $emoji[] = $c;
+        }
+
+        return join($emoji);
+    }
+
 ?>
