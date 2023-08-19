@@ -4,6 +4,9 @@
     {
         global $config;
 
+        if (isset($_REQUEST["nfb"]) && $_REQUEST["nfb"] == "1")
+            return array();
+
         if (!$config->instance_fallback) 
             return array();
 
@@ -33,7 +36,7 @@
             if (parse_url($instance)["host"] == parse_url($_SERVER['HTTP_HOST'])["host"])
                 continue;
 
-            $url = $instance . "api.php?q=$query_encoded&p=$page&t=0";
+            $url = $instance . "api.php?q=$query_encoded&p=$page&t=0&nfb=1";
 
             $librex_ch = curl_init($url);
             curl_setopt_array($librex_ch, $config->curl_settings);
