@@ -26,7 +26,7 @@
         */
         "frontends" => array(
             "invidious" => array(
-                "instance_url" => "https://yt.funami.tech",
+                "instance_url" => "",
                 "project_url" => "https://docs.invidious.io/instances/", 
                 "original_name" => "YouTube",
                 "original_url" => "youtube.com"
@@ -57,14 +57,14 @@
             ),
 
             "nitter" => array(
-                "instance_url" => "https://twt.funami.tech",
+                "instance_url" => "",
                 "project_url" => "https://github.com/zedeus/nitter/wiki/Instances", 
                 "original_name" => "Twitter",
                 "original_url" => "twitter.com"
             ),
 
             "libreddit" => array(
-                "instance_url" => "https://rd.funami.tech",
+                "instance_url" => "",
                 "project_url" => "https://github.com/libreddit/libreddit-instances/blob/master/instances.md", 
                 "original_name" => "Reddit",
                 "original_url" => "reddit.com"
