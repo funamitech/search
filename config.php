@@ -29,7 +29,7 @@
         */
         "frontends" => array(
             "invidious" => array(
-                "instance_url" => "yt.funami.tech",
+                "instance_url" => "",
                 "project_url" => "https://docs.invidious.io/instances/", 
                 "original_name" => "YouTube",
                 "original_url" => "youtube.com"
@@ -53,14 +53,14 @@
                 "original_url" => "github.com"
             ),
             "nitter" => array(
-                "instance_url" => "twt.funami.tech",
+                "instance_url" => "",
                 "project_url" => "https://github.com/zedeus/nitter/wiki/Instances", 
                 "original_name" => "Twitter",
                 "original_url" => "twitter.com"
             ),
 
             "libreddit" => array(
-                "instance_url" => "rd.funami.tech",
+                "instance_url" => "",
                 "project_url" => "https://github.com/libreddit/libreddit-instances/blob/master/instances.md", 
                 "original_name" => "Reddit",
                 "original_url" => "reddit.com"
@@ -72,7 +72,7 @@
                 "original_url" => "tiktok.com"
             ),
             "wikiless" => array(
-                "instance_url" => "wikiless.funami.tech",
+                "instance_url" => "https://wikiless.funami.tech",
                 "project_url" => "https://github.com/Metastem/wikiless#instances", 
                 "original_name" => "Wikipedia",
                 "original_url" => "wikipedia.org"

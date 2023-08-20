@@ -5,7 +5,6 @@
     // Why not? I'm gonna remove yours. LMAO jkjk I'll leave them.
 ?>
 
-<<<<<<< HEAD
     <title>YuruSearch - Donate</title>
     </head>
     <body>
