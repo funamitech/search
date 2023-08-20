@@ -7,7 +7,7 @@
 
 <title>
 <?php
-  $query = htmlspecialchars(trim($_REQUEST["q"]));
+  $query = trim($_REQUEST["q"]);
   echo $query;
 ?> - YuruSearch</title>
 </head>
@@ -24,7 +24,7 @@
                         die();
                     }
 
-                    echo "value=\"$query\"";
+                    echo "value=\"" . htmlspecialchars($query) . "\"";
                 ?>
             >
             <br>

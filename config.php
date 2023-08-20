@@ -21,7 +21,7 @@
         "disable_hidden_service_search" => false,
 
         // Fallback to another librex instance if google search fails
-        "instance_fallback" => true,
+        "instance_fallback" => false, // This might generate a 504 Gateway Timeout error, we are looking into this.
 
         /*
             Preset privacy friendly frontends for users, these can be overwritten by users in the settings
@@ -143,7 +143,7 @@
             // CURLOPT_PROXYTYPE => CURLPROXY_HTTP,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
-            CURLOPT_USERAGENT => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36", // For a normal Windows 10 PC running Firefox x64
+            CURLOPT_USERAGENT => "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:116.0) Gecko/20100101 Firefox/116.0", // For a normal Windows 10 PC running Firefox x64
             CURLOPT_IPRESOLVE => CURL_IPRESOLVE_WHATEVER,
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_PROTOCOLS => CURLPROTO_HTTPS | CURLPROTO_HTTP,

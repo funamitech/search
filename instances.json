@@ -43,10 +43,17 @@
               "librey": true
           },
           {
-              "clearnet": "https://librey.bloatcat.tk/index",
+              "clearnet": "https://librey.bloatcat.tk/",
               "tor": null,
               "i2p": null,
               "country": "IS",
+              "librey": true
+          },
+          {
+              "clearnet": "https://search.funami.tech/",
+              "tor": null,
+              "i2p": null,
+              "country": "KR",
               "librey": true
           },
           {
@@ -103,13 +110,6 @@
               "tor": null,
               "i2p": null,
               "country": "DE",
-              "librey": false
-          },
-          {
-              "clearnet": "https://search.funami.tech/",
-              "tor": null,
-              "i2p": null,
-              "country": "KR",
               "librey": false
           },
           {

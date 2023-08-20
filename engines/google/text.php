@@ -4,7 +4,7 @@
         global $config;
 
         $mh = curl_multi_init();
-        $query_encoded = urlencode($query);
+        $query_encoded = str_replace("%22", "\"", urlencode($query));
         $results = array();
 
         $domain = $config->google_domain;
@@ -13,6 +13,7 @@
         $number_of_results = isset($_COOKIE["google_number_of_results"]) ? trim(htmlspecialchars($_COOKIE["google_number_of_results"])) : $config->google_number_of_results;
 
         $url = "https://www.google.$domain/search?q=$query_encoded&nfpr=1&start=$page";
+        error_log($url);
 
         if (3 > strlen($site_language) && 0 < strlen($site_language))
             $url .= "&hl=$site_language";
@@ -167,6 +168,9 @@
 
     function print_text_results($results)
     {
+
+        if (empty($results))
+            return;
 
         $special = $results[0];
 
