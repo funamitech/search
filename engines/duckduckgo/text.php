@@ -72,6 +72,13 @@
             curl_multi_exec($mh, $running);
         } while ($running);
 
+        if (curl_getinfo($google_ch)['http_code'] != '200') 
+        {
+            require "engines/librex/text.php";
+            return get_librex_results($query, $page);
+        }
+
+
 
         if ($special_search != 0)
         {
