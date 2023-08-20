@@ -141,13 +141,6 @@
               "librey": false
           },
           {
-              "clearnet": "https://search.decentrala.org/",
-              "tor": null,
-              "i2p": null,
-              "country": "US",
-              "librey": false
-          },
-          {
               "clearnet": "https://librex.pardesicat.xyz/",
               "tor": null,
               "i2p": null,
