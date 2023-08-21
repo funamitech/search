@@ -57,6 +57,13 @@
               "librey": true
           },
           {
+              "clearnet": "https://librex.retro-hax.net/",
+              "tor": null,
+              "i2p": null,
+              "country": "DE",
+              "librey": true
+          },
+          {
               "clearnet": "https://lx.vern.cc/",
               "tor": "http://lx.vernccvbvyi5qhfzyqengccj7lkove6bjot2xhh5kajhwvidqafczrad.onion/",
               "i2p": "http://vernziqfqvweijfaacmwazohgpdo2bt2ib2jlupt2pwwu27bhgxq.b32.i2p/",
@@ -106,13 +113,6 @@
               "librey": false
           },
           {
-              "clearnet": "https://librex.retro-hax.net/",
-              "tor": null,
-              "i2p": null,
-              "country": "DE",
-              "librey": false
-          },
-          {
               "clearnet": "https://search.zeroish.xyz/",
               "tor": null,
               "i2p": null,
@@ -138,13 +138,6 @@
               "tor": null,
               "i2p": null,
               "country": "MX",
-              "librey": false
-          },
-          {
-              "clearnet": "https://search.decentrala.org/",
-              "tor": null,
-              "i2p": null,
-              "country": "US",
               "librey": false
           },
           {
