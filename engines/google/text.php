@@ -1,226 +1,81 @@
 <?php
-    function get_text_results($query, $page)
-    {
-        global $config;
-
-        $mh = curl_multi_init();
-        $query_encoded = str_replace("%22", "\"", urlencode($query));
-        $results = array();
-
-        $domain = $config->google_domain;
-        $site_language = isset($_COOKIE["google_language_site"]) ? trim(htmlspecialchars($_COOKIE["google_language_site"])) : $config->google_language_site;
-        $results_language = isset($_COOKIE["google_language_results"]) ? trim(htmlspecialchars($_COOKIE["google_language_results"])) : $config->google_language_results;
-        $number_of_results = isset($_COOKIE["google_number_of_results"]) ? trim(htmlspecialchars($_COOKIE["google_number_of_results"])) : $config->google_number_of_results;
-
-        $url = "https://www.google.$domain/search?q=$query_encoded&nfpr=1&start=$page";
-        error_log($url);
-
-        if (3 > strlen($site_language) && 0 < strlen($site_language))
-            $url .= "&hl=$site_language";
-
-        if (3 > strlen($results_language) && 0 < strlen($results_language))
-            $url .= "&lr=lang_$results_language";
-
-        if (3 > strlen($number_of_results) && 0 < strlen($number_of_results))
-            $url .= "&num=$number_of_results";
-
-        if (isset($_COOKIE["safe_search"]))
-            $url .= "&safe=medium";
-
-        $google_ch = curl_init($url);
-        curl_setopt_array($google_ch, $config->curl_settings);
-        curl_multi_add_handle($mh, $google_ch);
-
-        $special_search = $page ? 0 : check_for_special_search($query);
-        $special_ch = null;
-        $url = null;
-        if ($special_search != 0)
+    class GoogleRequest extends EngineRequest {
+        function get_request_url()
         {
-            switch ($special_search)
-            {
-                case 1:
-                    $url = "https://cdn.moneyconvert.net/api/latest.json";
-                    break;
-                case 2:
-                    $split_query = explode(" ", $query);
-                    $reversed_split_q = array_reverse($split_query);
-                    $word_to_define = $reversed_split_q[1];
-                    $url = "https://api.dictionaryapi.dev/api/v2/entries/en/$word_to_define";
-                    break;
-                case 5:
-                    $url = "https://wttr.in/@" . $_SERVER["REMOTE_ADDR"] . "?format=j1";
-                    break;
-                case 6:
-                    $url = "https://check.torproject.org/torbulkexitlist";
-                    break;
-                case 7:
-                    $wikipedia_language = isset($_COOKIE["wikipedia_language"]) ? trim(htmlspecialchars($_COOKIE["wikipedia_language"])) : $config->wikipedia_language;
-                    if (in_array($wikipedia_language, json_decode(file_get_contents("static/misc/wikipedia_langs.json"), true)))
-                        $url = "https://$wikipedia_language.wikipedia.org/w/api.php?format=json&action=query&prop=extracts%7Cpageimages&exintro&explaintext&redirects=1&pithumbsize=500&titles=$query_encoded";
-                    break;
-            }
+            $page = isset($_REQUEST["p"]) ? (int) $_REQUEST["p"] : 0;
 
-            if ($url != NULL)
-            {
-                $special_ch = curl_init($url);
-                curl_setopt_array($special_ch, $config->curl_settings);
-                curl_multi_add_handle($mh, $special_ch);
-            }
-        }
+            $query_encoded = str_replace("%22", "\"", urlencode($this->query));
+            $results = array();
 
-        $running = null;
-        do {
-            curl_multi_exec($mh, $running);
-        } while ($running);
+            $domain = $this->config->google_domain;
+            $site_language = isset($_COOKIE["google_language_site"]) ? trim(htmlspecialchars($_COOKIE["google_language_site"])) : $this->config->google_language_site;
+            $results_language = isset($_COOKIE["google_language_results"]) ? trim(htmlspecialchars($_COOKIE["google_language_results"])) : $this->config->google_language_results;
+            $number_of_results = isset($_COOKIE["google_number_of_results"]) ? trim(htmlspecialchars($_COOKIE["google_number_of_results"])) : $this->config->google_number_of_results;
 
-        if (curl_getinfo($google_ch)['http_code'] != '200') 
-        {
-            require "engines/librex/text.php";
-            return get_librex_results($query, $page);
+            $url = "https://www.google.$domain/search?q=$query_encoded&nfpr=1&start=$page";
+            error_log($url);
+
+            if (3 > strlen($site_language) && 0 < strlen($site_language))
+                $url .= "&hl=$site_language";
+
+            if (3 > strlen($results_language) && 0 < strlen($results_language))
+                $url .= "&lr=lang_$results_language";
+
+            if (3 > strlen($number_of_results) && 0 < strlen($number_of_results))
+                $url .= "&num=$number_of_results";
+
+            if (isset($_COOKIE["safe_search"]))
+                $url .= "&safe=medium";
+
+            return $url;
         }
 
 
-        $special_result = array();
-        if ($special_search != 0)
-        {
 
-            switch ($special_search)
+        public function get_results() {
+            $results = array();
+            $xpath = get_xpath(curl_multi_getcontent($this->ch));
+
+            $didyoumean = $xpath->query(".//a[@class='gL9Hy']")[0];
+
+            if (!is_null($didyoumean))
+                array_push($results, array(
+                    "did_you_mean" => $didyoumean->textContent
+                ));
+
+            foreach($xpath->query("//div[@id='search']//div[contains(@class, 'g')]") as $result)
             {
-                case 1:
-                    require "engines/special/currency.php";
-                    $special_result = currency_results($query, curl_multi_getcontent($special_ch));
-                    break;
-                case 2:
-                    require "engines/special/definition.php";
-                    $special_result = definition_results($query, curl_multi_getcontent($special_ch));
-                    break;
+                $url = $xpath->evaluate(".//div[@class='yuRUbf']//a/@href", $result)[0];
 
-                case 3:
-                    require "engines/special/ip.php";
-                    $special_result = ip_result();
-                    break;
-                case 4:
-                    require "engines/special/user_agent.php";
-                    $special_result = user_agent_result();
-                    break;
-                case 5:
-                    require "engines/special/weather.php";
-                    $special_result = weather_results(curl_multi_getcontent($special_ch));
-                    break;
-                case 6:
-                    require "engines/special/tor.php";
-                    $special_result = tor_result(curl_multi_getcontent($special_ch));
-                    break;
-                case 7:
-                    require "engines/special/wikipedia.php";
-                    $special_result = wikipedia_results($query, curl_multi_getcontent($special_ch));
-                    break;
-            }
-        }
+                if ($url == null)
+                    continue;
 
-        $xpath = get_xpath(curl_multi_getcontent($google_ch));
-
-        $didyoumean = $xpath->query(".//a[@class='gL9Hy']")[0];
-
-        if (!is_null($didyoumean))
-            $special_result["did_you_mean"] = $didyoumean->textContent;
-
-        if (!empty($special_result))
-            array_push($results, $special_result);
-
-
-
-        foreach($xpath->query("//div[@id='search']//div[contains(@class, 'g')]") as $result)
-        {
-            $url = $xpath->evaluate(".//div[@class='yuRUbf']//a/@href", $result)[0];
-
-            if ($url == null)
-                continue;
-
-            if (!empty($results)) // filter duplicate results, ignore special result
-            {
-                if (!array_key_exists("special_response", end($results)))
+                if (!empty($results)) // filter duplicate results, ignore special result
+                {
                     if (end($results)["url"] == $url->textContent)
                         continue;
+                }
+
+                $url = $url->textContent;
+
+                $url = check_for_privacy_frontend($url);
+
+                $title = $xpath->evaluate(".//h3", $result)[0];
+                $description = $xpath->evaluate(".//div[contains(@class, 'VwiC3b')]", $result)[0];
+
+                array_push($results,
+                    array (
+                        "title" => htmlspecialchars($title->textContent),
+                        "url" =>  htmlspecialchars($url),
+                        "base_url" => htmlspecialchars(get_base_url($url)),
+                        "description" =>  $description == null ?
+                                          "No description was provided for this site." :
+                                          htmlspecialchars($description->textContent)
+                    )
+                );
             }
 
-            $url = $url->textContent;
-
-            $url = check_for_privacy_frontend($url);
-
-            $title = $xpath->evaluate(".//h3", $result)[0];
-            $description = $xpath->evaluate(".//div[contains(@class, 'VwiC3b')]", $result)[0];
-
-            array_push($results,
-                array (
-                    "title" => htmlspecialchars($title->textContent),
-                    "url" =>  htmlspecialchars($url),
-                    "base_url" => htmlspecialchars(get_base_url($url)),
-                    "description" =>  $description == null ?
-                                      "No description was provided for this site." :
-                                      htmlspecialchars($description->textContent)
-                )
-            );
+            return $results;
         }
-
-        return $results;
-    }
-
-    function print_text_results($results)
-    {
-
-        if (empty($results))
-            return;
-
-        $special = $results[0];
-
-        if (array_key_exists("did_you_mean", $special)) 
-        {
-            $didyoumean = $special["did_you_mean"];
-            $new_url = "/search.php?q="  . urlencode($didyoumean);
-            echo "<p class=\"did-you-mean\">Did you mean ";
-            echo "<a href=\"$new_url\">$didyoumean</a>";
-            echo "?</p>";
-        }
-
-        if (array_key_exists("special_response", $special)) 
-        {
-            $response = $special["special_response"]["response"];
-            $source = $special["special_response"]["source"];
-
-            echo "<p class=\"special-result-container\">";
-            if (array_key_exists("image", $special["special_response"]))
-            {
-                $image_url = $special["special_response"]["image"];
-                echo "<img src=\"image_proxy.php?url=$image_url\">";
-            }
-            echo $response;
-            if ($source)
-                echo "<a href=\"$source\" target=\"_blank\">$source</a>";
-            echo "</p>";
-        }
-
-        echo "<div class=\"text-result-container\">";
-
-        foreach($results as $result)
-        {
-            if (!array_key_exists("title", $result))
-                continue;
-
-            $title = $result["title"];
-            $url = $result["url"];
-            $base_url = $result["base_url"];
-            $description = $result["description"];
-
-            echo "<div class=\"text-result-wrapper\">";
-            echo "<a href=\"$url\">";
-            echo "$base_url";
-            echo "<h2>$title</h2>";
-            echo "</a>";
-            echo "<span>$description</span>";
-            echo "</div>";
-        }
-
-        echo "</div>";
     }
 ?>

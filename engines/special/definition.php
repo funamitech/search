@@ -1,9 +1,14 @@
 <?php
-    function definition_results($query, $response) 
-    {        
-            $split_query = explode(" ", $query);
+    class DefinitionRequest extends EngineRequest {
+        public function get_request_url() {
+            $split_query = explode(" ", $this->query);
             $reversed_split_q = array_reverse($split_query);
             $word_to_define = $reversed_split_q[1];
+            return "https://api.dictionaryapi.dev/api/v2/entries/en/$word_to_define";
+        }
+        
+        public function get_results() {        
+            $response = curl_multi_getcontent($this->ch);
 
             $json_response = json_decode($response, true);
 
@@ -20,5 +25,6 @@
                 );
             }
         
+        }
     }
 ?>

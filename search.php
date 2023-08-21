@@ -3,11 +3,37 @@
 
     $config = require "config.php";
     require "misc/tools.php";
+    $query = trim($_REQUEST["q"]);
+
+    class EngineRequest {
+        public $ch;
+        public $query;
+
+        function __construct($query, $mh, $config) {
+            $this->query = $query;
+            $this->config = $config;
+
+            $url = $this->get_request_url();
+            if ($url) {
+                $this->ch = curl_init($url);
+                curl_setopt_array($this->ch, $config->curl_settings);
+                curl_multi_add_handle($mh, $this->ch);
+            }
+        }
+
+        public function get_request_url() {
+            return "";
+        }
+
+        public function get_results() {
+            return array();
+        }
+    }
+
 ?>
 
 <title>
 <?php
-  $query = trim($_REQUEST["q"]);
   echo $query;
 ?> - LibreY</title>
 </head>
@@ -56,20 +82,12 @@
         </form>
 
         <?php
-
             $page = isset($_REQUEST["p"]) ? (int) $_REQUEST["p"] : 0;
             $start_time = microtime(true);
             switch ($type)
             {
                 case 0:
-					$engine=$config->preferred_engines['text'];
-                    if (is_null($engine))
-                        $engine = "google";
-                    $query_parts = explode(" ", $query);
-                    $last_word_query = end($query_parts);
-                    if (substr($query, 0, 1) == "!" || substr($last_word_query, 0, 1) == "!")
-                        check_ddg_bang($query);
-					require "engines/$engine/text.php";
+					require "engines/text.php";
                     $results = get_text_results($query, $page);
                     print_elapsed_time($start_time);
                     print_text_results($results);

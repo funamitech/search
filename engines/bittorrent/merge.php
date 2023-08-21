@@ -23,7 +23,7 @@
             $_1337x_url,
             $sukebei_url
         );
- 
+
         $mh = curl_multi_init();
         $chs = $results = array();
 
@@ -32,7 +32,7 @@
             $ch = curl_init($url);
             curl_setopt_array($ch, $config->curl_settings);
             array_push($chs, $ch);
-            curl_multi_add_handle($mh, $ch);    
+            curl_multi_add_handle($mh, $ch);
         }
 
         $running = null;
@@ -69,7 +69,7 @@
                     break;
             }
         }
-        
+
         $seeders = array_column($results, "seeders");
         array_multisort($seeders, SORT_DESC, $results);
 

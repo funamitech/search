@@ -1,7 +1,14 @@
 <?php
-    function currency_results($query, $response)
+class CurrencyRequest extends EngineRequest {
+    public function get_request_url() {
+        return "https://cdn.moneyconvert.net/api/latest.json";
+    }
+    
+    public function get_results()
     { 
-        $split_query = explode(" ", $query);
+        $response = curl_multi_getcontent($this->ch);
+
+        $split_query = explode(" ", $this->query);
 
         $base_currency = strtoupper($split_query[1]);
         $currency_to_convert = strtoupper($split_query[3]);
