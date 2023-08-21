@@ -1,6 +1,5 @@
 <?php
 
-    // TODO make this a EngineRequest also
     function check_for_special_search($query) {
         if (isset($_COOKIE["disable_special"]))
             return 0;

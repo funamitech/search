@@ -13,16 +13,16 @@
                 check_ddg_bang($query);
 
             if ($engine == "google") {
-                require "engines/google/text.php";
+                require "engines/text/google.php";
                 $this->engine_request = new GoogleRequest($query,  $page, $mh, $config);
             }
 
             if ($engine == "duckduckgo") {
-                require "engines/duckduckgo/text.php";
+                require "engines/text/duckduckgo.php";
                 $this->engine_request = new DuckDuckGoRequest($query, $page, $mh, $config);
             }
 
-            require "engines/special.php";
+            require "engines/special/special.php";
             $this->special_request = get_special_search_request($query, $page, $mh, $config);
         }
 
@@ -35,9 +35,12 @@
 
             $results = $this->engine_request->get_results();
 
-            $special_result = $this->special_request->get_results();
-            if ($special_result)
-                $results = array_merge(array($special_result), $results);
+            if ($this->special_request) {
+                $special_result = $this->special_request->get_results();
+
+                if ($special_result)
+                    $results = array_merge(array($special_result), $results);
+            }
 
             return $results;
         }

@@ -50,7 +50,7 @@
                 return new TorSearch($query, $page, $mh, $config);
 
             default:
-                require "engines/text.php";
+                require "engines/text/text.php";
                 return new TextSearch($query, $page, $mh, $config);
         }
     }
