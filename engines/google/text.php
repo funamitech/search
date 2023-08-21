@@ -2,7 +2,6 @@
     class GoogleRequest extends EngineRequest {
         function get_request_url()
         {
-            $page = isset($_REQUEST["p"]) ? (int) $_REQUEST["p"] : 0;
 
             $query_encoded = str_replace("%22", "\"", urlencode($this->query));
             $results = array();
@@ -12,7 +11,7 @@
             $results_language = isset($_COOKIE["google_language_results"]) ? trim(htmlspecialchars($_COOKIE["google_language_results"])) : $this->config->google_language_results;
             $number_of_results = isset($_COOKIE["google_number_of_results"]) ? trim(htmlspecialchars($_COOKIE["google_number_of_results"])) : $this->config->google_number_of_results;
 
-            $url = "https://www.google.$domain/search?q=$query_encoded&nfpr=1&start=$page";
+            $url = "https://www.google.$domain/search?q=$query_encoded&nfpr=1&start=$this->page";
             error_log($url);
 
             if (3 > strlen($site_language) && 0 < strlen($site_language))

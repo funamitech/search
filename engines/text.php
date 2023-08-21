@@ -1,106 +1,100 @@
 <?php
-    function fetch_search_results($query, $page) {
-        global $config;
+    class TextSearch extends EngineRequest {
+        public function __construct($query, $page, $mh, $config) {
+            $engine=$config->preferred_engines['text'];
+            if (is_null($engine))
+                $engine = "google";
+            $query_parts = explode(" ", $query);
+            $last_word_query = end($query_parts);
+            if (substr($query, 0, 1) == "!" || substr($last_word_query, 0, 1) == "!")
+                check_ddg_bang($query);
 
-        $mh = curl_multi_init();
-
-        $engine=$config->preferred_engines['text'];
-        if (is_null($engine))
-            $engine = "google";
-        $query_parts = explode(" ", $query);
-        $last_word_query = end($query_parts);
-        if (substr($query, 0, 1) == "!" || substr($last_word_query, 0, 1) == "!")
-            check_ddg_bang($query);
-
-        if ($engine == "google") {
-            require "engines/google/text.php";
-            $engine_request = new GoogleRequest($query, $mh, $config);
-        }
-
-        if ($engine == "duckduckgo") {
-            require "engines/duckduckgo/text.php";
-            $engine_request = new DuckDuckGoRequest($query, $mh, $config);
-        }
-
-        require "engines/special.php";
-        $special_request = get_special_search_request($query, $page, $mh, $config);
-
-        $running = null;
-
-        do {
-            curl_multi_exec($mh, $running);
-        } while ($running);
-
-        if (curl_getinfo($engine_request->ch)['http_code'] != '200') 
-        {
-            require "engines/librex/text.php";
-            return get_librex_results($query, $page);
-        }
-
-        $results = $engine_request->get_results();
-
-        $special_result = $special_request->get_results();
-        if ($special_result)
-            $results = array_merge(array($special_result), $results);
-
-        return $results;
-    }
-
-    function print_search_results($results) {
-
-        if (empty($results))
-            return;
-
-        $special = $results[0];
-
-        if (array_key_exists("did_you_mean", $special)) 
-        {
-            $didyoumean = $special["did_you_mean"];
-            $new_url = "/search.php?q="  . urlencode($didyoumean);
-            echo "<p class=\"did-you-mean\">Did you mean ";
-            echo "<a href=\"$new_url\">$didyoumean</a>";
-            echo "?</p>";
-        }
-
-        if (array_key_exists("special_response", $special)) 
-        {
-            $response = $special["special_response"]["response"];
-            $source = $special["special_response"]["source"];
-
-            echo "<p class=\"special-result-container\">";
-            if (array_key_exists("image", $special["special_response"]))
-            {
-                $image_url = $special["special_response"]["image"];
-                echo "<img src=\"image_proxy.php?url=$image_url\">";
+            if ($engine == "google") {
+                require "engines/google/text.php";
+                $this->engine_request = new GoogleRequest($query,  $page, $mh, $config);
             }
-            echo $response;
-            if ($source)
-                echo "<a href=\"$source\" target=\"_blank\">$source</a>";
-            echo "</p>";
+
+            if ($engine == "duckduckgo") {
+                require "engines/duckduckgo/text.php";
+                $this->engine_request = new DuckDuckGoRequest($query, $page, $mh, $config);
+            }
+
+            require "engines/special.php";
+            $this->special_request = get_special_search_request($query, $page, $mh, $config);
         }
 
-        echo "<div class=\"text-result-container\">";
+        public function get_results() {
+            if (curl_getinfo($this->engine_request->ch)['http_code'] != '200') 
+            {
+                require "engines/librex/text.php";
+                return get_librex_results($this->query, $this->page);
+            }
 
-        foreach($results as $result)
-        {
-            if (!array_key_exists("title", $result))
-                continue;
+            $results = $this->engine_request->get_results();
 
-            $title = $result["title"];
-            $url = $result["url"];
-            $base_url = $result["base_url"];
-            $description = $result["description"];
+            $special_result = $this->special_request->get_results();
+            if ($special_result)
+                $results = array_merge(array($special_result), $results);
 
-            echo "<div class=\"text-result-wrapper\">";
-            echo "<a href=\"$url\">";
-            echo "$base_url";
-            echo "<h2>$title</h2>";
-            echo "</a>";
-            echo "<span>$description</span>";
+            return $results;
+        }
+
+        public function print_results($results) {
+
+            if (empty($results))
+                return;
+
+            $special = $results[0];
+
+            if (array_key_exists("did_you_mean", $special)) 
+            {
+                $didyoumean = $special["did_you_mean"];
+                $new_url = "/search.php?q="  . urlencode($didyoumean);
+                echo "<p class=\"did-you-mean\">Did you mean ";
+                echo "<a href=\"$new_url\">$didyoumean</a>";
+                echo "?</p>";
+            }
+
+            if (array_key_exists("special_response", $special)) 
+            {
+                $response = $special["special_response"]["response"];
+                $source = $special["special_response"]["source"];
+
+                echo "<p class=\"special-result-container\">";
+                if (array_key_exists("image", $special["special_response"]))
+                {
+                    $image_url = $special["special_response"]["image"];
+                    echo "<img src=\"image_proxy.php?url=$image_url\">";
+                }
+                echo $response;
+                if ($source)
+                    echo "<a href=\"$source\" target=\"_blank\">$source</a>";
+                echo "</p>";
+            }
+
+            echo "<div class=\"text-result-container\">";
+
+            foreach($results as $result)
+            {
+                if (!array_key_exists("title", $result))
+                    continue;
+
+                $title = $result["title"];
+                $url = $result["url"];
+                $base_url = $result["base_url"];
+                $description = $result["description"];
+
+                echo "<div class=\"text-result-wrapper\">";
+                echo "<a href=\"$url\">";
+                echo "$base_url";
+                echo "<h2>$title</h2>";
+                echo "</a>";
+                echo "<span>$description</span>";
+                echo "</div>";
+            }
+
             echo "</div>";
         }
-
-        echo "</div>";
     }
 
     function check_ddg_bang($query)

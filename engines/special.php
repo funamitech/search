@@ -1,5 +1,6 @@
 <?php
 
+    // TODO make this a EngineRequest also
     function check_for_special_search($query) {
         if (isset($_COOKIE["disable_special"]))
             return 0;
@@ -55,31 +56,31 @@
         switch ($special_search) {
             case 1:
                 require "engines/special/currency.php";
-                $special_request = new CurrencyRequest($query, $mh, $config);
+                $special_request = new CurrencyRequest($query, $page, $mh, $config);
                 break;
             case 2:
                 require "engines/special/definition.php";
-                $special_request = new DefinitionRequest($query, $mh, $config);
+                $special_request = new DefinitionRequest($query, $page, $mh, $config);
                 break;
             case 3:
                 require "engines/special/ip.php";
-                $special_request = new IPRequest($query, $mh, $config);
+                $special_request = new IPRequest($query, $page, $mh, $config);
                 break;
             case 4:
                 require "engines/special/user_agent.php";
-                $special_request = new UserAgentRequest($query, $mh, $config);
+                $special_request = new UserAgentRequest($query, $page, $mh, $config);
                 break;
             case 5:
                 require "engines/special/weather.php";
-                $special_request = new WeatherRequest($query, $mh, $config);
+                $special_request = new WeatherRequest($query, $page, $mh, $config);
                 break;
             case 6:
                 require "engines/special/tor.php";
-                $special_request = new TorRequest($query, $mh, $config);
+                $special_request = new TorRequest($query, $page, $mh, $config);
                 break;
             case 7:
                 require "engines/special/wikipedia.php";
-                $special_request = new WikipediaRequest($query, $mh, $config);
+                $special_request = new WikipediaRequest($query, $page, $mh, $config);
                 break;
         }
 

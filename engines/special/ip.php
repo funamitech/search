@@ -1,6 +1,6 @@
 <?php
     class IPRequest extends EngineRequest {
-        function __construct($query, $mh, $config) {
+        function __construct($query, $page, $mh, $config) {
             $this->query = $query;
         }
 

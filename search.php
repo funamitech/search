@@ -5,44 +5,42 @@
     require "misc/tools.php";
     $query = trim($_REQUEST["q"]);
 
-    class EngineRequest {
-        public $ch;
-        public $query;
-
-        function __construct($query, $mh, $config) {
+    abstract class EngineRequest {
+        function __construct($query, $page, $mh, $config) {
             $this->query = $query;
+            $this->page = $page;
             $this->config = $config;
 
             $url = $this->get_request_url();
             if ($url) {
+                error_log($url);
                 $this->ch = curl_init($url);
                 curl_setopt_array($this->ch, $config->curl_settings);
                 curl_multi_add_handle($mh, $this->ch);
             }
         }
 
-        public function get_request_url() {
+        abstract function get_results();
+        public function get_request_url(){
             return "";
         }
-
-        public function get_results() {
-            return array();
-        }
+        public function print_results($results){}
     }
 
-    function import_search_category($type) {
+    function init_search($type, $query, $page, $mh, $config) {
         switch ($type)
         {
             case 0:
                 require "engines/text.php";
-                break;
+                return new TextSearch($query, $page, $mh, $config);
 
             case 1:
                 require "engines/qwant/image.php";
-                break;
+                return new QwantImageSearch($query, $page, $mh, $config);
 
             case 2:
                 require "engines/invidious/video.php";
+                return new VideoSearch($query, $page, $mh, $config);
                 break;
 
             case 3:
@@ -118,11 +116,19 @@
         <?php
             $page = isset($_REQUEST["p"]) ? (int) $_REQUEST["p"] : 0;
             $start_time = microtime(true);
-            import_search_category($type);
-            $results = fetch_search_results($query, $page);
-            print_elapsed_time($start_time);
-            print_search_results($results);
 
+            $mh = curl_multi_init();
+            $search_category = init_search($type, $query, $page, $mh, $config);
+
+            $running = null;
+
+            do {
+                curl_multi_exec($mh, $running);
+            } while ($running);
+
+            $results = $search_category->get_results($query, $page);
+            print_elapsed_time($start_time);
+            $search_category->print_results($results);
 
             if (2 > $type)
             {
