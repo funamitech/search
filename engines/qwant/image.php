@@ -40,7 +40,7 @@
             return $results;
         }
         
-        public function print_results($results) {
+        public static function print_results($results) {
             echo "<div class=\"image-result-container\">";
 
                 foreach($results as $result)

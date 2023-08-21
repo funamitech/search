@@ -3,70 +3,13 @@
 
     $config = require "config.php";
     require "misc/tools.php";
-    $query = trim($_REQUEST["q"]);
-
-    abstract class EngineRequest {
-        function __construct($query, $page, $mh, $config) {
-            $this->query = $query;
-            $this->page = $page;
-            $this->config = $config;
-
-            $url = $this->get_request_url();
-            if ($url) {
-                error_log($url);
-                $this->ch = curl_init($url);
-                curl_setopt_array($this->ch, $config->curl_settings);
-                curl_multi_add_handle($mh, $this->ch);
-            }
-        }
-
-        abstract function get_results();
-        public function get_request_url(){
-            return "";
-        }
-        public function print_results($results){}
-    }
-
-    function init_search($type, $query, $page, $mh, $config) {
-        switch ($type)
-        {
-            case 0:
-                require "engines/text.php";
-                return new TextSearch($query, $page, $mh, $config);
-
-            case 1:
-                require "engines/qwant/image.php";
-                return new QwantImageSearch($query, $page, $mh, $config);
-
-            case 2:
-                require "engines/invidious/video.php";
-                return new VideoSearch($query, $page, $mh, $config);
-                break;
-
-            case 3:
-                if ($config->disable_bittorent_search)
-                    echo "<p class=\"text-result-container\">The host disabled this feature! :C</p>";
-                else
-                    require "engines/bittorrent/merge.php";
-                break;
-
-            case 4:
-                if ($config->disable_hidden_service_search)
-                    echo "<p class=\"text-result-container\">The host disabled this feature! :C</p>";
-                else
-                    require "engines/ahmia/hidden_service.php";
-                break;
-
-            default:
-                require "engines/text.php";
-                break;
-        }
-    }
+    require "misc/engine_request.php";
 ?>
 
 <title>
 <?php
-  echo $query;
+    $query = trim($_REQUEST["q"]);
+    echo $query;
 ?> - LibreY</title>
 </head>
     <body>
@@ -74,8 +17,6 @@
             <h1 class="logomobile"><a class="no-decoration" href="./">Libre<span class="Y">Y</span></a></h1>
             <input type="text" name="q"
                 <?php
-                    $query_encoded = urlencode($query);
-
                     if (1 > strlen($query) || strlen($query) > 256)
                     {
                         header("Location: ./");

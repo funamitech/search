@@ -1,6 +1,9 @@
 <?php
     class TextSearch extends EngineRequest {
         public function __construct($query, $page, $mh, $config) {
+            $this->query = $query;
+            $this->page = $page;
+
             $engine=$config->preferred_engines['text'];
             if (is_null($engine))
                 $engine = "google";
@@ -39,7 +42,7 @@
             return $results;
         }
 
-        public function print_results($results) {
+        public static function print_results($results) {
 
             if (empty($results))
                 return;
