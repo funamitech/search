@@ -1,6 +1,5 @@
 <?php
-    function get_text_results($query, $page)
-    {
+    function fetch_search_results($query, $page) {
         global $config;
 
         $mh = curl_multi_init();
@@ -32,7 +31,7 @@
             curl_multi_exec($mh, $running);
         } while ($running);
 
-        if (curl_getinfo($)['http_code'] != '200') 
+        if (curl_getinfo($engine_request->ch)['http_code'] != '200') 
         {
             require "engines/librex/text.php";
             return get_librex_results($query, $page);
@@ -47,8 +46,7 @@
         return $results;
     }
 
-    function print_text_results($results)
-    {
+    function print_search_results($results) {
 
         if (empty($results))
             return;

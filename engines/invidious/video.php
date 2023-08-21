@@ -1,6 +1,5 @@
 <?php
-    function get_video_results($query)
-    {
+    function fetch_search_results($query, $page) {
         global $config;
         $instance_url = $config->invidious_instance_for_video_results;
         
@@ -38,7 +37,7 @@
         return $results;
     }
 
-    function print_video_results($results)
+    function print_search_results($results)
     {
         echo "<div class=\"text-result-container\">";
 

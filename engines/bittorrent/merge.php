@@ -1,6 +1,6 @@
 <?php
 
-    function get_merged_torrent_results($query)
+    function fetch_search_results($query)
     {
         global $config;
 
@@ -76,7 +76,7 @@
         return $results; 
     }
 
-    function print_merged_torrent_results($results)
+    function print_search_results($results)
     {
         echo "<div class=\"text-result-container\">";
 

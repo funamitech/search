@@ -6,11 +6,11 @@
         $query_encoded = str_replace("%22", "\"", urlencode($this->query));
         $results = array();
 
-        // $domain = $config->google_domain;
+        // $domain = $this->config->google_domain;
         $domain = 'com';
-        $site_language = isset($_COOKIE["google_language_site"]) ? trim(htmlspecialchars($_COOKIE["google_language_site"])) : $config->google_language_site;
-        $results_language = isset($_COOKIE["google_language_results"]) ? trim(htmlspecialchars($_COOKIE["google_language_results"])) : $config->google_language_results;
-        $number_of_results = isset($_COOKIE["google_number_of_results"]) ? trim(htmlspecialchars($_COOKIE["google_number_of_results"])) : $config->google_number_of_results;
+        $site_language = isset($_COOKIE["google_language_site"]) ? trim(htmlspecialchars($_COOKIE["google_language_site"])) : $this->config->google_language_site;
+        $results_language = isset($_COOKIE["google_language_results"]) ? trim(htmlspecialchars($_COOKIE["google_language_results"])) : $this->config->google_language_results;
+        $number_of_results = isset($_COOKIE["google_number_of_results"]) ? trim(htmlspecialchars($_COOKIE["google_number_of_results"])) : $this->config->google_number_of_results;
 
         $url = "https://html.duckduckgo.$domain/html/?q=$query_encoded&kd=-1&s=" . 3 * $page;
         if (3 > strlen($site_language) && 0 < strlen($site_language))

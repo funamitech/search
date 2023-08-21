@@ -30,6 +30,40 @@
         }
     }
 
+    function import_search_category($type) {
+        switch ($type)
+        {
+            case 0:
+                require "engines/text.php";
+                break;
+
+            case 1:
+                require "engines/qwant/image.php";
+                break;
+
+            case 2:
+                require "engines/invidious/video.php";
+                break;
+
+            case 3:
+                if ($config->disable_bittorent_search)
+                    echo "<p class=\"text-result-container\">The host disabled this feature! :C</p>";
+                else
+                    require "engines/bittorrent/merge.php";
+                break;
+
+            case 4:
+                if ($config->disable_hidden_service_search)
+                    echo "<p class=\"text-result-container\">The host disabled this feature! :C</p>";
+                else
+                    require "engines/ahmia/hidden_service.php";
+                break;
+
+            default:
+                require "engines/text.php";
+                break;
+        }
+    }
 ?>
 
 <title>
@@ -84,64 +118,10 @@
         <?php
             $page = isset($_REQUEST["p"]) ? (int) $_REQUEST["p"] : 0;
             $start_time = microtime(true);
-            switch ($type)
-            {
-                case 0:
-					require "engines/text.php";
-                    $results = get_text_results($query, $page);
-                    print_elapsed_time($start_time);
-                    print_text_results($results);
-                    break;
-
-                case 1:
-                    require "engines/qwant/image.php";
-                    $results = get_image_results($query_encoded, $page);
-                    print_elapsed_time($start_time);
-                    print_image_results($results);
-                    break;
-
-                case 2:
-                    require "engines/invidious/video.php";
-                    $results = get_video_results($query_encoded);
-                    print_elapsed_time($start_time);
-                    print_video_results($results);
-                    break;
-
-                case 3:
-                    if ($config->disable_bittorent_search)
-                        echo "<p class=\"text-result-container\">The host disabled this feature! :C</p>";
-                    else
-                    {
-                        require "engines/bittorrent/merge.php";
-                        $results = get_merged_torrent_results($query_encoded);
-                        print_elapsed_time($start_time);
-                        print_merged_torrent_results($results);
-                    }
-                    break;
-
-                case 4:
-                    if ($config->disable_hidden_service_search)
-                        echo "<p class=\"text-result-container\">The host disabled this feature! :C</p>";
-                    else
-                    {
-                        require "engines/ahmia/hidden_service.php";
-                        $results = get_hidden_service_results($query_encoded);
-                        print_elapsed_time($start_time);
-                        print_hidden_service_results($results);
-                    }
-                    break;
-
-                default:
-                    $query_parts = explode(" ", $query);
-                    $last_word_query = end($query_parts);
-                    if (substr($query, 0, 1) == "!" || substr($last_word_query, 0, 1) == "!")
-                        check_ddg_bang($query);
-                    require "engines/google/text.php";
-                    $results = get_text_results($query, $page);
-                    print_elapsed_time($start_time);
-                    print_text_results($results);
-                    break;
-            }
+            import_search_category($type);
+            $results = fetch_search_results($query, $page);
+            print_elapsed_time($start_time);
+            print_search_results($results);
 
 
             if (2 > $type)

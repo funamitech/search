@@ -1,5 +1,5 @@
 <?php
-    function get_hidden_service_results($query)
+    function get_search_results($query)
     {
         global $config;
 
@@ -27,4 +27,5 @@
 
         return $results;
     }
+    require "engines/text.php";
 ?>

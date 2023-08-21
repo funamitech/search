@@ -1,5 +1,5 @@
 <?php
-    function get_image_results($query, $page) 
+    function fetch_search_results($query, $page) 
     {
         global $config;
 
@@ -40,7 +40,7 @@
         return $results;
     }
 
-    function print_image_results($results)
+    function print_search_results($results)
     {
         echo "<div class=\"image-result-container\">";
 
