@@ -1,6 +1,7 @@
 <?php
     $config = require "config.php";
     require "misc/tools.php";
+    require "misc/search_engine.php";
 
     if (!isset($_REQUEST["q"]))
     {
@@ -21,46 +22,7 @@
     $page = isset($_REQUEST["p"]) ? (int) $_REQUEST["p"] : 0;
     $type = isset($_REQUEST["t"]) ? (int) $_REQUEST["t"] : 0;
 
-    $results = array();
-
-    switch ($type)
-    {
-        case 0:
-            require "engines/text.php";
-            $results = get_text_results($query, $page);
-            break;
-        case 1:
-            require "engines/qwant/image.php";
-            $results = get_image_results($query_encoded, $page);
-            break;
-        case 2:
-            require "engines/invidious/video.php";
-            $results = get_video_results($query_encoded);
-            break;
-        case 3:
-            if ($config->disable_bittorent_search)
-                $results = array("error" => "disabled");
-            else
-            {
-                require "engines/bittorrent/merge.php";
-                $results = get_merged_torrent_results($query_encoded);
-            }
-            break;
-        case 4:
-            if ($config->disable_hidden_service_search)
-                $results = array("error" => "disabled");
-            else
-            {
-                require "engines/ahmia/hidden_service.php";
-                $results = get_hidden_service_results($query_encoded);
-            }
-            break;
-        default:
-            require "engines/google/text.php";
-            $results = get_text_results($query_encoded, $page);
-            break;
-    }
-
+    $results = fetch_search_results($type, $query, $page, $config, false);
     header("Content-Type: application/json");
     echo json_encode($results);
 ?>

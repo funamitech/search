@@ -3,12 +3,34 @@
 
     $config = require "config.php";
     require "misc/tools.php";
-    require "misc/engine_request.php";
+    require "misc/search_engine.php";
+
+    function print_page_buttons($type, $query, $page) {
+        if ($type > 1)
+            return;
+        echo "<div class=\"next-page-button-wrapper\">";
+
+            if ($page != 0)
+            {
+                print_next_page_button("&lt;&lt;", 0, $query, $type);
+                print_next_page_button("&lt;", $page - 10, $query, $type);
+            }
+
+            for ($i=$page / 10; $page / 10 + 10 > $i; $i++)
+                print_next_page_button($i + 1, $i * 10, $query, $type);
+
+            print_next_page_button("&gt;", $page + 10, $query, $type);
+
+        echo "</div>";
+    }
+
+    $query = trim($_REQUEST["q"]);
+    $type = isset($_REQUEST["t"]) ? (int) $_REQUEST["t"] : 0;
+    $page = isset($_REQUEST["p"]) ? (int) $_REQUEST["p"] : 0;
 ?>
 
 <title>
 <?php
-    $query = trim($_REQUEST["q"]);
     echo $query;
 ?> - LibreY</title>
 </head>
@@ -28,7 +50,6 @@
             >
             <br>
             <?php
-                $type = isset($_REQUEST["t"]) ? (int) $_REQUEST["t"] : 0;
                 echo "<button class=\"hide\" name=\"t\" value=\"$type\"/></button>";
             ?>
             <button type="submit" class="hide"></button>
@@ -55,39 +76,8 @@
         </form>
 
         <?php
-            $page = isset($_REQUEST["p"]) ? (int) $_REQUEST["p"] : 0;
-            $start_time = microtime(true);
-
-            $mh = curl_multi_init();
-            $search_category = init_search($type, $query, $page, $mh, $config);
-
-            $running = null;
-
-            do {
-                curl_multi_exec($mh, $running);
-            } while ($running);
-
-            $results = $search_category->get_results($query, $page);
-            print_elapsed_time($start_time);
-            $search_category->print_results($results);
-
-            if (2 > $type)
-            {
-                echo "<div class=\"next-page-button-wrapper\">";
-
-                    if ($page != 0)
-                    {
-                        print_next_page_button("&lt;&lt;", 0, $query, $type);
-                        print_next_page_button("&lt;", $page - 10, $query, $type);
-                    }
-
-                    for ($i=$page / 10; $page / 10 + 10 > $i; $i++)
-                        print_next_page_button($i + 1, $i * 10, $query, $type);
-
-                    print_next_page_button("&gt;", $page + 10, $query, $type);
-
-                echo "</div>";
-            }
+            fetch_search_results($type, $query, $page, $config, true);
+            print_page_buttons($type, $query, $page);
         ?>
 
 <?php require "misc/footer.php"; ?>

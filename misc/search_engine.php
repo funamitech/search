@@ -7,7 +7,6 @@
 
             $url = $this->get_request_url();
             if ($url) {
-                error_log($url);
                 $this->ch = curl_init($url);
                 curl_setopt_array($this->ch, $config->curl_settings);
                 curl_multi_add_handle($mh, $this->ch);
@@ -54,5 +53,27 @@
                 require "engines/text.php";
                 return new TextSearch($query, $page, $mh, $config);
         }
+    }
+
+    function fetch_search_results($type, $query, $page, $config, $do_print) {
+        $start_time = microtime(true);
+        $mh = curl_multi_init();
+        $search_category = init_search($type, $query, $page, $mh, $config);
+
+        $running = null;
+
+        do {
+            curl_multi_exec($mh, $running);
+        } while ($running);
+
+        $results = $search_category->get_results($query, $page);
+
+        if (!$do_print)
+            return $results;
+
+        print_elapsed_time($start_time);
+        $search_category->print_results($results);
+
+        return $results;
     }
 ?>
