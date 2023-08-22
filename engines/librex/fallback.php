@@ -1,7 +1,19 @@
 <?php
 
-    function get_librex_results($query, $page) 
-    {
+class LibreXFallback extends EngineRequest {
+    public function __construct($instance, $opts, $mh) {
+        $this->instance = $instance;
+        parent::__construct($opts, $mh);
+    }
+
+    public function get_request_url() {
+       return $instance . "api.php?" .opts_to_params($opts);
+    }
+
+}
+
+
+    function get_librex_results($opts, $mh) {
         global $config;
 
         if (isset($_REQUEST["nfb"]) && $_REQUEST["nfb"] == "1")
@@ -50,4 +62,5 @@
 
         return array_values($results);
     }
+
 ?>

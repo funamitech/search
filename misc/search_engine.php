@@ -31,23 +31,44 @@
         $opts->query = trim($_REQUEST["q"] ?? "");
         $opts->type = (int) ($_REQUEST["t"] ?? 0);
         $opts->page = (int) ($_REQUEST["p"] ?? 0);
+        $opts->do_fallback = (int) ($_REQUEST["nfb"] ?? 0) == 0;
 
         $opts->theme = trim(htmlspecialchars($_COOKIE["theme"] ?? "dark"));
-        $opts->safe_search = isset($_COOKIE["safe_search"]);
-        $opts->disable_special = isset($_COOKIE["disable_special"]);
-        $opts->disable_frontends = isset($_COOKIE["disable_frontends"]);
 
-        $opts->language ??= trim(htmlspecialchars($_COOKIE["language"]));
+        $opts->safe_search = (int) ($_REQUEST["safe"] ?? 0) == 1 || isset($_COOKIE["safe_search"]);
+
+        $opts->disable_special = (int) ($_REQUEST["ns"] ?? 0) == 1 || isset($_COOKIE["disable_special"]);
+
+        $opts->disable_frontends = (int) ($_REQUEST["nf"] ?? 0) == 1 || isset($_COOKIE["disable_frontends"]);
+
+        $opts->language = $_REQUEST["lang"] ?? trim(htmlspecialchars($_COOKIE["language"]));
+
+        $opts->do_fallback = (int) ($_REQUEST["nfb"] ?? 0) == 0;
+        if (!$opts->instance_fallback) {
+            $opts->do_fallback = false;
+        }
+
         $opts->number_of_results ??= trim(htmlspecialchars($_COOKIE["number_of_results"]));
 
         foreach (array_keys($opts->frontends ?? array()) as $frontend) {
             $opts->frontends[$frontend]["instance_url"] = $_COOKIE[$frontend] ?? "";
         }
-
-        echo "<pre>";
-        echo "</pre>";
-
         return $opts;
+    }
+
+    function opts_to_params($opts) {
+        $query = urlencode($opts->query);
+
+        $params = "";
+        $params .= "p=$opts->page";
+        $params .= "&q=$query";
+        $params .= "&t=$opts->type";
+        $params .= "&nfb=" . $opts->do_fallback ? 0 : 1;
+        $params .= "&safe=" . $opts->safe_search ? 1 : 0;
+        $params .= "&nf=" . $opts->disable_frontends ? 1 : 0;
+        $params .= "&ns=" . $opts->disable_special ? 1 : 0;
+
+        return $params;
     }
 
     function init_search($opts, $mh) {
@@ -97,7 +118,10 @@
 
         $results = $search_category->get_results();
 
-        // TODO test if no results here and fallback
+        if (empty($results)) {
+            //if (!$opt->do_fallback)
+                //return ;
+        }
 
         if (!$do_print)
             return $results;

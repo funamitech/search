@@ -22,7 +22,7 @@
 
             $description = substr($first_page["extract"], 0, 250) . "...";
 
-            $source = check_for_privacy_frontend("https://$this->wikipedia_language.wikipedia.org/wiki/$this->query");
+            $source = check_for_privacy_frontend("https://$this->wikipedia_language.wikipedia.org/wiki/$this->query", $this->opts);
             $response = array(
                 "special_response" => array(
                     "response" => htmlspecialchars($description),

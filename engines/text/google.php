@@ -51,8 +51,7 @@
                 }
 
                 $url = $url->textContent;
-
-                $url = check_for_privacy_frontend($url);
+                $url = check_for_privacy_frontend($url, $opts);
 
                 $title = $xpath->evaluate(".//h3", $result)[0];
                 $description = $xpath->evaluate(".//div[contains(@class, 'VwiC3b')]", $result)[0];
