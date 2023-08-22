@@ -17,6 +17,10 @@
             return "";
         }
 
+        public function successful() {
+            return curl_getinfo($this->ch)['http_code'] == '200';
+        }
+
         abstract function get_results();
         static public function print_results($results){}
     }
