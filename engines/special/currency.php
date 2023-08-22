@@ -1,25 +1,24 @@
 <?php
-class CurrencyRequest extends EngineRequest {
-    public function get_request_url() {
-        return "https://cdn.moneyconvert.net/api/latest.json";
-    }
-    
-    public function get_results()
-    { 
-        $response = curl_multi_getcontent($this->ch);
-
-        $split_query = explode(" ", $this->query);
-
-        $base_currency = strtoupper($split_query[1]);
-        $currency_to_convert = strtoupper($split_query[3]);
-        $amount_to_convert = floatval($split_query[0]);   
+    class CurrencyRequest extends EngineRequest {
+        public function get_request_url() {
+            return "https://cdn.moneyconvert.net/api/latest.json";
+        }
         
-        $json_response = json_decode($response, true);
-                
-        $rates =  $json_response["rates"];
+        public function get_results() { 
+            $response = curl_multi_getcontent($this->ch);
 
-        if (array_key_exists($base_currency, $rates) && array_key_exists($currency_to_convert, $rates))
-        {
+            $split_query = explode(" ", $this->query);
+
+            $base_currency = strtoupper($split_query[1]);
+            $currency_to_convert = strtoupper($split_query[3]);
+            $amount_to_convert = floatval($split_query[0]);   
+            
+            $json_response = json_decode($response, true);
+                    
+            $rates =  $json_response["rates"];
+
+            if (!array_key_exists($base_currency, $rates) || !array_key_exists($currency_to_convert, $rates))
+                return array();
             $base_currency_response = $rates[$base_currency];
             $currency_to_convert_response = $rates[$currency_to_convert];
 
@@ -33,6 +32,6 @@ class CurrencyRequest extends EngineRequest {
                     "source" => $source
                 )
             );
-        }                    
+        }
     }
 ?>

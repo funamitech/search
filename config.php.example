@@ -4,13 +4,9 @@
         // e.g.: fr -> https://google.fr/
         "google_domain" => "com",
 
-        // Google results will be in this language
-        "google_language_site" => "",
-        "google_language_results" => "",
-        "google_number_of_results" => 10,
-
-        // You can set a language for results in wikipedia
-        "wikipedia_language" => "en",
+        // Results will be in this language
+        "language" => "",
+        "number_of_results" => 10,
 
         // You can use any Invidious instance here
         "invidious_instance_for_video_results" => "https://invidious.snopyta.org",

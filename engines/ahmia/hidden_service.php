@@ -1,10 +1,9 @@
 <?php
-    require "engines/text.php";
+    require "engines/text/text.php";
 
     class TorSearch extends EngineRequest {
         public function get_request_url() {
-            $query = urlencode($this->query);
-            return "https://ahmia.fi/search/?q=$query";
+            return "https://ahmia.fi/search/?q=" . urlencode($this->query);
         }
 
         public function get_results() {

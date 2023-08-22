@@ -1,8 +1,7 @@
 <?php
     class TorrentSearch extends EngineRequest {
-        public function __construct($query, $page, $mh, $config) {
-            $this->query = $query;
-            $this->page = $page;
+        public function __construct($opts, $mh) {
+            parent::__construct($opts, $mh);
 
             require "engines/bittorrent/thepiratebay.php";
             require "engines/bittorrent/rutor.php";
@@ -12,25 +11,21 @@
             require "engines/bittorrent/sukebei.php";
 
             $this->requests = array(
-                new PirateBayRequest($query, $page, $mh, $config),
-                new _1337xRequest($query, $page, $mh, $config),
-                new NyaaRequest($query, $page, $mh, $config),
-                new RutorRequest($query, $page, $mh, $config),
-                new SukebeiRequest($query, $page, $mh, $config),
-                new TorrentGalaxyRequest($query, $page, $mh, $config),
-                new YTSRequest($query, $page, $mh, $config),
+                new PirateBayRequest($opts, $mh),
+                new _1337xRequest($opts, $mh),
+                new NyaaRequest($opts, $mh),
+                new RutorRequest($opts, $mh),
+                new SukebeiRequest($opts, $mh),
+                new TorrentGalaxyRequest($opts, $mh),
+                new YTSRequest($opts, $mh),
             );
         }
 
         public function get_results() {
-            $query = urlencode($this->query);
             $results = array();
             foreach ($this->requests as $request) {
-                error_log($request->get_request_url());
-                error_log( curl_getinfo($request->ch)['http_code'] );
-                if ($request->successful()) {
+                if ($request->successful())
                     $results = array_merge($results, $request->get_results());
-                }
             }
 
             $seeders = array_column($results, "seeders");

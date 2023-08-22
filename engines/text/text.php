@@ -1,29 +1,29 @@
 <?php
     class TextSearch extends EngineRequest {
-        public function __construct($query, $page, $mh, $config) {
-            $this->query = $query;
-            $this->page = $page;
+        public function __construct($opts, $mh) {
+            $this->query = $opts->query;
+            $this->page = $opts->page;
+            $this->opts = $opts;
 
-            $engine=$config->preferred_engines['text'];
-            if (is_null($engine))
-                $engine = "google";
-            $query_parts = explode(" ", $query);
+            $engine = $opts->preferred_engines->text ?? "google";
+
+            $query_parts = explode(" ", $this->query);
             $last_word_query = end($query_parts);
-            if (substr($query, 0, 1) == "!" || substr($last_word_query, 0, 1) == "!")
-                check_ddg_bang($query);
+            if (substr($this->query, 0, 1) == "!" || substr($last_word_query, 0, 1) == "!")
+                check_ddg_bang($this->query);
 
             if ($engine == "google") {
                 require "engines/text/google.php";
-                $this->engine_request = new GoogleRequest($query,  $page, $mh, $config);
+                $this->engine_request = new GoogleRequest($opts, $mh);
             }
 
             if ($engine == "duckduckgo") {
                 require "engines/text/duckduckgo.php";
-                $this->engine_request = new DuckDuckGoRequest($query, $page, $mh, $config);
+                $this->engine_request = new DuckDuckGoRequest($opts, $mh);
             }
 
             require "engines/special/special.php";
-            $this->special_request = get_special_search_request($query, $page, $mh, $config);
+            $this->special_request = get_special_search_request($opts, $mh);
         }
 
         public function get_results() {

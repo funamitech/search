@@ -44,8 +44,11 @@
         return 0;
     }
 
-    function get_special_search_request ($query, $page, $mh, $config) {
-        $special_search = $page ? 0 : check_for_special_search($query);
+    function get_special_search_request($opts, $mh) {
+        if ($opts->page != 0)
+            return null;
+
+        $special_search = check_for_special_search($opts->query);
         $special_request = null;
         $url = null;
 
@@ -55,31 +58,31 @@
         switch ($special_search) {
             case 1:
                 require "engines/special/currency.php";
-                $special_request = new CurrencyRequest($query, $page, $mh, $config);
+                $special_request = new CurrencyRequest($opts, $mh);
                 break;
             case 2:
                 require "engines/special/definition.php";
-                $special_request = new DefinitionRequest($query, $page, $mh, $config);
+                $special_request = new DefinitionRequest($opts, $mh);
                 break;
             case 3:
                 require "engines/special/ip.php";
-                $special_request = new IPRequest($query, $page, $mh, $config);
+                $special_request = new IPRequest($opts, $mh);
                 break;
             case 4:
                 require "engines/special/user_agent.php";
-                $special_request = new UserAgentRequest($query, $page, $mh, $config);
+                $special_request = new UserAgentRequest($opts, $mh);
                 break;
             case 5:
                 require "engines/special/weather.php";
-                $special_request = new WeatherRequest($query, $page, $mh, $config);
+                $special_request = new WeatherRequest($opts, $mh);
                 break;
             case 6:
                 require "engines/special/tor.php";
-                $special_request = new TorRequest($query, $page, $mh, $config);
+                $special_request = new TorRequest($opts, $mh);
                 break;
             case 7:
                 require "engines/special/wikipedia.php";
-                $special_request = new WikipediaRequest($query, $page, $mh, $config);
+                $special_request = new WikipediaRequest($opts, $mh);
                 break;
         }
 

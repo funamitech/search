@@ -1,4 +1,5 @@
 <?php
+                // TODO fix this page based on opts
                 $config = require "config.php";
 
                 // Reset all cookies when resetting, or before saving new cookies

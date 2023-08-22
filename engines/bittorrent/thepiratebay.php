@@ -22,7 +22,7 @@
                 $seeders = (int) $response["seeders"];
                 $leechers = (int) $response["leechers"];
 
-                $magnet = "magnet:?xt=urn:btih:$hash&dn=$name" . $config->bittorent_trackers;
+                $magnet = "magnet:?xt=urn:btih:$hash&dn=$name" . $this->opts->bittorrent_trackers;
 
                 if ($name == "No results returned")
                     break;

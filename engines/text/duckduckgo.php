@@ -5,15 +5,11 @@
             $query_encoded = str_replace("%22", "\"", urlencode($this->query));
             $results = array();
 
-            // $domain = $this->config->google_domain;
             $domain = 'com';
-            $site_language = isset($_COOKIE["google_language_site"]) ? trim(htmlspecialchars($_COOKIE["google_language_site"])) : $this->config->google_language_site;
-            $results_language = isset($_COOKIE["google_language_results"]) ? trim(htmlspecialchars($_COOKIE["google_language_results"])) : $this->config->google_language_results;
-            $number_of_results = isset($_COOKIE["google_number_of_results"]) ? trim(htmlspecialchars($_COOKIE["google_number_of_results"])) : $this->config->google_number_of_results;
+            $results_language = $this->opts->language;
+            $number_of_results = $this->opts->number_of_results;
 
             $url = "https://html.duckduckgo.$domain/html/?q=$query_encoded&kd=-1&s=" . 3 * $this->page;
-            if (3 > strlen($site_language) && 0 < strlen($site_language))
-                $url .= "&hl=$site_language";
 
             if (3 > strlen($results_language) && 0 < strlen($results_language))
                 $url .= "&lr=lang_$results_language";

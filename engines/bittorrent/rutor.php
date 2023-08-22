@@ -15,7 +15,7 @@
                 $name = $xpath->evaluate(".//td/a", $result)[2]->textContent;
                 $magnet =  $xpath->evaluate(".//td/a/@href", $result)[1]->textContent;
                 $magnet_without_tracker = explode("&tr=", $magnet)[0];
-                $magnet = $magnet_without_tracker . $this->config->bittorent_trackers;
+                $magnet = $magnet_without_tracker . $this->opts->bittorrent_trackers;
                 $td = $xpath->evaluate(".//td", $result);
                 $size = $td[count($td) == 5 ? 3 : 2]->textContent;
                 $seeders = $xpath->evaluate(".//span", $result)[0]->textContent;

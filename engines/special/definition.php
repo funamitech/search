@@ -1,5 +1,6 @@
 <?php
     class DefinitionRequest extends EngineRequest {
+
         public function get_request_url() {
             $split_query = explode(" ", $this->query);
             $reversed_split_q = array_reverse($split_query);

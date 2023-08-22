@@ -1,9 +1,10 @@
-<?php 
+<?php
     require "misc/header.php";
 
-    $config = require "config.php";
     require "misc/tools.php";
     require "misc/search_engine.php";
+
+    $opts = load_opts();
 
     function print_page_buttons($type, $query, $page) {
         if ($type > 1)
@@ -23,15 +24,11 @@
 
         echo "</div>";
     }
-
-    $query = trim($_REQUEST["q"]);
-    $type = isset($_REQUEST["t"]) ? (int) $_REQUEST["t"] : 0;
-    $page = isset($_REQUEST["p"]) ? (int) $_REQUEST["p"] : 0;
 ?>
 
 <title>
 <?php
-    echo $query;
+    echo $opts->query;
 ?> - LibreY</title>
 </head>
     <body>
@@ -39,18 +36,18 @@
             <h1 class="logomobile"><a class="no-decoration" href="./">Libre<span class="Y">Y</span></a></h1>
             <input type="text" name="q"
                 <?php
-                    if (1 > strlen($query) || strlen($query) > 256)
+                    if (1 > strlen($opts->query) || strlen($opts->query) > 256)
                     {
                         header("Location: ./");
                         die();
                     }
 
-                    echo "value=\"" . htmlspecialchars($query) . "\"";
+                    echo "value=\"" . htmlspecialchars($opts->query) . "\"";
                 ?>
             >
             <br>
             <?php
-                echo "<button class=\"hide\" name=\"t\" value=\"$type\"/></button>";
+                echo "<button class=\"hide\" name=\"t\" value=\"$opts->type\"/></button>";
             ?>
             <button type="submit" class="hide"></button>
             <input type="hidden" name="p" value="0">
@@ -62,13 +59,13 @@
                     {
                         $category_index = array_search($category, $categories);
 
-                        if (($config->disable_bittorent_search && $category_index == 3) ||
-                            ($config->disable_hidden_service_search && $category_index ==4))
+                        if (($opts->disable_bittorent_search && $category_index == 3) ||
+                            ($opts->disable_hidden_service_search && $category_index ==4))
                         {
                             continue;
                         }
 
-                        echo "<a " . (($category_index == $type) ? "class=\"active\" " : "") . "href=\"./search.php?q=" . urlencode($query) . "&p=0&t=" . $category_index . "\"><img src=\"static/images/" . $category . "_result.png\" alt=\"" . $category . " result\" />" . ucfirst($category)  . "</a>";
+                        echo "<a " . (($category_index == $opts->type) ? "class=\"active\" " : "") . "href=\"./search.php?q=" . urlencode($opts->query) . "&p=0&t=" . $category_index . "\"><img src=\"static/images/" . $category . "_result.png\" alt=\"" . $category . " result\" />" . ucfirst($category)  . "</a>";
                     }
                 ?>
             </div>
@@ -76,8 +73,8 @@
         </form>
 
         <?php
-            fetch_search_results($type, $query, $page, $config, true);
-            print_page_buttons($type, $query, $page);
+            fetch_search_results($opts, true);
+            print_page_buttons($opts->type, $opts->query, $opts->page);
         ?>
 
 <?php require "misc/footer.php"; ?>

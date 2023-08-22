@@ -1,14 +1,14 @@
 <?php
     abstract class EngineRequest {
-        function __construct($query, $page, $mh, $config) {
-            $this->query = $query;
-            $this->page = $page;
-            $this->config = $config;
+        function __construct($opts, $mh) {
+            $this->query = $opts->query;
+            $this->page = $opts->page;
+            $this->opts = $opts;
 
             $url = $this->get_request_url();
             if ($url) {
                 $this->ch = curl_init($url);
-                curl_setopt_array($this->ch, $config->curl_settings);
+                curl_setopt_array($this->ch, $opts->curl_settings);
                 curl_multi_add_handle($mh, $this->ch);
             }
         }
@@ -25,44 +25,64 @@
         static public function print_results($results){}
     }
 
-    function init_search($type, $query, $page, $mh, $config) {
-        switch ($type)
+    function load_opts() {
+        $opts = require "config.php";
+
+        $opts->query = trim($_REQUEST["q"]);
+        $opts->type = (int) $_REQUEST["t"] ?? 0;
+        $opts->page = (int) $_REQUEST["p"] ?? 0;
+
+        $opts->theme = trim(htmlspecialchars($_COOKIE["theme"] ?? "dark"));
+        $opts->safe_search = isset($_COOKIE["safe_search"]);
+        $opts->disable_special = isset($_COOKIE["disable_special"]);
+        $opts->disable_frontends = isset($_COOKIE["disable_frontends"]);
+
+        $opts->language ??= trim(htmlspecialchars($_COOKIE["language"]));
+        $opts->number_of_results ??= trim(htmlspecialchars($_COOKIE["number_of_results"]));
+
+        // TODO frontends
+
+        return $opts;
+    }
+
+    function init_search($opts, $mh) {
+        switch ($opts->type)
         {
             case 1:
                 require "engines/qwant/image.php";
-                return new QwantImageSearch($query, $page, $mh, $config);
+                return new QwantImageSearch($opts, $mh);
 
             case 2:
                 require "engines/invidious/video.php";
-                return new VideoSearch($query, $page, $mh, $config);
+                return new VideoSearch($opts, $mh);
 
             case 3:
-                if ($config->disable_bittorent_search) {
+                if ($opts->disable_bittorent_search) {
                     echo "<p class=\"text-result-container\">The host disabled this feature! :C</p>";
                     break;
                 }
 
                 require "engines/bittorrent/merge.php";
-                return new TorrentSearch($query, $page, $mh, $config);
+                return new TorrentSearch($opts, $mh);
 
             case 4:
-                if ($config->disable_hidden_service_search) {
+                if ($opts->disable_hidden_service_search) {
                     echo "<p class=\"text-result-container\">The host disabled this feature! :C</p>";
                     break;
                 }
                 require "engines/ahmia/hidden_service.php";
-                return new TorSearch($query, $page, $mh, $config);
+                return new TorSearch($opts, $mh);
 
             default:
                 require "engines/text/text.php";
-                return new TextSearch($query, $page, $mh, $config);
+                return new TextSearch($opts, $mh);
         }
     }
 
-    function fetch_search_results($type, $query, $page, $config, $do_print) {
+    function fetch_search_results($opts, $do_print) {
         $start_time = microtime(true);
         $mh = curl_multi_init();
-        $search_category = init_search($type, $query, $page, $mh, $config);
+        $search_category = init_search($opts, $mh);
 
         $running = null;
 
@@ -70,7 +90,9 @@
             curl_multi_exec($mh, $running);
         } while ($running);
 
-        $results = $search_category->get_results($query, $page);
+        $results = $search_category->get_results();
+
+        // TODO test if no results here and fallback
 
         if (!$do_print)
             return $results;

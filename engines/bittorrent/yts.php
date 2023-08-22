@@ -10,24 +10,25 @@
             $results = array();
             $json_response = json_decode($response, true);
 
-            if ($json_response["status"] == "ok" && $json_response["data"]["movie_count"] != 0)
+            if ($json_response["status"] != "ok" || $json_response["data"]["movie_count"] == 0)
+                return $results;
+
+            foreach ($json_response["data"]["movies"] as $movie)
             {
-                foreach ($json_response["data"]["movies"] as $movie)
-                {
-                        $name = $movie["title"];
-                        $name_encoded = urlencode($name);
+                    $name = $movie["title"];
+                    $name_encoded = urlencode($name);
 
-                        foreach ($movie["torrents"] as $torrent)
-                        {
+                    foreach ($movie["torrents"] as $torrent)
+                    {
 
-                            $hash = $torrent["hash"];
-                            $seeders = $torrent["seeds"];
-                            $leechers = $torrent["peers"];
-                            $size = $torrent["size"];
+                        $hash = $torrent["hash"];
+                        $seeders = $torrent["seeds"];
+                        $leechers = $torrent["peers"];
+                        $size = $torrent["size"];
 
-                            $magnet = "magnet:?xt=urn:btih:$hash&dn=$name_encoded$config->bittorent_trackers";
+                        $magnet = "magnet:?xt=urn:btih:$hash&dn=$name_encoded$this->opts->bittorrent_trackers";
 
-                            array_push($results,
+                        array_push($results,
                             array (
                                 "size" => htmlspecialchars($size),
                                 "name" => htmlspecialchars($name),
@@ -37,8 +38,7 @@
                                 "source" => "yts.mx"
                             )
                         );
-                        }
-                }
+                    }
             }
 
             return $results;

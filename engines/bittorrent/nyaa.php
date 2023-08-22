@@ -24,7 +24,7 @@
                 if ($magnet_node->length > 0) {
                     $magnet = $magnet_node[0]->textContent;
                     $magnet_without_tracker = explode("&tr=", $magnet)[0];
-                    $magnet = $magnet_without_tracker . $this->config->bittorent_trackers;
+                    $magnet = $magnet_without_tracker . $this->opts->bittorent_trackers;
                 } else {
                     $magnet = "";
                 }
