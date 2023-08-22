@@ -8,5 +8,6 @@
         <link rel="stylesheet" type="text/css" href="static/css/styles.css"/>
         <link title="LibreY search" type="application/opensearchdescription+xml" href="opensearch.xml?method=POST" rel="search"/>
         <link rel="stylesheet" type="text/css" href="<?php
-                echo "static/css/" . htmlspecialchars($_COOKIE["theme"] ?? "dark") . ".css";
+$theme = $_REQUEST["theme"] ?? trim(htmlspecialchars($_COOKIE["theme"] ?? "dark"));
+                echo "static/css/" . $theme . ".css";
         ?>"/>
