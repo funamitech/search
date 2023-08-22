@@ -35,7 +35,6 @@
         $opts->query = trim($_REQUEST["q"] ?? "");
         $opts->type = (int) ($_REQUEST["t"] ?? 0);
         $opts->page = (int) ($_REQUEST["p"] ?? 0);
-        $opts->do_fallback = (int) ($_REQUEST["nfb"] ?? 0) == 0;
 
         $opts->theme = $_REQUEST["theme"] ?? trim(htmlspecialchars($_COOKIE["theme"] ?? "dark"));
 
