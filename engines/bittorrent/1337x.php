@@ -11,6 +11,9 @@
             $xpath = get_xpath($response);
             $results = array();
 
+            if (!$xpath)
+                return $results;
+
             foreach($xpath->query("//table/tbody/tr") as $result) {
                 $name = $xpath->evaluate(".//td[@class='coll-1 name']/a", $result)[1]->textContent;
                 $magnet = "./engines/bittorrent/get_magnet_1337x.php?url=https://1337x.to" . $xpath->evaluate(".//td[@class='coll-1 name']/a/@href", $result)[1]->textContent;

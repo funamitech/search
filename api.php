@@ -1,10 +1,10 @@
 <?php
-    $config = require "config.php";
     require "misc/tools.php";
     require "misc/search_engine.php";
 
-    if (!isset($_REQUEST["q"]))
-    {
+    $opts = load_opts();
+
+    if (!$opts->query) {
         echo "<p>Example API request: <a href=\"./api.php?q=gentoo&p=2&t=0\">./api.php?q=gentoo&p=2&t=0</a></p>
         <br/>
         <p>\"q\" is the keyword</p>
@@ -17,12 +17,7 @@
         die();
     }
 
-    $query = $_REQUEST["q"];
-    $query_encoded = urlencode($query);
-    $page = isset($_REQUEST["p"]) ? (int) $_REQUEST["p"] : 0;
-    $type = isset($_REQUEST["t"]) ? (int) $_REQUEST["t"] : 0;
-
-    $results = fetch_search_results($type, $query, $page, $config, false);
+    $results = fetch_search_results($opts, false);
     header("Content-Type: application/json");
     echo json_encode($results);
 ?>

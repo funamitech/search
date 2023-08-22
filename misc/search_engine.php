@@ -6,17 +6,21 @@
             $this->opts = $opts;
 
             $url = $this->get_request_url();
+            error_log($url);
             if ($url) {
                 $this->ch = curl_init($url);
-                curl_setopt_array($this->ch, $opts->curl_settings);
-                curl_multi_add_handle($mh, $this->ch);
+
+                if ($opts->curl_settings)
+                    curl_setopt_array($this->ch, $opts->curl_settings);
+
+                if ($mh)
+                    curl_multi_add_handle($mh, $this->ch);
             }
         }
 
         public function get_request_url(){
             return "";
         }
-
         public function successful() {
             return curl_getinfo($this->ch)['http_code'] == '200';
         }
@@ -41,7 +45,7 @@
 
         $opts->disable_frontends = (int) ($_REQUEST["nf"] ?? 0) == 1 || isset($_COOKIE["disable_frontends"]);
 
-        $opts->language = $_REQUEST["lang"] ?? trim(htmlspecialchars($_COOKIE["language"]));
+        $opts->language = $_REQUEST["lang"] ?? trim(htmlspecialchars($_COOKIE["language"] ?? ""));
 
         $opts->do_fallback = (int) ($_REQUEST["nfb"] ?? 0) == 0;
         if (!$opts->instance_fallback) {
@@ -63,10 +67,10 @@
         $params .= "p=$opts->page";
         $params .= "&q=$query";
         $params .= "&t=$opts->type";
-        $params .= "&nfb=" . $opts->do_fallback ? 0 : 1;
-        $params .= "&safe=" . $opts->safe_search ? 1 : 0;
-        $params .= "&nf=" . $opts->disable_frontends ? 1 : 0;
-        $params .= "&ns=" . $opts->disable_special ? 1 : 0;
+        $params .= "&nfb=" . ($opts->do_fallback ? 0 : 1);
+        $params .= "&safe=" . ($opts->safe_search ? 1 : 0);
+        $params .= "&nf=" . ($opts->disable_frontends ? 1 : 0);
+        $params .= "&ns=" . ($opts->disable_special ? 1 : 0);
 
         return $params;
     }
@@ -119,8 +123,8 @@
         $results = $search_category->get_results();
 
         if (empty($results)) {
-            //if (!$opt->do_fallback)
-                //return ;
+            require "engines/librex/fallback.php";
+            $results = get_librex_results($opts);
         }
 
         if (!$do_print)

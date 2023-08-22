@@ -9,6 +9,8 @@
             $xpath = get_xpath($response);
             $results = array();
 
+            if (!$xpath)
+                return $results;
 
             foreach($xpath->query("//table/tr[@class='gai' or @class='tum']") as $result)
             {

@@ -11,6 +11,9 @@
             $results = array();
             $xpath = get_xpath(curl_multi_getcontent($this->ch));
 
+            if (!$xpath)
+                return $results;
+
             foreach($xpath->query("//a[@rel='noopener']") as $result)
             {       
                     $image = $xpath->evaluate(".//img", $result)[0];

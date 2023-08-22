@@ -8,9 +8,11 @@
 
         public function get_results() {
             $response = curl_multi_getcontent($this->ch);
+            $results = array();
             $xpath = get_xpath($response);
 
-            $results = array();
+            if (!$xpath)
+                return $results;
 
             foreach($xpath->query("//ol[@class='searchResults']//li[@class='result']") as $result)
             {

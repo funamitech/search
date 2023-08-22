@@ -27,11 +27,8 @@
         }
 
         public function get_results() {
-            if (curl_getinfo($this->engine_request->ch)['http_code'] != '200') 
-            {
-                require "engines/librex/text.php";
-                return get_librex_results($this->query, $this->page);
-            }
+            if (curl_getinfo($this->engine_request->ch)['http_code'] != '200')
+                return array();
 
             $results = $this->engine_request->get_results();
 

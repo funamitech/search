@@ -17,14 +17,12 @@
         return $root_domain;
     }
 
-    function try_replace_with_frontend($url, $frontend, $original)
-    {
-        global $config;
+    function try_replace_with_frontend($url, $frontend, $original, $opts) {
         $frontends = $opts->frontends;
-        $frontend = $opts->$frontend["instance_url"];
+        $frontend = $opts->$frontend;
 
         if ($frontend) {
-            
+            $frontend = $frontend->instance_url;
 
             if (empty(trim($frontend)))
                 return $url;
@@ -67,10 +65,10 @@
             $original = $data["original_url"];
 
             if (strpos($url, $original)) {
-                $url = try_replace_with_frontend($url, $frontend, $original);
+                $url = try_replace_with_frontend($url, $frontend, $original, $opts);
                 break;
             } else if (strpos($url, "stackexchange.com")) {
-                $url = try_replace_with_frontend($url, "anonymousoverflow", "stackexchange.com");
+                $url = try_replace_with_frontend($url, "anonymousoverflow", "stackexchange.com", $opts);
                 break;
             }
         }
@@ -79,6 +77,9 @@
     }
 
     function get_xpath($response) {
+        if (!$response)
+            return null;
+
         $htmlDom = new DOMDocument;
         @$htmlDom->loadHTML($response);
         $xpath = new DOMXPath($htmlDom);

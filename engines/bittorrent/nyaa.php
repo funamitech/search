@@ -11,6 +11,9 @@
             $xpath = get_xpath($response);
             $results = array();
 
+            if (!$xpath)
+                return $results;
+
             foreach($xpath->query("//tbody/tr") as $result)
             {
                 $name_node = $xpath->evaluate(".//td[@colspan='2']//a[not(contains(@class, 'comments'))]/@title", $result);
