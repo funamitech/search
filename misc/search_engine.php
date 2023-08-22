@@ -28,9 +28,9 @@
     function load_opts() {
         $opts = require "config.php";
 
-        $opts->query = trim($_REQUEST["q"]);
-        $opts->type = (int) $_REQUEST["t"] ?? 0;
-        $opts->page = (int) $_REQUEST["p"] ?? 0;
+        $opts->query = trim($_REQUEST->q ?? 0);
+        $opts->type = (int) ($_REQUEST["t"] ?? 0);
+        $opts->page = (int) ($_REQUEST["p"] ?? 0);
 
         $opts->theme = trim(htmlspecialchars($_COOKIE["theme"] ?? "dark"));
         $opts->safe_search = isset($_COOKIE["safe_search"]);
@@ -40,7 +40,12 @@
         $opts->language ??= trim(htmlspecialchars($_COOKIE["language"]));
         $opts->number_of_results ??= trim(htmlspecialchars($_COOKIE["number_of_results"]));
 
-        // TODO frontends
+        foreach (array_keys($opts->frontends ?? array()) as $frontend) {
+            $opts->frontends[$frontend]["instance_url"] = $_COOKIE[$frontend] ?? "";
+        }
+
+        echo "<pre>";
+        echo "</pre>";
 
         return $opts;
     }
