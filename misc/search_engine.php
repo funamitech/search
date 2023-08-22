@@ -28,7 +28,7 @@
     function load_opts() {
         $opts = require "config.php";
 
-        $opts->query = trim($_REQUEST->q ?? 0);
+        $opts->query = trim($_REQUEST["q"] ?? "");
         $opts->type = (int) ($_REQUEST["t"] ?? 0);
         $opts->page = (int) ($_REQUEST["p"] ?? 0);
 
