@@ -41,7 +41,7 @@
 
                 $url = $url->textContent;
 
-                $url = check_for_privacy_frontend($url, $opts);
+                $url = check_for_privacy_frontend($url, $this->opts);
 
                 $title = $xpath->evaluate(".//h2[@class='result__title']", $result)[0];
                 $description = $xpath->evaluate(".//a[@class='result__snippet']", $result)[0];

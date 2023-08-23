@@ -25,10 +25,12 @@
         }
 
 
-
         public function get_results() {
             $results = array();
             $xpath = get_xpath(curl_multi_getcontent($this->ch));
+
+            if (!$xpath)
+                return $results;
 
             $didyoumean = $xpath->query(".//a[@class='gL9Hy']")[0];
 
@@ -37,8 +39,7 @@
                     "did_you_mean" => $didyoumean->textContent
                 ));
 
-            foreach($xpath->query("//div[@id='search']//div[contains(@class, 'g')]") as $result)
-            {
+            foreach($xpath->query("//div[@id='search']//div[contains(@class, 'g')]") as $result) {
                 $url = $xpath->evaluate(".//div[@class='yuRUbf']//a/@href", $result)[0];
 
                 if ($url == null)

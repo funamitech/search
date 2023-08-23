@@ -5,7 +5,7 @@
             $this->page = $opts->page;
             $this->opts = $opts;
 
-            $engine = $opts->preferred_engines->text ?? "google";
+            $engine = $opts->preferred_engines["text"] ?? "google";
 
             $query_parts = explode(" ", $this->query);
             $last_word_query = end($query_parts);
@@ -27,9 +27,6 @@
         }
 
         public function get_results() {
-            if (curl_getinfo($this->engine_request->ch)['http_code'] != '200')
-                return array();
-
             $results = $this->engine_request->get_results();
 
             if ($this->special_request) {
