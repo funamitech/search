@@ -1,28 +1,25 @@
 <?php
-    function get_base_url($url)
-    {
+    function get_base_url($url) {
         $split_url = explode("/", $url);
         $base_url = $split_url[0] . "//" . $split_url[2] . "/";
         return $base_url;
     }
 
-    function get_root_domain($url)
-    {
+    function get_root_domain($url) {
         $split_url = explode("/", $url);
         $base_url = $split_url[2];
 
         $base_url_main_split = explode(".", strrev($base_url));
         $root_domain = strrev($base_url_main_split[1]) . "." . strrev($base_url_main_split[0]);
-    
+
         return $root_domain;
     }
 
     function try_replace_with_frontend($url, $frontend, $original, $opts) {
         $frontends = $opts->frontends;
-        $frontend = $opts->$frontend;
 
-        if ($frontend) {
-            $frontend = $frontend->instance_url;
+        if (array_key_exists($frontend, $opts->frontends)) {
+            $frontend = $frontends[$frontend]["instance_url"];
 
             if (empty(trim($frontend)))
                 return $url;

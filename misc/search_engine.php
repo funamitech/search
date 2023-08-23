@@ -21,6 +21,7 @@
         public function get_request_url(){
             return "";
         }
+
         public function successful() {
             return curl_getinfo($this->ch)['http_code'] == '200';
         }
@@ -54,7 +55,8 @@
         $opts->number_of_results ??= trim(htmlspecialchars($_COOKIE["number_of_results"]));
 
         foreach (array_keys($opts->frontends ?? array()) as $frontend) {
-            $opts->frontends[$frontend]["instance_url"] = $_COOKIE[$frontend] ?? "";
+            if (!$opts->frontends[$frontend]["instance_url"])
+                $opts->frontends[$frontend]["instance_url"] = $_COOKIE[$frontend] ?? "";
         }
         return $opts;
     }
