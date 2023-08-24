@@ -12,8 +12,10 @@
 
             $url = "https://www.google.$domain/search?q=$query_encoded&nfpr=1&start=$this->page";
 
-            if (3 > strlen($results_language) && 0 < strlen($results_language))
+            if (3 > strlen($results_language) && 0 < strlen($results_language)) {
                 $url .= "&lr=lang_$results_language";
+                $url .= "&hl=$results_language";
+            }
 
             if (3 > strlen($number_of_results) && 0 < strlen($number_of_results))
                 $url .= "&num=$number_of_results";
