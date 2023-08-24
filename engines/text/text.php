@@ -10,7 +10,7 @@
             $query_parts = explode(" ", $this->query);
             $last_word_query = end($query_parts);
             if (substr($this->query, 0, 1) == "!" || substr($last_word_query, 0, 1) == "!")
-                check_ddg_bang($this->query);
+                check_ddg_bang($this->query, $opts);
 
             if ($engine == "google") {
                 require "engines/text/google.php";
@@ -97,7 +97,7 @@
         }
     }
 
-    function check_ddg_bang($query)
+    function check_ddg_bang($query, $opts)
     {
 
         $bangs_json = file_get_contents("static/misc/ddg_bang.json");
@@ -125,7 +125,7 @@
             $bang_query = trim(implode("", $bang_query_array));
 
             $request_url = str_replace("{{{s}}}", str_replace('%26quot%3B','%22', urlencode($bang_query)), $bang_url);
-            $request_url = check_for_privacy_frontend($request_url);
+            $request_url = check_for_privacy_frontend($request_url, $opts);
 
             header("Location: " . $request_url);
             die();
