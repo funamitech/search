@@ -15,7 +15,7 @@
                 if ($response["type"] == "video") {
                     $title = $response["title"];
                     $url = "https://youtube.com/watch?v=" . $response["videoId"];
-                    $url = check_for_privacy_frontend($url, $this-opts);
+                    $url = check_for_privacy_frontend($url, $this->opts);
                     $uploader = $response["author"];
                     $views = $response["viewCount"];
                     $date = $response["publishedText"];

@@ -6,19 +6,19 @@
             $this->opts = $opts;
 
             $url = $this->get_request_url();
-            error_log($url);
-            if ($url) {
-                $this->ch = curl_init($url);
+            if (!$url)
+                return;
 
-                if ($opts->curl_settings)
-                    curl_setopt_array($this->ch, $opts->curl_settings);
+            $this->ch = curl_init($url);
 
-                if ($mh)
-                    curl_multi_add_handle($mh, $this->ch);
-            }
+            if ($opts->curl_settings)
+                curl_setopt_array($this->ch, $opts->curl_settings);
+
+            if ($mh)
+                curl_multi_add_handle($mh, $this->ch);
         }
 
-        public function get_request_url(){
+        public function get_request_url() {
             return "";
         }
 
@@ -55,8 +55,7 @@
         $opts->number_of_results ??= trim(htmlspecialchars($_COOKIE["number_of_results"]));
 
         foreach (array_keys($opts->frontends ?? array()) as $frontend) {
-            if (!$opts->frontends[$frontend]["instance_url"])
-                $opts->frontends[$frontend]["instance_url"] = $_COOKIE[$frontend] ?? "";
+            $opts->frontends[$frontend]["instance_url"] = $_COOKIE[$frontend] ?? $opts->frontends[$frontend]["instance_url"];
         }
         return $opts;
     }
