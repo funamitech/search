@@ -11,13 +11,11 @@
             $response = curl_multi_getcontent($this->ch);
             $json_response = json_decode($response, true);
 
-            foreach ($json_response as $response)
-            {
-                if ($response["type"] == "video")
-                {
+            foreach ($json_response as $response) {
+                if ($response["type"] == "video") {
                     $title = $response["title"];
                     $url = "https://youtube.com/watch?v=" . $response["videoId"];
-                    $url = check_for_privacy_frontend($url);
+                    $url = check_for_privacy_frontend($url, $this-opts);
                     $uploader = $response["author"];
                     $views = $response["viewCount"];
                     $date = $response["publishedText"];
@@ -43,8 +41,7 @@
         public static function print_results($results) {
             echo "<div class=\"text-result-container\">";
 
-                foreach($results as $result)
-                {
+                foreach($results as $result) {
                     $title = $result["title"];
                     $url = $result["url"];
                     $base_url = $result["base_url"];
