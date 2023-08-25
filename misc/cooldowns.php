@@ -9,7 +9,6 @@
 
     function set_cooldown($instance, $timeout, $cooldowns) {
         $cooldowns[$instance] = time() + $timeout;
-        error_log("cooldown on instnace $instance for $timeout seconds");
         save_cooldowns($cooldowns);
         return $cooldowns;
     }

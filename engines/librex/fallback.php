@@ -37,13 +37,6 @@
             return array();
 
         $cooldowns = $opts->cooldowns;
-        error_log("loaded" . count($cooldowns));
-        error_log(print_r($cooldowns,true));
-
-        echo "<pre>";
-        print_r($cooldowns);
-        echo "</pre>";
-
         $instances = load_instances($cooldowns);
 
         $results = array();
@@ -54,7 +47,6 @@
 
             $instance = array_pop($instances);
 
-            error_log($instance .  "--- " . parse_url($instance)["host"]);
             if (parse_url($instance)["host"] == parse_url($_SERVER['HTTP_HOST'])["host"])
                 continue;
 

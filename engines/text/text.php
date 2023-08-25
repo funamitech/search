@@ -34,7 +34,6 @@
             if (!$this->engine_request)
                 return array();
 
-            error_log("fetching googl results");
             $results = $this->engine_request->get_results();
 
             if ($this->special_request) {
