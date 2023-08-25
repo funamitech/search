@@ -36,9 +36,7 @@
         if (!$opts->do_fallback)
             return array();
 
-        require "misc/cooldowns.php";
-
-        $cooldowns = load_cooldowns();
+        $cooldowns = $opts->cooldowns;
         error_log("loaded" . count($cooldowns));
         error_log(print_r($cooldowns,true));
 

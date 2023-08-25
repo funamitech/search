@@ -1,7 +1,6 @@
 <?php
     class GoogleRequest extends EngineRequest {
-        function get_request_url()
-        {
+        public function get_request_url() {
 
             $query_encoded = str_replace("%22", "\"", urlencode($this->query));
             $results = array();

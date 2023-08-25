@@ -111,6 +111,9 @@
     }
 
     function fetch_search_results($opts, $do_print) {
+        require "misc/cooldowns.php";
+        $opts->cooldowns = load_cooldowns();
+
         $start_time = microtime(true);
         $mh = curl_multi_init();
         $search_category = init_search($opts, $mh);
