@@ -33,6 +33,8 @@
     function load_opts() {
         $opts = require "config.php";
 
+        $opts->request_cooldown ??= 25;
+
         $opts->query = trim($_REQUEST["q"] ?? "");
         $opts->type = (int) ($_REQUEST["t"] ?? 0);
         $opts->page = (int) ($_REQUEST["p"] ?? 0);
