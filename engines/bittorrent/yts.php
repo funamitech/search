@@ -1,14 +1,18 @@
 <?php
-    $yts_url = "https://yts.mx/api/v2/list_movies.json?query_term=$query";
+    class YTSRequest extends EngineRequest {
+        public function get_request_url() {
+            return "https://yts.mx/api/v2/list_movies.json?query_term=" . urlencode($this->query);
+        }
 
-    function get_yts_results($response)
-    {
-        global $config;
-        $results = array();
-        $json_response = json_decode($response, true);
+        public function get_results() {
+            $response = curl_multi_getcontent($this->ch);
+            global $config;
+            $results = array();
+            $json_response = json_decode($response, true);
 
-        if ($json_response["status"] == "ok" && $json_response["data"]["movie_count"] != 0)
-        {
+            if ($json_response["status"] != "ok" || $json_response["data"]["movie_count"] == 0)
+                return $results;
+
             foreach ($json_response["data"]["movies"] as $movie)
             {
                     $name = $movie["title"];
@@ -22,24 +26,22 @@
                         $leechers = $torrent["peers"];
                         $size = $torrent["size"];
 
-                        $magnet = "magnet:?xt=urn:btih:$hash&dn=$name_encoded$config->bittorent_trackers";
+                        $magnet = "magnet:?xt=urn:btih:$hash&dn=$name_encoded$this->opts->bittorrent_trackers";
 
-                        array_push($results, 
-                        array (
-                            "size" => htmlspecialchars($size),
-                            "name" => htmlspecialchars($name),
-                            "seeders" => htmlspecialchars($seeders),
-                            "leechers" => htmlspecialchars($leechers),
-                            "magnet" => htmlspecialchars($magnet),
-                            "source" => "yts.mx"
-                        )
-                    );
-                    
+                        array_push($results,
+                            array (
+                                "size" => htmlspecialchars($size),
+                                "name" => htmlspecialchars($name),
+                                "seeders" => htmlspecialchars($seeders),
+                                "leechers" => htmlspecialchars($leechers),
+                                "magnet" => htmlspecialchars($magnet),
+                                "source" => "yts.mx"
+                            )
+                        );
                     }
             }
-        }
 
-        return $results;
-       
+            return $results;
+        }
     }
 ?>

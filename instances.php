@@ -19,7 +19,7 @@
 
         foreach($instances as $instance) {
             $hostname = parse_url($instance["clearnet"])["host"];
-            $country = get_country_emote($instance["country"]) . $instnace["country"];
+            $country = get_country_emote($instance["country"]) . $instance["country"];
 
             $is_tor = !is_null($instance["tor"]);
             $is_i2p = !is_null($instance["i2p"]);
