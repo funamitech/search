@@ -1,10 +1,13 @@
 <?php
     function load_cooldowns() {
-        return apcu_exists("cooldowns") ? apcu_fetch("cooldowns") : array();
+        if (function_exists(apcu_fetch))
+            return apcu_exists("cooldowns") ? apcu_fetch("cooldowns") : array();
+        return array();
     }
 
     function save_cooldowns($cooldowns) {
-        apcu_store("cooldowns", $cooldowns);
+        if (function_exists(apcu_fetch))
+            apcu_store("cooldowns", $cooldowns);
     }
 
     function set_cooldown($instance, $timeout, $cooldowns) {
