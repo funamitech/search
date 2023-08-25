@@ -57,6 +57,7 @@
         foreach (array_keys($opts->frontends ?? array()) as $frontend) {
             $opts->frontends[$frontend]["instance_url"] = $_COOKIE[$frontend] ?? $opts->frontends[$frontend]["instance_url"];
         }
+
         return $opts;
     }
 
