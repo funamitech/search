@@ -122,7 +122,7 @@
 
         $results = $search_category->get_results();
 
-        if (empty($results)) {
+        if (count($results) <= 1) {
             require "engines/librex/fallback.php";
             $results = get_librex_results($opts);
         }
