@@ -31,7 +31,7 @@ You can access the full list of LibreX and LibreY instances on one of the follow
 ### About LibreY
 
 LibreY gives you text results from DuckDuckGo or Google, images from Qwant, and torrents from i.e. Ahmia and popular torrent sites without spying on you.
-<br>LibreY doesn't save any type of data about the user, there are no logs (except NGINX logs if the host sets them), no caches.
+<br>LibreY doesn't save **any** type of data about the user, there are no logs (except NGINX logs if the host sets them).
 
 ### LibreY compared to other metasearch engines
 
