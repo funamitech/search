@@ -47,7 +47,7 @@
 
         $opts->disable_frontends = (int) ($_REQUEST["nf"] ?? 0) == 1 || isset($_COOKIE["disable_frontends"]);
 
-        $opts->language = $_REQUEST["lang"] ?? trim(htmlspecialchars($_COOKIE["language"] ?? ""));
+        $opts->language = $_REQUEST["lang"] ?? trim(htmlspecialchars($_COOKIE["language"] ?? $opts->language));
 
         $opts->do_fallback = (int) ($_REQUEST["nfb"] ?? 0) == 0;
         if (!$opts->instance_fallback) {
