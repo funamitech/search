@@ -17,8 +17,11 @@
         "disable_hidden_service_search" => false,
 
         // Fallback to another librex instance if google search fails
-        // This may greatly increase the time it takes to get a result and in some cases results in 504 errors
-        "instance_fallback" => false,
+        // This may greatly increase the time it takes to get a result, if a direct search is not possible
+        "instance_fallback" => true,
+
+        // how long in minutes to put google/other instances on cooldown if they aren't responding
+        "request_cooldown" => 25,
 
         /*
             Preset privacy friendly frontends for users, these can be overwritten by users in the settings
@@ -148,7 +151,8 @@
             CURLOPT_REDIR_PROTOCOLS => CURLPROTO_HTTPS | CURLPROTO_HTTP,
             CURLOPT_MAXREDIRS => 5,
             CURLOPT_TIMEOUT => 3,
-            CURLOPT_VERBOSE => false
+            CURLOPT_VERBOSE => false,
+            CURLOPT_FOLLOWLOCATION => true
         )
     );
 ?>

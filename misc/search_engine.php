@@ -33,6 +33,8 @@
     function load_opts() {
         $opts = require "config.php";
 
+        $opts->request_cooldown ??= 25;
+
         $opts->query = trim($_REQUEST["q"] ?? "");
         $opts->type = (int) ($_REQUEST["t"] ?? 0);
         $opts->page = (int) ($_REQUEST["p"] ?? 0);
@@ -45,7 +47,7 @@
 
         $opts->disable_frontends = (int) ($_REQUEST["nf"] ?? 0) == 1 || isset($_COOKIE["disable_frontends"]);
 
-        $opts->language = $_REQUEST["lang"] ?? trim(htmlspecialchars($_COOKIE["language"] ?? ""));
+        $opts->language = $_REQUEST["lang"] ?? trim(htmlspecialchars($_COOKIE["language"] ?? $opts->language));
 
         $opts->do_fallback = (int) ($_REQUEST["nfb"] ?? 0) == 0;
         if (!$opts->instance_fallback) {
@@ -57,6 +59,7 @@
         foreach (array_keys($opts->frontends ?? array()) as $frontend) {
             $opts->frontends[$frontend]["instance_url"] = $_COOKIE[$frontend] ?? $opts->frontends[$frontend]["instance_url"];
         }
+
         return $opts;
     }
 
@@ -110,6 +113,9 @@
     }
 
     function fetch_search_results($opts, $do_print) {
+        require "misc/cooldowns.php";
+        $opts->cooldowns = load_cooldowns();
+
         $start_time = microtime(true);
         $mh = curl_multi_init();
         $search_category = init_search($opts, $mh);

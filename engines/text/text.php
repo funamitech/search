@@ -5,19 +5,23 @@
             $this->page = $opts->page;
             $this->opts = $opts;
 
-            $engine = $opts->preferred_engines["text"] ?? "google";
+            $this->engine = $opts->preferred_engines["text"] ?? "google";
 
             $query_parts = explode(" ", $this->query);
             $last_word_query = end($query_parts);
             if (substr($this->query, 0, 1) == "!" || substr($last_word_query, 0, 1) == "!")
                 check_ddg_bang($this->query, $opts);
 
-            if ($engine == "google") {
+            if (has_cooldown($this->engine, $this->opts->cooldowns))
+                return;
+
+            if ($this->engine == "google") {
+                
                 require "engines/text/google.php";
                 $this->engine_request = new GoogleRequest($opts, $mh);
             }
 
-            if ($engine == "duckduckgo") {
+            if ($this->engine == "duckduckgo") {
                 require "engines/text/duckduckgo.php";
                 $this->engine_request = new DuckDuckGoRequest($opts, $mh);
             }
@@ -27,6 +31,9 @@
         }
 
         public function get_results() {
+            if (!$this->engine_request)
+                return array();
+
             $results = $this->engine_request->get_results();
 
             if ($this->special_request) {
@@ -35,6 +42,9 @@
                 if ($special_result)
                     $results = array_merge(array($special_result), $results);
             }
+
+            if (count($results) <= 1)
+                set_cooldown($this->engine, ($opts->request_cooldown ?? "1") * 60, $this->opts->cooldowns);
 
             return $results;
         }

@@ -15,25 +15,29 @@
             $response = json_decode($response, true);
             if (!$response)
                 return array();
-            
+
             return array_values($response);
         }
     }
 
-
-    function get_librex_results($opts) {
-        if (!$opts->do_fallback)
-            return array();
-
+    function load_instances($cooldowns) {
         $instances_json = json_decode(file_get_contents("instances.json"), true);
 
         if (empty($instances_json["instances"]))
             return array();
 
-        // TODO pick instances which aren't on cooldown
-
         $instances = array_map(fn($n) => $n['clearnet'], array_filter($instances_json['instances'], fn($n) => !is_null($n['clearnet'])));
+        $instances = array_filter($instances, fn($n) => !has_cooldown($n, $cooldowns));
         shuffle($instances);
+        return $instances;
+    }
+
+    function get_librex_results($opts) {
+        if (!$opts->do_fallback)
+            return array();
+
+        $cooldowns = $opts->cooldowns;
+        $instances = load_instances($cooldowns);
 
         $results = array();
         $tries = 0;
@@ -52,12 +56,13 @@
             if (count($results) > 1)
                 return $results;
 
-        } while ( !empty($instances));
+            // on fail then do this
+            $timeout = ($opts->request_cooldown ?? "1") * 60;
+            $cooldowns = set_cooldown($instance, $timeout, $cooldowns);
 
-        if (empty($instances))
-            return array();
+        } while (!empty($instances));
 
-        return array_values($results);
+        return array();
     }
 
 ?>
