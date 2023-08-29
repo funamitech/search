@@ -6,13 +6,7 @@
     }
 
     function get_root_domain($url) {
-        $split_url = explode("/", $url);
-        $base_url = $split_url[2];
-
-        $base_url_main_split = explode(".", strrev($base_url));
-        $root_domain = strrev($base_url_main_split[1]) . "." . strrev($base_url_main_split[0]);
-
-        return $root_domain;
+        return parse_url($url, PHP_URL_HOST);
     }
 
     function try_replace_with_frontend($url, $frontend, $original, $opts) {
