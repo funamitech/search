@@ -36,7 +36,7 @@
 
             $results = $this->engine_request->get_results();
 
-            if (empty(count($results))) {
+            if (empty($results)) {
                 set_cooldown($this->engine, ($opts->request_cooldown ?? "1") * 60, $this->opts->cooldowns);
             } else {
                 if ($this->special_request) {
