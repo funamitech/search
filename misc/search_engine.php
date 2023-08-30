@@ -88,6 +88,8 @@
             $opts->frontends[$frontend]["instance_url"] = $_COOKIE[$frontend] ?? $opts->frontends[$frontend]["instance_url"];
         }
 
+        $opts->curl_settings[CURLOPT_FOLLOWLOCATION] ??= true;
+
         return $opts;
     }
 
