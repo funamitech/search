@@ -19,6 +19,7 @@
 
             if (isset($_COOKIE["safe_search"]))
                 $url .= "&safe=medium";
+
             return $url;
         }
 
@@ -60,7 +61,7 @@
                     )
                 );
            }
-            return $results;
+           return $results;
         }
 
     }
