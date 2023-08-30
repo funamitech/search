@@ -53,7 +53,7 @@
             $librex_request = new LibreXFallback($instance, $opts, null);
             $results = $librex_request->get_results();
 
-            if (count($results) > 1)
+            if (count($results) > 0)
                 return $results;
 
             // on fail then do this
