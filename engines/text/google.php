@@ -70,6 +70,12 @@
                 );
             }
 
+            if (empty($results) && !str_contains($response, "Our systems have detected unusual traffic from your computer network.")) {
+                $results["error"] = array(
+                    "message" => "There are no results. Please try different keywords!"
+                );
+            }
+
             return $results;
         }
     }

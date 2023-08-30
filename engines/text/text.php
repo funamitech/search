@@ -36,23 +36,31 @@
 
             $results = $this->engine_request->get_results();
 
-            if ($this->special_request) {
-                $special_result = $this->special_request->get_results();
-
-                if ($special_result)
-                    $results = array_merge(array($special_result), $results);
-            }
-
-            if (count($results) <= 1)
+            if (empty(count($results))) {
                 set_cooldown($this->engine, ($opts->request_cooldown ?? "1") * 60, $this->opts->cooldowns);
+            } else {
+                if ($this->special_request) {
+                    $special_result = $this->special_request->get_results();
+
+                    if ($special_result)
+                        $results = array_merge(array($special_result), $results);
+                }
+            }
 
             return $results;
         }
 
         public static function print_results($results) {
 
-            if (empty($results))
+            if (empty($results)) {
+                echo "<div class=\"text-result-container\"><p>An error occured fetching results</p></div>";
                 return;
+            }
+
+            if (array_key_exists("error", $results)) {
+                echo "<div class=\"text-result-container\"><p>" . $results["error"]["message"] . "</p></div>";
+                return;
+            }
 
             $special = $results[0];
 
