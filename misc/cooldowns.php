@@ -1,4 +1,8 @@
 <?php
+    if (!function_exists("apcu_fetch"))
+        error_log("apcu is not installed! Please consider installing php-pecl-apcu for significant performance improvements");
+
+
     function load_cooldowns() {
         if (function_exists("apcu_fetch"))
             return apcu_exists("cooldowns") ? apcu_fetch("cooldowns") : array();
@@ -18,5 +22,24 @@
 
     function has_cooldown($instance, $cooldowns) {
         return ($cooldowns[$instance] ?? 0) > time();
+    }
+    
+    function has_cached_results($url) {
+        if (function_exists("apcu_exists"))
+            return apcu_exists("cached:$url");
+
+        return false;
+    }
+
+    function store_cached_results($url, $results) {
+        if (function_exists("apcu_store") && !empty($results))
+            return apcu_store("cached:$url", $results);
+    }
+
+    function fetch_cached_results($url) {
+        if (function_exists("apcu_fetch"))
+            return apcu_fetch("cached:$url");
+
+        return array();
     }
 ?>

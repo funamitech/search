@@ -22,9 +22,9 @@
             return $url;
         }
 
-        public function get_results() {
+        public function parse_results($response) {
             $results = array();
-            $xpath = get_xpath(curl_multi_getcontent($this->ch));
+            $xpath = get_xpath(response);
             
             foreach($xpath->query("/html/body/div[1]/div[". count($xpath->query('/html/body/div[1]/div')) ."]/div/div/div/div") as $result)
             {

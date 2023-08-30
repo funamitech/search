@@ -21,7 +21,7 @@
             );
         }
 
-        public function get_results() {
+        public function parse_results($response) {
             $results = array();
             foreach ($this->requests as $request) {
                 if ($request->successful())

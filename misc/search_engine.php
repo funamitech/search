@@ -1,15 +1,20 @@
 <?php
+    require "misc/cooldowns.php";
     abstract class EngineRequest {
+        protected $DO_CACHING = true;
         function __construct($opts, $mh) {
             $this->query = $opts->query;
             $this->page = $opts->page;
             $this->opts = $opts;
 
-            $url = $this->get_request_url();
-            if (!$url)
+            $this->url = $this->get_request_url();
+            if (!$this->url)
                 return;
 
-            $this->ch = curl_init($url);
+            if (has_cached_results($this->url))
+                return;
+
+            $this->ch = curl_init($this->url);
 
             if ($opts->curl_settings)
                 curl_setopt_array($this->ch, $opts->curl_settings);
@@ -23,10 +28,35 @@
         }
 
         public function successful() {
-            return curl_getinfo($this->ch)['http_code'] == '200';
+            return (isset($this->ch) && curl_getinfo($this->ch)['http_code'] == '200') 
+                || has_cached_results($this->url);
         }
 
-        abstract function get_results();
+        abstract function parse_results($response);
+
+        public function get_results() {
+            if (!isset($this->url))
+                return $this->parse_results(null);
+
+            if ($this->DO_CACHING && has_cached_results($this->url)) {
+                error_log("used cache for $this->url");
+                return fetch_cached_results($this->url);
+            }
+
+            if (!isset($this->ch))
+                return $this->parse_results(null);
+
+            $response = curl_multi_getcontent($this->ch);
+            $results = $this->parse_results($response) ?? array();
+
+            if ($this->DO_CACHING) {
+                store_cached_results($this->url, $results);
+                error_log("caching $this->url in cache");
+            }
+
+            return $results;
+        }
+
         static public function print_results($results){}
     }
 
@@ -113,7 +143,6 @@
     }
 
     function fetch_search_results($opts, $do_print) {
-        require "misc/cooldowns.php";
         $opts->cooldowns = load_cooldowns();
 
         $start_time = microtime(true);

@@ -4,8 +4,7 @@
             return "https://apibay.org/q.php?q=" . urlencode($this->query);
         }
 
-        public function get_results() {
-            $response = curl_multi_getcontent($this->ch);
+        public function parse_results($response) {
             $results = array();
             $json_response = json_decode($response, true);
 

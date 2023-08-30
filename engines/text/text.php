@@ -30,7 +30,7 @@
             $this->special_request = get_special_search_request($opts, $mh);
         }
 
-        public function get_results() {
+        public function parse_results($response) {
             if (!$this->engine_request)
                 return array();
 

@@ -1,6 +1,7 @@
 <?php
 
     class LibreXFallback extends EngineRequest {
+        protected $DO_CACHING = false;
         public function __construct($instance, $opts, $mh) {
             $this->instance = $instance;
             parent::__construct($opts, $mh);
@@ -10,8 +11,7 @@
            return $this->instance . "api.php?" . opts_to_params($this->opts);
         }
 
-        public function get_results() {
-            $response = curl_exec($this->ch);
+        public function parse_results($response) {
             $response = json_decode($response, true);
             if (!$response)
                 return array();
