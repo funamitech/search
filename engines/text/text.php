@@ -26,6 +26,7 @@
             if (has_cooldown($this->engine, $this->opts->cooldowns) && !has_cached_results($this->engine_request->url)) {
                 // TODO dont add it in the first place
                 curl_multi_remove_handle($mh, $this->engine_request->ch);
+                $this->engine_request = null;
                 return;
             }
 
