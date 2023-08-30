@@ -1,7 +1,6 @@
 <?php
 
     class LibreXFallback extends EngineRequest {
-        protected $DO_CACHING = false;
         public function __construct($instance, $opts, $mh) {
             $this->instance = $instance;
             parent::__construct($opts, $mh);
@@ -54,8 +53,7 @@
                 continue;
 
             $librex_request = new LibreXFallback($instance, $opts, null);
-            error_log($librex_request->url);
-            
+
             $results = $librex_request->get_results();
 
             if (!empty($results))

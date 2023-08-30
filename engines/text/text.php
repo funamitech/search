@@ -12,9 +12,6 @@
             if (substr($this->query, 0, 1) == "!" || substr($last_word_query, 0, 1) == "!")
                 check_ddg_bang($this->query, $opts);
 
-            if (has_cooldown($this->engine, $this->opts->cooldowns))
-                return;
-
             if ($this->engine == "google") {
                 
                 require "engines/text/google.php";
@@ -25,6 +22,13 @@
                 require "engines/text/duckduckgo.php";
                 $this->engine_request = new DuckDuckGoRequest($opts, $mh);
             }
+
+            if (has_cooldown($this->engine, $this->opts->cooldowns) && !has_cached_results($this->engine_request->url)) {
+                // TODO dont add it in the first place
+                curl_multi_remove_handle($mh, $this->engine_request->ch);
+                return;
+            }
+
 
             require "engines/special/special.php";
             $this->special_request = get_special_search_request($opts, $mh);
