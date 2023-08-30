@@ -26,7 +26,7 @@
             $results = array();
             $xpath = get_xpath(curl_multi_getcontent($this->ch));
             
-            foreach($xpath->query("/html/body/div[1]/div[". count($xpath->query('/html/body/div[1]/div')) ."]/div/div/div/div") as $result)
+            foreach($xpath->query("/html/body/div[1]/div[". count($xpath->query('/html/body/div[1]/div')) ."]/div/div/div[contains(@class, 'web-result')]/div") as $result)
             {
                 $url = $xpath->evaluate(".//h2[@class='result__title']//a/@href", $result)[0];
                 
