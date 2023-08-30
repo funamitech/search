@@ -1,9 +1,10 @@
 <?php
-    $config = require "config.php";
     require "misc/tools.php";
+    require "misc/search_engine.php";
 
-    if (!isset($_REQUEST["q"]))
-    {
+    $opts = load_opts();
+
+    if (!$opts->query) {
         echo "<p>Example API request: <a href=\"./api.php?q=gentoo&p=2&t=0\">./api.php?q=gentoo&p=2&t=0</a></p>
         <br/>
         <p>\"q\" is the keyword</p>
@@ -16,54 +17,7 @@
         die();
     }
 
-    $query = $_REQUEST["q"];
-    $query_encoded = urlencode($query);
-    $page = isset($_REQUEST["p"]) ? (int) $_REQUEST["p"] : 0;
-    $type = isset($_REQUEST["t"]) ? (int) $_REQUEST["t"] : 0;
-
-    $results = array();
-
-    switch ($type)
-    {
-        case 0:
-            $engine=$config->preferred_engines['text'];
-            if (is_null($engine))
-                $engine = "google";
-            require "engines/$engine/text.php";
-            $results = get_text_results($query, $page);
-            break;
-        case 1:
-            require "engines/qwant/image.php";
-            $results = get_image_results($query_encoded, $page);
-            break;
-        case 2:
-            require "engines/invidious/video.php";
-            $results = get_video_results($query_encoded);
-            break;
-        case 3:
-            if ($config->disable_bittorent_search)
-                $results = array("error" => "disabled");
-            else
-            {
-                require "engines/bittorrent/merge.php";
-                $results = get_merged_torrent_results($query_encoded);
-            }
-            break;
-        case 4:
-            if ($config->disable_hidden_service_search)
-                $results = array("error" => "disabled");
-            else
-            {
-                require "engines/ahmia/hidden_service.php";
-                $results = get_hidden_service_results($query_encoded);
-            }
-            break;
-        default:
-            require "engines/google/text.php";
-            $results = get_text_results($query_encoded, $page);
-            break;
-    }
-
+    $results = fetch_search_results($opts, false);
     header("Content-Type: application/json");
     echo json_encode($results);
 ?>

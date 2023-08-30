@@ -32,13 +32,13 @@ a,
 .special-result-container a,
 .did-you-mean a,
 .sub-search-button-wrapper a,
-.sub-search-button-wrapper a:visited{
+.sub-search-button-wrapper a:visited {
     color: #bd93f9;
 }
 
 .sub-search-button-wrapper .active {
     border-bottom: 2px #bd93f9 solid;
-    padding-bottom: 6px;
+    padding-bottom: 10px;
 }
 
 a:hover,
@@ -121,6 +121,7 @@ a:hover,
 
 .sub-search-button-wrapper {
     margin-left: 165px;
+    margin-bottom: 10px;
 }
 
 .search-button-wrapper button:hover,
@@ -138,9 +139,9 @@ a:hover,
     border: none;
     background-color: inherit;
     font-size: 15px;
-    margin-right: 14px;
-	cursor: pointer;
-	text-decoration: none;
+    margin-right: 20px;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .sub-search-button-wrapper img {
@@ -305,8 +306,7 @@ a[title] {
     width: 100vw;
     left: 0;
     background-color: var(--footer-bg);
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding: 10px;
     border-top: 1px solid var(--border);
     text-align: center;
 }
@@ -479,4 +479,12 @@ a[title] {
     .next-page-button-wrapper {
         margin-top: 30px;
     }
+
+    .text-result-container,
+    #time,
+    .next-page-button-wrapper,
+    .did-you-mean {
+        margin-left: 20px;
+    }
+
 }

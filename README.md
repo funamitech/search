@@ -21,17 +21,18 @@ You can access the full list of LibreX and LibreY instances on one of the follow
 
 | Clearnet | TOR | I2P | Country |
 |-|-|-|-|
-| [search.ahwx.org](https://search.ahwx.org/) | [✅](http://hyy7rcvknwb22v4nnoar635wntiwr4uwzhiuyimemyl4fz6k7tahj5id.onion) | ❌ | 🇫🇷 FR (temp) |
+| [search.ahwx.org](https://search.ahwx.org/) | [✅](http://hyy7rcvknwb22v4nnoar635wntiwr4uwzhiuyimemyl4fz6k7tahj5id.onion) | ❌ | 🇳🇱 NL |
 | [librex.me](https://librex.me/) | [✅](http://librex.revvybrr6pvbx4n3j4475h4ghw4elqr4t5xo2vtd3gfpu2nrsnhh57id.onion/) | [✅](http://revekebotog64xrrammtsmjwtwlg3vqyzwdurzt2pu6botg4bejq.b32.i2p/) | 🇨🇦 CA |
 | [librex.revvy.de](https://librex.revvy.de/) | [✅](http://librex.revvybrr6pvbx4n3j4475h4ghw4elqr4t5xo2vtd3gfpu2nrsnhh57id.onion/) | [✅](http://revekebotog64xrrammtsmjwtwlg3vqyzwdurzt2pu6botg4bejq.b32.i2p/) | 🇨🇦 CA |
 | [search.davidovski.xyz](https://search.davidovski.xyz/) | ❌ | ❌ | 🇬🇧 GB |
+| [librey.nohost.network](https://librey.nohost.network/) | ❌ | ❌ | 🇲🇽 MX |
 <br>
 
 
 ### About LibreY
 
 LibreY gives you text results from DuckDuckGo or Google, images from Qwant, and torrents from i.e. Ahmia and popular torrent sites without spying on you.
-<br>LibreY doesn't save any type of data about the user, there are no logs (except NGINX logs if the host sets them), no caches.
+<br>LibreY doesn't save **any** type of data about the user, there are no logs (except NGINX logs if the host sets them).
 
 ### LibreY compared to other metasearch engines
 

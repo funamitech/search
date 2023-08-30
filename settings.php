@@ -1,43 +1,35 @@
 <?php
-                $config = require "config.php";
+        require "misc/search_engine.php";
+        $opts = load_opts();
 
-                // Reset all cookies when resetting, or before saving new cookies
-                if (isset($_REQUEST["reset"]) || isset($_REQUEST["save"]))
-                {
-                    if (isset($_SERVER["HTTP_COOKIE"]))
-                    {
-                        $cookies = explode(";", $_SERVER["HTTP_COOKIE"]);
-                        foreach($cookies as $cookie)
-                        {
-                            $parts = explode("=", $cookie);
-                            $name = trim($parts[0]);
-                            setcookie($name, "", time() - 1000);
-                        }
-                    }
+        // Reset all cookies when resetting, or before saving new cookies
+        if (isset($_REQUEST["reset"]) || isset($_REQUEST["save"])) {
+            if (isset($_SERVER["HTTP_COOKIE"])) {
+                $cookies = explode(";", $_SERVER["HTTP_COOKIE"]);
+                foreach($cookies as $cookie) {
+                    $parts = explode("=", $cookie);
+                    $name = trim($parts[0]);
+                    setcookie($name, "", time() - 1000);
                 }
+            }
+        }
 
-                if (isset($_REQUEST["save"]))
-                {
-                    foreach($_POST as $key=>$value)
-                    {
-                        if (!empty($value))
-                        {
-                            setcookie($key, $value, time() + (86400 * 90), '/');
-                        }
-                        else
-                        {
-                            setcookie($key, "", time() - 1000);
-                        }
-                    }
+        if (isset($_REQUEST["save"])) {
+            foreach($_POST as $key=>$value) {
+                if (!empty($value)) {
+                    setcookie($key, $value, time() + (86400 * 90), '/');
+                } else {
+                    setcookie($key, "", time() - 1000);
                 }
+            }
+        }
 
-                if (isset($_REQUEST["save"]) || isset($_REQUEST["reset"]))
-                {
-                    header("Location: ./");
-                    die();
-                }
+        if (isset($_REQUEST["save"]) || isset($_REQUEST["reset"])) {
+            header("Location: ./");
+            die();
+        }
 
-                require "misc/header.php";
+        require "misc/header.php";
 ?>
 
     <title>YuruSearch - Settings</title>
@@ -67,10 +59,9 @@
                     <option value=\"ubuntu\">Ubuntu</option>
                     <option value=\"tokyo_night\">Tokyo night</option>";
 
-                    if (isset($_COOKIE["theme"]))
-                    {
-                        $cookie_theme = $_COOKIE["theme"];
-                        $themes = str_replace($cookie_theme . "\"", $cookie_theme . "\" selected", $themes);
+                    if (isset($_COOKIE["theme"])) {
+                        $theme = $opts->theme;
+                        $themes = str_replace($theme . "\"", $theme . "\" selected", $themes);
                     }
 
                     echo $themes;
@@ -79,19 +70,19 @@
                 </div>
                 <div>
                     <label>Disable special queries (e.g.: currency conversion)</label>
-                    <input type="checkbox" name="disable_special" <?php echo isset($_COOKIE["disable_special"]) ? "checked"  : ""; ?> >
+                    <input type="checkbox" name="disable_special" <?php echo $opts->disable_special ? "checked"  : ""; ?> >
                 </div>
 
                 <h2>Privacy friendly frontends</h2>
                 <p>For an example if you want to view YouTube without getting spied on, click on "Invidious", find the instance that is most suitable for you then paste it in (correct format: https://example.com)</p>
                 <div class="settings-textbox-container">
                       <?php
-                           foreach($config->frontends as $frontend => $data)
+                           foreach($opts->frontends as $frontend => $data)
                            {
                                 echo "<div>";
                                 echo "<a for=\"$frontend\" href=\"" . $data["project_url"] . "\" target=\"_blank\">" . ucfirst($frontend) . "</a>";
                                 echo "<input type=\"text\" name=\"$frontend\" placeholder=\"Replace " .  $data["original_name"] . "\" value=";
-                                echo isset($_COOKIE["$frontend"]) ? htmlspecialchars($_COOKIE["$frontend"]) :  $data["instance_url"];
+                                echo htmlspecialchars($opts->frontends["$frontend"]["instance_url"] ?? "");
                                 echo ">";
                                 echo "</div>";
                            }
@@ -99,43 +90,25 @@
                 </div>
                 <div>
                     <label>Disable frontends</label>
-                    <input type="checkbox" name="disable_frontends" <?php echo isset($_COOKIE["disable_frontends"]) ? "checked"  : ""; ?> >
+                    <input type="checkbox" name="disable_frontends" <?php echo $opts->disable_frontends ? "checked"  : ""; ?> >
                 </div>
 
                 <h2>Search settings</h2>
                 <div class="settings-textbox-container">
                     <div>
-                        <span>Site language</span>
+                        <span>Language</span>
                         <?php
-                            echo "<input type=\"text\" name=\"google_language_site\" placeholder=\"E.g.: en\" value=\"";
-                            echo isset($_COOKIE["google_language_site"]) ? htmlspecialchars($_COOKIE["google_language_site"]) : $config->google_language_site;
-                        ?>">
-                    </div>
-                    <div>
-                        <span>Results language</span>
-                        <?php
-                            echo "<input type=\"text\" name=\"google_language_results\" placeholder=\"E.g.: de\" value=\"";
-                            echo isset($_COOKIE["google_language_results"]) ? htmlspecialchars($_COOKIE["google_language_results"]) : $config->google_language_results;
-                        ?>">
+                            // TODO make this a dropdown
+                            echo "<input type=\"text\" name=\"language\" placeholder=\"any\" value=\"" . htmlspecialchars($opts->language ?? "") . "\">";
+                        ?>
                     </div>
                     <div>
                         <label>Number of results per page</label>
-                        <input type="number" name="google_number_of_results" value="<?php echo isset($_COOKIE["google_number_of_results"]) ? $_COOKIE["google_number_of_results"]  : $config->google_number_of_results; ?>" >
+                        <input type="number" name="number_of_results" value="<?php echo htmlspecialchars($opts->number_of_results ?? "10") ?>" >
                     </div>
                     <div>
                         <label>Safe search</label>
-                        <input type="checkbox" name="safe_search" <?php echo isset($_COOKIE["safe_search"]) ? "checked"  : ""; ?> >
-                    </div>
-                </div>
-
-                <h2>Wikipedia settings</h2>
-                <div class="settings-textbox-container">
-                    <div>
-                        <span>Results language</span>
-                        <?php
-                            echo "<input type=\"text\" name=\"wikipedia_language\" placeholder=\"E.g.: en\" value=\"";
-                            echo isset($_COOKIE["wikipedia_language"]) ? htmlspecialchars($_COOKIE["wikipedia_language"]) : $config->wikipedia_language;
-                        ?>">
+                        <input type="checkbox" name="safe_search" <?php echo $opts->safe_search ? "checked"  : ""; ?> >
                     </div>
                 </div>
 
