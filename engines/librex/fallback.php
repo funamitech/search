@@ -6,9 +6,9 @@
             $this->instance = $instance;
             parent::__construct($opts, $mh);
         }
-
+)
         public function get_request_url() {
-           return $this->instance . "api.php?" . opts_to_params($this->opts);
+           return $this->instance . "api.php?" . opts_to_params($this->opts) . "&nfb=1";
         }
 
         public function parse_results($response) {

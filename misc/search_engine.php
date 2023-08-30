@@ -97,7 +97,6 @@
         $params .= "p=$opts->page";
         $params .= "&q=$query";
         $params .= "&t=$opts->type";
-        $params .= "&nfb=" . ($opts->do_fallback ? 0 : 1);
         $params .= "&safe=" . ($opts->safe_search ? 1 : 0);
         $params .= "&nf=" . ($opts->disable_frontends ? 1 : 0);
         $params .= "&ns=" . ($opts->disable_special ? 1 : 0);

@@ -31,7 +31,7 @@
         }
 
         public function parse_results($response) {
-            if (!$this->engine_request)
+            if (!isset($this->engine_request))
                 return array();
 
             $results = $this->engine_request->get_results();
