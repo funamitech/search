@@ -47,13 +47,18 @@
 
             $instance = array_pop($instances);
 
+            if (!$instance)
+                break;
+
             if (parse_url($instance)["host"] == parse_url($_SERVER['HTTP_HOST'])["host"])
                 continue;
 
             $librex_request = new LibreXFallback($instance, $opts, null);
+            error_log($librex_request->url);
+            
             $results = $librex_request->get_results();
 
-            if (count($results) > 0)
+            if (!empty($results))
                 return $results;
 
             // on fail then do this

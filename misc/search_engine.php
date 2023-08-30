@@ -5,6 +5,7 @@
         function __construct($opts, $mh) {
             $this->query = $opts->query;
             $this->page = $opts->page;
+            $this->mh = $mh;
             $this->opts = $opts;
 
             $this->url = $this->get_request_url();
@@ -44,10 +45,10 @@
             if (!isset($this->ch))
                 return $this->parse_results(null);
 
-            $response = curl_multi_getcontent($this->ch);
+            $response = $this->mh ? curl_multi_getcontent($this->ch) : curl_exec($this->ch);
             $results = $this->parse_results($response) ?? array();
 
-            if ($this->DO_CACHING)
+            if ($this->DO_CACHING && !empty($results))
                 store_cached_results($this->url, $results, $this->opts->cache_time * 60);
 
             return $results;
