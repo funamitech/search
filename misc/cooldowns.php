@@ -31,9 +31,9 @@
         return false;
     }
 
-    function store_cached_results($url, $results) {
+    function store_cached_results($url, $results, $ttl = 0) {
         if (function_exists("apcu_store") && !empty($results))
-            return apcu_store("cached:$url", $results);
+            return apcu_store("cached:$url", $results, $ttl);
     }
 
     function fetch_cached_results($url) {

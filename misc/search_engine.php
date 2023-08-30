@@ -38,10 +38,8 @@
             if (!isset($this->url))
                 return $this->parse_results(null);
 
-            if ($this->DO_CACHING && has_cached_results($this->url)) {
-                error_log("used cache for $this->url");
+            if ($this->DO_CACHING && has_cached_results($this->url))
                 return fetch_cached_results($this->url);
-            }
 
             if (!isset($this->ch))
                 return $this->parse_results(null);
@@ -49,10 +47,8 @@
             $response = curl_multi_getcontent($this->ch);
             $results = $this->parse_results($response) ?? array();
 
-            if ($this->DO_CACHING) {
-                store_cached_results($this->url, $results);
-                error_log("caching $this->url in cache");
-            }
+            if ($this->DO_CACHING)
+                store_cached_results($this->url, $results, $this->opts->cache_time * 60);
 
             return $results;
         }
@@ -64,6 +60,7 @@
         $opts = require "config.php";
 
         $opts->request_cooldown ??= 25;
+        $opts->cache_time ??= 25;
 
         $opts->query = trim($_REQUEST["q"] ?? "");
         $opts->type = (int) ($_REQUEST["t"] ?? 0);
