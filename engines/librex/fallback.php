@@ -62,7 +62,11 @@
 
         } while (!empty($instances));
 
-        return array();
+        return array(
+            "error" => array(
+                "message" => "No results found. Unable to fallback to other instances."
+            )
+        );
     }
 
 ?>

@@ -152,7 +152,6 @@
         } while ($running);
 
         $results = $search_category->get_results();
-        error_log(print_r($results, true));
 
         if (empty($results)) {
             require "engines/librex/fallback.php";
