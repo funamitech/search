@@ -25,6 +25,9 @@
         public function parse_results($response) {
             $results = array();
             $xpath = get_xpath($response);
+
+            if (!$xpath)
+                return $results;
             
             foreach($xpath->query("/html/body/div[1]/div[". count($xpath->query('/html/body/div[1]/div')) ."]/div/div/div/div") as $result)
             {
