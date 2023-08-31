@@ -85,6 +85,7 @@ This docker image was developed with high configurability in mind, so here is th
 | CONFIG_HIDDEN_SERVICE_SEARCH | false | boolean | Defines whether hidden service search will be disabled |
 | CONFIG_INSTANCE_FALLBACK | true | boolean | Choose whether or not to use the API on the backend to request to another LibreX/Y instance in case of rate limiting. |
 | CONFIG_RATE_LIMIT_COOLDOWN | 25 | integer | Time in minutes to wait before sending requests to Google again after a rate limit. |
+| CONFIG_CACHE_TIME | 20 | integer | Time in minutes to store results for in the cache. |
 
 ### Frontends
 | Variables | Default | Examples | Description |

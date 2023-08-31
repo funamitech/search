@@ -10,6 +10,7 @@
         "disable_hidden_service_search" => ${CONFIG_HIDDEN_SERVICE_SEARCH},
         "instance_fallback" => ${CONFIG_INSTANCE_FALLBACK},
         "request_cooldown" => ${CONFIG_RATE_LIMIT_COOLDOWN},
+        "cache_time" => ${CONFIG_CACHE_TIME},
 
         "frontends" => array(
             "invidious" => array(
