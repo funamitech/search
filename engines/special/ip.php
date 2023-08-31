@@ -1,6 +1,6 @@
 <?php
     class IPRequest extends EngineRequest {
-        function get_results() {
+        public function parse_results($response) {
             return array(
                 "special_response" => array(
                     "response" => $_SERVER["REMOTE_ADDR"],

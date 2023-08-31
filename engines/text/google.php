@@ -26,9 +26,9 @@
         }
 
 
-        public function get_results() {
+        public function parse_results($response) {
             $results = array();
-            $xpath = get_xpath(curl_multi_getcontent($this->ch));
+            $xpath = get_xpath($response);
 
             if (!$xpath)
                 return $results;
@@ -67,6 +67,12 @@
                                           "No description was provided for this site." :
                                           htmlspecialchars($description->textContent)
                     )
+                );
+            }
+
+            if (empty($results) && !str_contains($response, "Our systems have detected unusual traffic from your computer network.")) {
+                $results["error"] = array(
+                    "message" => "There are no results. Please try different keywords!"
                 );
             }
 

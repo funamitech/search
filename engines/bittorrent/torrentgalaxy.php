@@ -5,8 +5,7 @@
             return "https://torrentgalaxy.to/torrents.php?search=$query#results";
         }
 
-        public function get_results() {
-            $response = curl_multi_getcontent($this->ch);
+        public function parse_results($response) {
             $xpath = get_xpath($response);
             $results = array();
 

@@ -4,9 +4,7 @@
             return "https://cdn.moneyconvert.net/api/latest.json";
         }
         
-        public function get_results() { 
-            $response = curl_multi_getcontent($this->ch);
-
+        public function parse_results($response) {
             $split_query = explode(" ", $this->query);
 
             $base_currency = strtoupper($split_query[1]);

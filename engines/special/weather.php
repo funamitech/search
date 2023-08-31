@@ -4,8 +4,7 @@
             return "https://wttr.in/@" . $_SERVER["REMOTE_ADDR"] . "?format=j1";
         }
         
-        public function get_results() {
-            $response = curl_multi_getcontent($this->ch);
+        public function parse_results($response) {
             $json_response = json_decode($response, true);
 
             if (!$json_response)

@@ -8,9 +8,7 @@
             return "https://api.dictionaryapi.dev/api/v2/entries/en/$word_to_define";
         }
         
-        public function get_results() {        
-            $response = curl_multi_getcontent($this->ch);
-
+        public function parse_results($response) {
             $json_response = json_decode($response, true);
 
             if (!array_key_exists("title", $json_response))

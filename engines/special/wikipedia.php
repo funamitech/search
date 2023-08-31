@@ -10,9 +10,7 @@
                 return "https://$this->wikipedia_language.wikipedia.org/w/api.php?format=json&action=query&prop=extracts%7Cpageimages&exintro&explaintext&redirects=1&pithumbsize=500&titles=$query_encoded";
         }
 
-        public function get_results() {
-            $response = curl_multi_getcontent($this->ch);
-
+        public function parse_results($response) {
             $json_response = json_decode($response, true);
 
             $first_page = array_values($json_response["query"]["pages"])[0];

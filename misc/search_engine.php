@@ -1,15 +1,21 @@
 <?php
+    require "misc/cooldowns.php";
     abstract class EngineRequest {
+        protected $DO_CACHING = true;
         function __construct($opts, $mh) {
             $this->query = $opts->query;
             $this->page = $opts->page;
+            $this->mh = $mh;
             $this->opts = $opts;
 
-            $url = $this->get_request_url();
-            if (!$url)
+            $this->url = $this->get_request_url();
+            if (!$this->url)
                 return;
 
-            $this->ch = curl_init($url);
+            if (has_cached_results($this->url))
+                return;
+
+            $this->ch = curl_init($this->url);
 
             if ($opts->curl_settings)
                 curl_setopt_array($this->ch, $opts->curl_settings);
@@ -23,10 +29,31 @@
         }
 
         public function successful() {
-            return curl_getinfo($this->ch)['http_code'] == '200';
+            return (isset($this->ch) && curl_getinfo($this->ch)['http_code'] == '200') 
+                || has_cached_results($this->url);
         }
 
-        abstract function get_results();
+        abstract function parse_results($response);
+
+        public function get_results() {
+            if (!isset($this->url))
+                return $this->parse_results(null);
+
+            if ($this->DO_CACHING && has_cached_results($this->url))
+                return fetch_cached_results($this->url);
+
+            if (!isset($this->ch))
+                return $this->parse_results(null);
+
+            $response = $this->mh ? curl_multi_getcontent($this->ch) : curl_exec($this->ch);
+            $results = $this->parse_results($response) ?? array();
+
+            if ($this->DO_CACHING && !empty($results))
+                store_cached_results($this->url, $results, $this->opts->cache_time * 60);
+
+            return $results;
+        }
+
         static public function print_results($results){}
     }
 
@@ -34,6 +61,7 @@
         $opts = require "config.php";
 
         $opts->request_cooldown ??= 25;
+        $opts->cache_time ??= 25;
 
         $opts->query = trim($_REQUEST["q"] ?? "");
         $opts->type = (int) ($_REQUEST["t"] ?? 0);
@@ -47,7 +75,7 @@
 
         $opts->disable_frontends = (int) ($_REQUEST["nf"] ?? 0) == 1 || isset($_COOKIE["disable_frontends"]);
 
-        $opts->language = $_REQUEST["lang"] ?? trim(htmlspecialchars($_COOKIE["language"] ?? $opts->language));
+        $opts->language = $_REQUEST["lang"] ?? trim(htmlspecialchars($_COOKIE["language"] ?? $opts->language ?? "en"));
 
         $opts->do_fallback = (int) ($_REQUEST["nfb"] ?? 0) == 0;
         if (!$opts->instance_fallback) {
@@ -60,6 +88,8 @@
             $opts->frontends[$frontend]["instance_url"] = $_COOKIE[$frontend] ?? $opts->frontends[$frontend]["instance_url"];
         }
 
+        $opts->curl_settings[CURLOPT_FOLLOWLOCATION] ??= true;
+
         return $opts;
     }
 
@@ -70,7 +100,6 @@
         $params .= "p=$opts->page";
         $params .= "&q=$query";
         $params .= "&t=$opts->type";
-        $params .= "&nfb=" . ($opts->do_fallback ? 0 : 1);
         $params .= "&safe=" . ($opts->safe_search ? 1 : 0);
         $params .= "&nf=" . ($opts->disable_frontends ? 1 : 0);
         $params .= "&ns=" . ($opts->disable_special ? 1 : 0);
@@ -113,7 +142,6 @@
     }
 
     function fetch_search_results($opts, $do_print) {
-        require "misc/cooldowns.php";
         $opts->cooldowns = load_cooldowns();
 
         $start_time = microtime(true);
@@ -128,7 +156,7 @@
 
         $results = $search_category->get_results();
 
-        if (count($results) <= 1) {
+        if (empty($results)) {
             require "engines/librex/fallback.php";
             $results = get_librex_results($opts);
         }

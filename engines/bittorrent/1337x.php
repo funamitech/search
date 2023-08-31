@@ -5,9 +5,7 @@
             return "https://1337x.to/search/$query/1/";
         }
 
-        public function get_results() {
-            $response = curl_multi_getcontent($this->ch);
-
+        public function parse_results($response) {
             $xpath = get_xpath($response);
             $results = array();
 

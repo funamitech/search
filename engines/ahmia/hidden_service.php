@@ -6,8 +6,7 @@
             return "https://ahmia.fi/search/?q=" . urlencode($this->query);
         }
 
-        public function get_results() {
-            $response = curl_multi_getcontent($this->ch);
+        public function parse_results($response) {
             $results = array();
             $xpath = get_xpath($response);
 

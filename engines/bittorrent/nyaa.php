@@ -6,8 +6,7 @@
             return "https://$this->SOURCE/?q=" . urlencode($this->query);
         }
 
-        public function get_results() {
-            $response = curl_multi_getcontent($this->ch);
+        public function parse_results($response) {
             $xpath = get_xpath($response);
             $results = array();
 

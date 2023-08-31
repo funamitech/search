@@ -4,9 +4,8 @@
             return "https://yts.mx/api/v2/list_movies.json?query_term=" . urlencode($this->query);
         }
 
-        public function get_results() {
+        public function parse_results($response) {
             $response = curl_multi_getcontent($this->ch);
-            global $config;
             $results = array();
             $json_response = json_decode($response, true);
 
