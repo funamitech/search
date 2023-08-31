@@ -44,7 +44,7 @@
     <title>LibreY - instances</title>
     </head>
     <body>
-        
+        <div class="misc-container">
         <center>
             <h2>Libre<span class="Y">Y</span> instances</h2>
             <?php
@@ -56,6 +56,7 @@
                 list_instances($librex_instances);
             ?>
         </center>
+        </div>
     
 
 <?php require "misc/footer.php"; ?>

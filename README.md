@@ -26,6 +26,7 @@ You can access the full list of LibreX and LibreY instances on one of the follow
 | [librex.revvy.de](https://librex.revvy.de/) | [✅](http://librex.revvybrr6pvbx4n3j4475h4ghw4elqr4t5xo2vtd3gfpu2nrsnhh57id.onion/) | [✅](http://revekebotog64xrrammtsmjwtwlg3vqyzwdurzt2pu6botg4bejq.b32.i2p/) | 🇨🇦 CA |
 | [search.davidovski.xyz](https://search.davidovski.xyz/) | ❌ | ❌ | 🇬🇧 GB |
 | [librey.nohost.network](https://librey.nohost.network/) | ❌ | ❌ | 🇲🇽 MX |
+| [librex.yogeshlamichhane.com.np](https://librex.yogeshlamichhane.com.np/) | ❌ | ❌ | 🇫🇮 FI |
 <br>
 
 
