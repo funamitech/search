@@ -3,15 +3,14 @@
 
 - [Introduction](#introduction)
   - [Running a docker container](#running-a-docker-container)
-  - [Running a Docker container through the Docker hub](#running-a-docker-container-through-the-docker-hub)
+  - [Running a Docker container through ghcr](#running-a-docker-container-through-ghcr)
   - [Running a Docker container with composer](#running-a-docker-container-with-composer)
   - [Environment variables that can be set in the Docker container](#environment-variables-that-can-be-set-in-the-docker-container)
-    - [OpenSearch](#opensearch)
-    - [Search Config](#search-config)
-    - [Wikipedia](#wikipedia)
-    - [Applications](#applications)
-    - [Engines](#engines)
-    - [Curl](#curl)
+    - [Search Configuration](#search)
+    - [Frontend Configuration](#frontends)
+    - [Search Engine Configuration](#engines)
+    - [cURL Configuration](#curl)
+    - [OpenSearch Configuration](#opensearch)
 - [Docker version issues](#docker-version-issues)
 - [Building a docker image](#building-a-docker-image)
 - [Support for different architectures](#support-for-different-architectures)
@@ -20,7 +19,7 @@
 
 Dockerized librey is a way to provide users with yet another way to self-host their own projects with a view to privacy. If you wish to help, please start by looking for bugs in used docker configurations.
 
-### Running a Docker container through the Docker hub
+### Running a Docker container through ghcr
 
 To run librey in a docker container, you can simply use the command:
 
@@ -32,7 +31,7 @@ docker run -d \
   -e CONFIG_GOOGLE_LANGUAGE="en" \
   -e CONFIG_WIKIPEDIA_LANGUAGE="en" \
   -p 8080:8080 \
-  librey/librey:latest
+  ghcr.io/ahwxorg/librey:latest
 ```
 
 <br>
@@ -43,7 +42,7 @@ docker run -d \
 version: "2.1"
 services:
   librey:
-    image: librey/librey:latest
+    image: ghcr.io/ahwxorg/librey:latest
     container_name: librey
     network_mode: bridge
     ports:
@@ -52,10 +51,13 @@ services:
       - PUID=1000
       - PGID=1000
       - VERSION=docker
-      - TZ="America/New_York"
-      - CONFIG_GOOGLE_DOMAIN="com"
-      - CONFIG_GOOGLE_LANGUAGE="en"
-      - CONFIG_WIKIPEDIA_LANGUAGE="en"
+      - TZ=America/New_York
+      - CONFIG_GOOGLE_DOMAIN=com
+      - CONFIG_GOOGLE_LANGUAGE_SITE=en
+      - CONFIG_GOOGLE_LANGUAGE_RESULTS=en
+      - CONFIG_TEXT_SEARCH_ENGINE=google
+      - CONFIG_INSTANCE_FALLBACK=true
+      - CONFIG_WIKIPEDIA_LANGUAGE=en
     volumes:
       - ./nginx_logs:/var/log/nginx
       - ./php_logs:/var/log/php7
@@ -70,53 +72,24 @@ This docker image was developed with high configurability in mind, so here is th
 
 <br>
 
-### OpenSearch
+### Search
 
 | Variables | Default | Examples | Description |
 |:----------|:-------------|:---------|:------|
-| OPEN_SEARCH_TITLE |  "LibreY" | string | [OpenSearch XML](https://developer.mozilla.org/en-US/docs/Web/OpenSearch) |
-| OPEN_SEARCH_DESCRIPTION | "Framework and javascript free privacy respecting meta search engine" | string | [OpenSearch XML](https://developer.mozilla.org/en-US/docs/Web/OpenSearch) |
-| OPEN_SEARCH_ENCODING | "UTF-8" | "UTF-8" | [OpenSearch XML](https://developer.mozilla.org/en-US/docs/Web/OpenSearch) |
-| OPEN_SEARCH_LONG_NAME | "librey Search" | string | [OpenSearch XML](https://developer.mozilla.org/en-US/docs/Web/OpenSearch) |
-| OPEN_SEARCH_HOST | "http://localhost:8080" | string | Host used to identify librey on the network |
-
-<br>
-
-### Search Config
-
-| Variables | Default | Examples | Description |
-|:----------|:-------------|:---------|:------|
-| CONFIG_GOOGLE_DOMAIN |  "com" | "com", "com.br", "com.es" | Defines which Google domain the search will be done, change according to your country |
-| CONFIG_GOOGLE_LANGUAGE | "en" | "pt", "es", "ru" | Defines the language in which searches will be done, see the list of supported languages [here](https://developers.google.com/custom-search/docs/ref_languages). |
-| CONFIG_GOOGLE_NUMBER_OF_RESULTS | "10" | "10", "20", "30" | Number of results for Google to return each page. |
+| CONFIG_GOOGLE_DOMAIN | "com" | "com", "com.br", "cat", "se" | Defines which Google domain the search will be done on, change according to your country. |
+| CONFIG_LANGUAGE | "en" | "zh-Hans", "fil", "no" | Defines the language in which searches will be done, see the list of supported languages [here](https://developers.google.com/custom-search/docs/ref_languages). |
+| CONFIG_NUMBER_OF_RESULTS  | 10 | integer | Number of results for Google to return each page. |
+| CONFIG_INVIDIOUS_INSTANCE | "https://invidious.snopyta.org" | string | Defines the host that will be used to do video searches using Invidious. |
+| CONFIG_DISABLE_BITTORRENT_SEARCH | false | boolean | Defines whether bittorrent search will be disabled |
+| CONFIG_BITTORRENT_TRACKERS | "&tr=http://nyaa.tracker.wf:7777/announce&tr=udp://open.stealth.si:80/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://exodus.desync.com:6969/announce&tr=udp://tracker.torrent.eu.org:451/announce" | string | Set list of bittorrent trackers for torrent search. |
+| CONFIG_HIDDEN_SERVICE_SEARCH | false | boolean | Defines whether hidden service search will be disabled |
 | CONFIG_INSTANCE_FALLBACK | true | boolean | Choose whether or not to use the API on the backend to request to another LibreX/Y instance in case of rate limiting. |
-| CONFIG_INVIDIOUS_INSTANCE | "https://invidious.namazso.eu" | string | Defines the host that will be used to do video searches using invidious |
-| CONFIG_HIDDEN_SERVICE_SEARCH | false | boolean | Defines whether safesearch will be enabled or disabled |
-| CONFIG_DISABLE_BITTORRENT_SEARCH | false | boolean | Defines whether bittorrent support will be enabled or disabled |
-| CONFIG_BITTORRENT_TRACKERS | "http://nyaa.tracker.wf:7777/announce" | string | Bittorrent trackers, see the complete example in the `config.php` file. |
+| CONFIG_RATE_LIMIT_COOLDOWN | 25 | integer | Time in minutes to wait before sending requests to Google again after a rate limit. |
 
-<br>
-
-### Wikipedia
-
+### Frontends
 | Variables | Default | Examples | Description |
 |:----------|:-------------|:---------|:------|
-| CONFIG_WIKIPEDIA_LANGUAGE | "en" | "pt", "es", "hu" | Adds language support for Wikipedia results |
-
-<br>
-
-### Engines
-| Variables | Default | Examples | Description |
-|:----------|:-------------|:---------|:------|
-| CONFIG_TEXT_SEARCH_ENGINE | "google" | "google", "duckduckgo" | Change your text search engine. |
-
-<br>
-
-### Applications
-
-| Variables | Default | Examples | Description |
-|:----------|:-------------|:---------|:------|
-| APP_INVIDIOUS | "" | string | Integration with external self-hosted apps, configure the desired host. |
+| APP_INVIDIOUS | "" | "https://example.com", string | Integration with external self-hosted apps, configure the desired host. |
 | APP_RIMGO | "" | string | Integration with external self-hosted apps, configure the desired host. |
 | APP_SCRIBE | "" | string | Integration with external self-hosted apps, configure the desired host. |
 | APP_GOTHUB | "" | string | Integration with external self-hosted apps, configure the desired host. |
@@ -131,22 +104,37 @@ This docker image was developed with high configurability in mind, so here is th
 | APP_SUDS | "" | string | Integration with external self-hosted apps, configure the desired host. |
 | APP_BIBLIOREADS | "" | string | Integration with external self-hosted apps, configure the desired host. |
 
-<br>
+### Engines
+| Variables | Default | Examples | Description |
+|:----------|:-------------|:---------|:------|
+| CONFIG_TEXT_SEARCH_ENGINE | "google" | "google", "duckduckgo" | Integration with external self-hosted apps, configure the desired host. |
 
-### Curl
-
+### cURL
 | Variables | Default | Examples | Description |
 |:----------|:-------------|:---------|:------|
 | CURLOPT_PROXY_ENABLED | false | boolean | If you want to use a proxy, you need to set this variable to true. |
-| CURLOPT_PROXY | "" | "127.0.0.1:8080" | Set the proxy using the ip and port to be used |
-| CURLOPT_PROXYTYPE | "CURLPROXY_HTTP" | "CURLPROXY_SOCKS4A" "CURLPROXY_SOCKS5" "CURLPROXY_SOCKS5_HOSTNAME" | Set the type of proxy connection (if you enabled it). |
-| CURLOPT_RETURNTRANSFER | true | boolean | **TODO** |
-| CURLOPT_ENCODING | "" | string | Defines the encode that curl should use to display the texts correctly |
-| CURLOPT_USERAGENT | "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" | string | This variable defines the 'User-Agent' that curl will use to attempt to avoid being blocked |
-| CURLOPT_CUSTOMREQUEST | "GET" | "HEAD", "OPTIONS" | Defines the HTTP method that curl will use to make the request |
-| CURLOPT_MAXREDIRS | 5 | number | **TODO** |
-| CURLOPT_TIMEOUT | 18 | number | Sets the maximum time curl will wait for a response before timing out |
-| CURLOPT_VERBOSE | false | boolean | Specifies whether curl should display detailed information on stdout about the request and response when making requests. Setting to 'true' enables verbose mode |
+| CURLOPT_PROXY | "" | "192.0.2.53:8388" | Set the proxy using the ip and port to be used. |
+| CURLOPT_PROXYTYPE | "CURLPROXY_HTTP" | "CURLPROXY_SOCKS4A", "CURLPROXY_SOCKS5", "CURLPROXY_SOCKS5_HOSTNAME" | Set the type of proxy connection (if you enabled it). |
+| CURLOPT_RETURNTRANSFER | true | boolean | Return the transfer as a string of the return value of curl_exec() instead of outputting it directly. |
+| CURLOPT_ENCODING | "" | string | Return the transfer as a string of the return value of curl_exec() instead of outputting it directly. |
+| CURLOPT_USERAGENT | "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:116.0) Gecko/20100101 Firefox/116.0" | string | This variable defines the 'User-Agent' that curl will use to attempt to avoid being blocked. |
+| CURLOPT_IPRESOLVE | "CURL_IPRESOLVE_WHATEVER" | "CURL_IPRESOLVE_V4", "CURL_IPRESOLVE_V6" | Use a fixed IP version for making requests, or what DNS prefers. |
+| CURLOPT_CUSTOMREQUEST | "GET" | "POST", "CONNECT" | Defines the HTTP method that curl will use to make the request. |
+| CURLOPT_MAXREDIRS | 5 | integer | The maximum amount of HTTP redirections to follow, only enabled with CURLOPT_FOLLOWLOCATION. |
+| CURLOPT_TIMEOUT | 3 | integer | The maximum amount of time for cURL requests to complete. |
+| CURLOPT_VERBOSE | false | boolean | Whether to output verbose information. |
+| CURLOPT_FOLLOWLOCATION | true | boolean | Whether to follow any Location header. Required for instance fallback. |
+
+
+### OpenSearch
+
+| Variables | Default | Examples | Description |
+|:----------|:-------------|:---------|:------|
+| OPEN_SEARCH_TITLE |  "LibreY" | string | [OpenSearch XML](https://developer.mozilla.org/en-US/docs/Web/OpenSearch) |
+| OPEN_SEARCH_DESCRIPTION | "Framework and javascript free privacy respecting meta search engine" | string | [OpenSearch XML](https://developer.mozilla.org/en-US/docs/Web/OpenSearch) |
+| OPEN_SEARCH_ENCODING | "UTF-8" | "UTF-8" | [OpenSearch XML](https://developer.mozilla.org/en-US/docs/Web/OpenSearch) |
+| OPEN_SEARCH_LONG_NAME | "LibreY Search" | string | [OpenSearch XML](https://developer.mozilla.org/en-US/docs/Web/OpenSearch) |
+| OPEN_SEARCH_HOST | "http://localhost:80" | string | Host used to identify librey on the network |
 
 <br>
 
