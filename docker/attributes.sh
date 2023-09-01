@@ -19,19 +19,16 @@ export OPEN_SEARCH_HOST=${OPEN_SEARCH_HOST:-"127.0.0.1"}
 
 # Replace the 'config.php' script, which contains the most common search engine configurations, with these environment setups
 # These environment setups can be found in 'config.php', and the default configurations can be useful for most use cases
-export CONFIG_GOOGLE_DOMAIN="${CONFIG_GOOGLE_DOMAIN:-"com"}"
-export CONFIG_GOOGLE_LANGUAGE_SITE="${CONFIG_GOOGLE_LANGUAGE_SITE:-"en"}"
-export CONFIG_GOOGLE_LANGUAGE_RESULTS="${CONFIG_GOOGLE_LANGUAGE_RESULTS:-"en"}"
-export CONFIG_GOOGLE_NUMBER_OF_RESULTS="${CONFIG_GOOGLE_NUMBER_OF_RESULTS:-"10"}"
-export CONFIG_INSTANCE_FALLBACK="${CONFIG_INSTANCE_FALLBACK:-true}"
-export CONFIG_INVIDIOUS_INSTANCE="${CONFIG_INVIDIOUS_INSTANCE:-"invidious.snopyta.org"}"
-export CONFIG_HIDDEN_SERVICE_SEARCH=${CONFIG_HIDDEN_SERVICE_SEARCH:-false}
+export CONFIG_GOOGLE_DOMAIN=${CONFIG_GOOGLE_DOMAIN:-"com"}
+export CONFIG_LANGUAGE=${CONFIG_LANGUAGE:-"en"}
+export CONFIG_NUMBER_OF_RESULTS=${CONFIG_NUMBER_OF_RESULTS:-10}
+export CONFIG_INVIDIOUS_INSTANCE=${CONFIG_INVIDIOUS_INSTANCE:-"https://invidious.snopyta.org"}
 export CONFIG_DISABLE_BITTORRENT_SEARCH=${CONFIG_DISABLE_BITTORRENT_SEARCH:-false}
-export CONFIG_BITTORRENT_TRACKERS="${CONFIG_BITTORRENT_TRACKERS:-"&tr=http://nyaa.tracker.wf:7777/announce&tr=udp://open.stealth.si:80/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://exodus.desync.com:6969/announce&tr=udp://tracker.torrent.eu.org:451/announce"}"
-
-# The settings that will be used to handle Wikipedia results displayed on the librey search page
-# the settings below can be edited via environment variables.
-export CONFIG_WIKIPEDIA_LANGUAGE=${CONFIG_WIKIPEDIA_LANGUAGE:-${CONFIG_GOOGLE_LANGUAGE}}
+export CONFIG_BITTORRENT_TRACKERS=${CONFIG_BITTORRENT_TRACKERS:-"&tr=http://nyaa.tracker.wf:7777/announce&tr=udp://open.stealth.si:80/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://exodus.desync.com:6969/announce&tr=udp://tracker.torrent.eu.org:451/announce"}
+export CONFIG_HIDDEN_SERVICE_SEARCH=${CONFIG_HIDDEN_SERVICE_SEARCH:-false}
+export CONFIG_INSTANCE_FALLBACK="${CONFIG_INSTANCE_FALLBACK:-true}"
+export CONFIG_RATE_LIMIT_COOLDOWN="${CONFIG_RATE_LIMIT_COOLDOWN:-25}"
+export CONFIG_CACHE_TIME="${CONFIG_CACHE_TIME:-20}"
 
 # Supported apps integration configuration. These empty spaces can be set up using free hosts as pointers
 # A particular example is using the "https://yewtu.be" or a self-hosted host to integrate the invidious app to librey
@@ -59,11 +56,13 @@ export CURLOPT_PROXY=${CURLOPT_PROXY:-""}
 export CURLOPT_PROXYTYPE=${CURLOPT_PROXYTYPE:-"CURLPROXY_HTTP"}
 export CURLOPT_RETURNTRANSFER=${CURLOPT_RETURNTRANSFER:-true}
 export CURLOPT_ENCODING=${CURLOPT_ENCODING:-""}
-export CURLOPT_USERAGENT="${CURLOPT_USERAGENT:-"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"}"
+export CURLOPT_USERAGENT=${CURLOPT_USERAGENT:-"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:116.0) Gecko/20100101 Firefox/116.0"}
+export CURLOPT_IPRESOLVE=${CURLOPT_IPRESOLVE:-"CURL_IPRESOLVE_WHATEVER"}
 export CURLOPT_CUSTOMREQUEST="${CURLOPT_CUSTOMREQUEST:-"GET"}"
 export CURLOPT_MAXREDIRS=${CURLOPT_MAXREDIRS:-5}
-export CURLOPT_TIMEOUT=${CURLOPT_TIMEOUT:-18}
+export CURLOPT_TIMEOUT=${CURLOPT_TIMEOUT:-3}
 export CURLOPT_VERBOSE=${CURLOPT_VERBOSE:-true}
+export CURLOPT_FOLLOWLOCATION=${CURLOPT_FOLLOWLOCATION:-true}
 
 # These shell functions will be available for use by any function calls
 function AwkTrim() { awk '{$1=$1};1'; }

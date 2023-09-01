@@ -1,17 +1,16 @@
 <?php
     return (object) array(
+
         "google_domain" => "${CONFIG_GOOGLE_DOMAIN}",
-        "google_language_site" => "${CONFIG_GOOGLE_LANGUAGE_SITE}",
-        "google_language_results" => "${CONFIG_GOOGLE_LANGUAGE_RESULTS}",
-        "google_number_of_results" => "${CONFIG_GOOGLE_NUMBER_OF_RESULTS}",
-
-        "wikipedia_language" => "${CONFIG_WIKIPEDIA_LANGUAGE}",
+        "language" => "${CONFIG_LANGUAGE}",
+        "number_of_results" => ${CONFIG_NUMBER_OF_RESULTS},
         "invidious_instance_for_video_results" => "${CONFIG_INVIDIOUS_INSTANCE}",
-
         "disable_bittorent_search" => ${CONFIG_DISABLE_BITTORRENT_SEARCH},
         "bittorent_trackers" => "${CONFIG_BITTORRENT_TRACKERS}",
         "disable_hidden_service_search" => ${CONFIG_HIDDEN_SERVICE_SEARCH},
         "instance_fallback" => ${CONFIG_INSTANCE_FALLBACK},
+        "request_cooldown" => ${CONFIG_RATE_LIMIT_COOLDOWN},
+        "cache_time" => ${CONFIG_CACHE_TIME},
 
         "frontends" => array(
             "invidious" => array(
@@ -34,7 +33,7 @@
             ),
             "gothub" => array(
                 "instance_url" => "${APP_GOTHUB}",
-                "project_url" => "https://codeberg.org/gothub/gothub/wiki/Instances",
+                "project_url" => "https://codeberg.org/gothub/gothub#instances",
                 "original_name" => "GitHub",
                 "original_url" => "github.com"
             ),
@@ -44,10 +43,9 @@
                 "original_name" => "Twitter",
                 "original_url" => "twitter.com"
             ),
-
             "libreddit" => array(
                 "instance_url" => "${APP_LIBREREDDIT}",
-                "project_url" => "https://github.com/spikecodes/libreddit",
+                "project_url" => "https://github.com/libreddit/libreddit-instances/blob/master/instances.md",
                 "original_name" => "Reddit",
                 "original_url" => "reddit.com"
             ),
@@ -61,23 +59,23 @@
                 "instance_url" => "${APP_WIKILESS}",
                 "project_url" => "https://github.com/Metastem/wikiless#instances",
                 "original_name" => "Wikipedia",
-                "original_url" => "wikipedia.com"
+                "original_url" => "wikipedia.org"
             ),
             "quetre" => array(
                 "instance_url" => "${APP_QUETRE}",
-                "project_url" => "https://github.com/zyachel/quetre",
+                "project_url" => "https://github.com/zyachel/quetre#instances",
                 "original_name" => "Quora",
                 "original_url" => "quora.com"
             ),
             "libremdb" => array(
                 "instance_url" => "${APP_LIBREMDB}",
-                "project_url" => "https://github.com/zyachel/libremdb",
+                "project_url" => "https://github.com/zyachel/libremdb#instances",
                 "original_name" => "IMDb",
                 "original_url" => "imdb.com"
             ),
             "breezewiki" => array(
                 "instance_url" => "${APP_BREEZEWIKI}",
-                "project_url" => "https://gitdab.com/cadence/breezewiki",
+                "project_url" => "https://docs.breezewiki.com/Links.html",
                 "original_name" => "Fandom",
                 "original_url" => "fandom.com"
             ),
@@ -101,23 +99,25 @@
             )
         ),
 
+
         "preferred_engines" => array(
             "text" => "${CONFIG_TEXT_SEARCH_ENGINE}"
         ),
 
         "curl_settings" => array(
             CURLOPT_PROXY => "${CURLOPT_PROXY}",
-            CURLOPT_PROXYTYPE => "${CURLOPT_PROXYTYPE}",
+            CURLOPT_PROXYTYPE => ${CURLOPT_PROXYTYPE},
             CURLOPT_RETURNTRANSFER => ${CURLOPT_RETURNTRANSFER},
             CURLOPT_ENCODING => "${CURLOPT_ENCODING}",
             CURLOPT_USERAGENT => "${CURLOPT_USERAGENT}",
-            CURLOPT_IPRESOLVE => CURL_IPRESOLVE_WHATEVER,
+            CURLOPT_IPRESOLVE => ${CURLOPT_IPRESOLVE},
             CURLOPT_CUSTOMREQUEST => "${CURLOPT_CUSTOMREQUEST}",
             CURLOPT_PROTOCOLS => CURLPROTO_HTTPS | CURLPROTO_HTTP,
             CURLOPT_REDIR_PROTOCOLS => CURLPROTO_HTTPS | CURLPROTO_HTTP,
             CURLOPT_MAXREDIRS => ${CURLOPT_MAXREDIRS},
             CURLOPT_TIMEOUT => ${CURLOPT_TIMEOUT},
-            CURLOPT_VERBOSE => ${CURLOPT_VERBOSE}
+            CURLOPT_VERBOSE => ${CURLOPT_VERBOSE},
+            CURLOPT_FOLLOWLOCATION => ${CURLOPT_FOLLOWLOCATION}
         )
     );
 ?>
