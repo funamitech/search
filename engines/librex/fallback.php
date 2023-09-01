@@ -7,11 +7,10 @@
         }
 
         public function get_request_url() {
-           return $this->instance . "api.php?" . opts_to_params($this->opts);
+           return $this->instance . "api.php?" . opts_to_params($this->opts) . "&nfb=1";
         }
 
-        public function get_results() {
-            $response = curl_exec($this->ch);
+        public function parse_results($response) {
             $response = json_decode($response, true);
             if (!$response)
                 return array();
@@ -47,13 +46,17 @@
 
             $instance = array_pop($instances);
 
+            if (!$instance)
+                break;
+
             if (parse_url($instance)["host"] == parse_url($_SERVER['HTTP_HOST'])["host"])
                 continue;
 
             $librex_request = new LibreXFallback($instance, $opts, null);
+
             $results = $librex_request->get_results();
 
-            if (count($results) > 1)
+            if (!empty($results))
                 return $results;
 
             // on fail then do this
@@ -62,7 +65,11 @@
 
         } while (!empty($instances));
 
-        return array();
+        return array(
+            "error" => array(
+                "message" => "No results found. Unable to fallback to other instances."
+            )
+        );
     }
 
 ?>

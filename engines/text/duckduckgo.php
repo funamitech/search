@@ -19,14 +19,18 @@
 
             if (isset($_COOKIE["safe_search"]))
                 $url .= "&safe=medium";
+
             return $url;
         }
 
-        public function get_results() {
+        public function parse_results($response) {
             $results = array();
-            $xpath = get_xpath(curl_multi_getcontent($this->ch));
+            $xpath = get_xpath($response);
+
+            if (!$xpath)
+                return $results;
             
-            foreach($xpath->query("/html/body/div[1]/div[". count($xpath->query('/html/body/div[1]/div')) ."]/div/div/div/div") as $result)
+            foreach($xpath->query("/html/body/div[1]/div[". count($xpath->query('/html/body/div[1]/div')) ."]/div/div/div[contains(@class, 'web-result')]/div") as $result)
             {
                 $url = $xpath->evaluate(".//h2[@class='result__title']//a/@href", $result)[0];
                 
@@ -57,7 +61,7 @@
                     )
                 );
            }
-            return $results;
+           return $results;
         }
 
     }

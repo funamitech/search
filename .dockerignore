@@ -1,0 +1,10 @@
+.github/
+.git/
+.gitignore
+.dockerignore
+config.php.example
+docker-compose.yml
+Dockerfile
+opensearch.xml.example
+README.md
+docker-old/

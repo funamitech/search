@@ -7,9 +7,9 @@
             return "https://lite.qwant.com/?q=$query&t=images&p=$page";
         }
 
-        public function get_results() {
+        public function parse_results($response) {
             $results = array();
-            $xpath = get_xpath(curl_multi_getcontent($this->ch));
+            $xpath = get_xpath($response);
 
             if (!$xpath)
                 return $results;

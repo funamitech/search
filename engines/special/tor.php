@@ -5,9 +5,7 @@
             return "https://check.torproject.org/torbulkexitlist";
         }
 
-        public function get_results() {
-            $response = curl_multi_getcontent($ch);
-
+        public function parse_results($response) {
             $formatted_response = strpos($response, $_SERVER["REMOTE_ADDR"]) ? "It seems like you are using Tor" : "It seems like you are not using Tor";
             $source = "https://check.torproject.org";
             

@@ -1,6 +1,6 @@
 <?php
     class UserAgentRequest extends EngineRequest {
-        function get_results() {
+        public function parse_results($response) {
             return array(
                 "special_response" => array(
                     "response" => $_SERVER["HTTP_USER_AGENT"], 

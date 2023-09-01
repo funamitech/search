@@ -6,9 +6,8 @@
             return "$this->instance_url/api/v1/search?q=$query";
         }
 
-        public function get_results() {
+        public function parse_results($response) {
             $results = array();
-            $response = curl_multi_getcontent($this->ch);
             $json_response = json_decode($response, true);
 
             foreach ($json_response as $response) {

@@ -23,6 +23,9 @@
         // how long in minutes to put google/other instances on cooldown if they aren't responding
         "request_cooldown" => 25,
 
+        // how long in minutes to store results for in the cache
+        "cache_time" => 20,
+
         /*
             Preset privacy friendly frontends for users, these can be overwritten by users in the settings
             e.g.: Preset the invidious instance URL: "instance_url" => "https://yewtu.be",

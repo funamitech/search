@@ -106,10 +106,10 @@
                         <label>Number of results per page</label>
                         <input type="number" name="number_of_results" value="<?php echo htmlspecialchars($opts->number_of_results ?? "10") ?>" >
                     </div>
-                    <div>
-                        <label>Safe search</label>
-                        <input type="checkbox" name="safe_search" <?php echo $opts->safe_search ? "checked"  : ""; ?> >
-                    </div>
+                </div>
+                <div>
+                    <label>Safe search</label>
+                    <input type="checkbox" name="safe_search" <?php echo $opts->safe_search ? "checked"  : ""; ?> >
                 </div>
 
                 <div>
