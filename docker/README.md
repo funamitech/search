@@ -34,12 +34,20 @@ docker run -d \
   ghcr.io/ahwxorg/librey:latest
 ```
 
+Also run with watchtower for auto-updating: (optional)
+```sh
+docker run -d \
+  --name librey-watchtower-1 \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  containrrr/watchtower
+```
+
 <br>
 
 ### Running a Docker container with composer
 
 ```yml
-version: "2.1"
+version: "3"
 services:
   librey:
     image: ghcr.io/ahwxorg/librey:latest
@@ -62,6 +70,10 @@ services:
       - ./nginx_logs:/var/log/nginx
       - ./php_logs:/var/log/php7
     restart: unless-stopped
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 ```
 
 <br>
