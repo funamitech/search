@@ -34,12 +34,20 @@ docker run -d \
   ghcr.io/ahwxorg/librey:latest
 ```
 
+Also run with watchtower for auto-updating: (optional)
+```sh
+docker run -d \
+  --name librey-watchtower-1 \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  containrrr/watchtower
+```
+
 <br>
 
 ### Running a Docker container with composer
 
 ```yml
-version: "2.1"
+version: "3"
 services:
   librey:
     image: ghcr.io/ahwxorg/librey:latest
@@ -62,6 +70,10 @@ services:
       - ./nginx_logs:/var/log/nginx
       - ./php_logs:/var/log/php7
     restart: unless-stopped
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 ```
 
 <br>
@@ -179,7 +191,7 @@ docker build -t librey:latest .
 
 Supported architectures for the official librey images include the same ones supported by Alpine itself, which are typically denoted as `linux/386`, `linux/amd64`, `linux/arm/v6`. If you need support for a different architecture, such as `linux/arm/v7`, you can modify the 'Dockerfile' to use a more comprehensive base image like `ubuntu:latest` instead.
 
-In this case, you must run the `build` process specifying the desired architecture as shown in the example below:
+In this case, you must run the `buildx` process specifying the desired architecture as shown in the example below:
 
 ```sh
 docker buildx build \
