@@ -191,7 +191,7 @@ docker build -t librey:latest .
 
 Supported architectures for the official librey images include the same ones supported by Alpine itself, which are typically denoted as `linux/386`, `linux/amd64`, `linux/arm/v6`. If you need support for a different architecture, such as `linux/arm/v7`, you can modify the 'Dockerfile' to use a more comprehensive base image like `ubuntu:latest` instead.
 
-In this case, you must run the `build` process specifying the desired architecture as shown in the example below:
+In this case, you must run the `buildx` process specifying the desired architecture as shown in the example below:
 
 ```sh
 docker buildx build \
