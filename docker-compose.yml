@@ -21,7 +21,7 @@ services:
       - ./nginx_logs:/var/log/nginx
       - ./php_logs:/var/log/php7
     restart: unless-stopped
-  watchtower:
+  watchtower: # Watchtower is not required but highly recommended, since Watchtower will re-pull and restart the LibreY container automatically whenever there's an update.
     image: containrrr/watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
