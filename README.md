@@ -15,18 +15,22 @@
 
 ### Instances
 
-> If you host using CloudFlare, this will be mentioned in the instances list.
-
-You can access the full list of LibreX and LibreY instances on one of the following updated LibreY instances:
-
-| Clearnet | TOR | I2P | Country |
-|-|-|-|-|
-| [search.ahwx.org](https://search.ahwx.org/) | [✅](http://hyy7rcvknwb22v4nnoar635wntiwr4uwzhiuyimemyl4fz6k7tahj5id.onion) | ❌ | 🇳🇱 NL |
-| [librex.me](https://librex.me/) | [✅](http://librex.revvybrr6pvbx4n3j4475h4ghw4elqr4t5xo2vtd3gfpu2nrsnhh57id.onion/) | [✅](http://revekebotog64xrrammtsmjwtwlg3vqyzwdurzt2pu6botg4bejq.b32.i2p/) | 🇨🇦 CA |
-| [librex.revvy.de](https://librex.revvy.de/) | [✅](http://librex.revvybrr6pvbx4n3j4475h4ghw4elqr4t5xo2vtd3gfpu2nrsnhh57id.onion/) | [✅](http://revekebotog64xrrammtsmjwtwlg3vqyzwdurzt2pu6botg4bejq.b32.i2p/) | 🇨🇦 CA |
-| [search.davidovski.xyz](https://search.davidovski.xyz/) | ❌ | ❌ | 🇬🇧 GB |
-| [librey.nohost.network](https://librey.nohost.network/) | ❌ | ❌ | 🇲🇽 MX |
-| [librex.yogeshlamichhane.com.np](https://librex.yogeshlamichhane.com.np/) | ❌ | ❌ | 🇫🇮 FI |
+You can find a list of instances on any LibreY instance by accessing /instances.php.<br>
+Alternatively look at `instances.json` where the list is generated from.<br><br>
+While the official instances may be more updated and have better uptime, please consider using another person's instances as these are heavily overloaded.<br>
+Support the community. ❤️<br><br>
+Instance list on [@codedipper](https://github.com/codedipper)'s instance:<br>
+[librex.me](https://librex.me/instances.php)<br>
+[librex.revvy.de](https://librex.revvy.de/instances.php)<br>
+[Tor](http://librex.revvybrr6pvbx4n3j4475h4ghw4elqr4t5xo2vtd3gfpu2nrsnhh57id.onion/instances.php)<br>
+[I2P](http://revekebotog64xrrammtsmjwtwlg3vqyzwdurzt2pu6botg4bejq.b32.i2p/instances.php)<br>
+<br>
+[@Ahwxorg](https://github.com/Ahwxorg)'s instance:<br>
+[search.ahwx.org](https://search.ahwx.org/instances.php)<br>
+[Tor](http://hyy7rcvknwb22v4nnoar635wntiwr4uwzhiuyimemyl4fz6k7tahj5id.onion/instances.php)<br>
+<br>
+[@davidovski](https://github.com/davidovski)'s instance:<br>
+[search.davidovski.xyz](https://search.davidovski.xyz/instances.php)<br>
 <br>
 
 
