@@ -15,18 +15,19 @@
 
 ### Instances
 
-> If you host using CloudFlare, this will be mentioned in the instances list.
-
-You can access the full list of LibreX and LibreY instances on one of the following updated LibreY instances:
-
-| Clearnet | TOR | I2P | Country |
-|-|-|-|-|
-| [search.ahwx.org](https://search.ahwx.org/) | [✅](http://hyy7rcvknwb22v4nnoar635wntiwr4uwzhiuyimemyl4fz6k7tahj5id.onion) | ❌ | 🇳🇱 NL |
-| [librex.me](https://librex.me/) | [✅](http://librex.revvybrr6pvbx4n3j4475h4ghw4elqr4t5xo2vtd3gfpu2nrsnhh57id.onion/) | [✅](http://revekebotog64xrrammtsmjwtwlg3vqyzwdurzt2pu6botg4bejq.b32.i2p/) | 🇨🇦 CA |
-| [librex.revvy.de](https://librex.revvy.de/) | [✅](http://librex.revvybrr6pvbx4n3j4475h4ghw4elqr4t5xo2vtd3gfpu2nrsnhh57id.onion/) | [✅](http://revekebotog64xrrammtsmjwtwlg3vqyzwdurzt2pu6botg4bejq.b32.i2p/) | 🇨🇦 CA |
-| [search.davidovski.xyz](https://search.davidovski.xyz/) | ❌ | ❌ | 🇬🇧 GB |
-| [librey.nohost.network](https://librey.nohost.network/) | ❌ | ❌ | 🇲🇽 MX |
-| [librex.yogeshlamichhane.com.np](https://librex.yogeshlamichhane.com.np/) | ❌ | ❌ | 🇫🇮 FI |
+You can find a list of instances on any LibreY instance by accessing /instances.php
+Instance list on @codedipper's instance:
+[librex.me](https://librex.me/instances.php)
+[librex.revvy.de](https://librex.revvy.de/instances.php)
+[Tor](http://librex.revvybrr6pvbx4n3j4475h4ghw4elqr4t5xo2vtd3gfpu2nrsnhh57id.onion/instances.php)
+[I2P](http://revekebotog64xrrammtsmjwtwlg3vqyzwdurzt2pu6botg4bejq.b32.i2p/instances.php)
+<br>
+@davidovski's instance:
+[search.davidovski.xyz](https://search.davidovski.xyz/instances.php)
+<br>
+@Ahwxorg's instance:
+[search.ahwx.org](https://search.ahwx.org/instances.php)
+[Tor](http://hyy7rcvknwb22v4nnoar635wntiwr4uwzhiuyimemyl4fz6k7tahj5id.onion/instances.php)
 <br>
 
 
