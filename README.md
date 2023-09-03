@@ -16,7 +16,7 @@
 ### Instances
 
 You can find a list of instances on any LibreY instance by accessing /instances.php.<br>
-Alternatively look at `instances.json` where the list is generated from.<br>
+Alternatively look at `instances.json` where the list is generated from.<br><br>
 While the official instances may be more updated and have better uptime, please consider using another person's instances as these are heavily overloaded.<br>
 Support the community. ❤️<br><br>
 Instance list on [@codedipper](https://github.com/codedipper)'s instance:<br>
