@@ -106,6 +106,13 @@
             "librey": true
           },
           {
+              "clearnet": "https://librey.baczek.me/",
+              "tor": null,
+              "i2p": null,
+              "country": "PL",
+              "librey": true
+          },
+          {
               "clearnet": "https://lx.owo.si/",
               "tor": "http://lx.pk47sgwhncn5cgidm7bofngmh7lc7ukjdpk5bjwfemmyp27ovl25ikyd.onion/",
               "i2p": "http://d4vi3tvfui2rfzsxr33tin4a6542heulf4mhkokdpbhbcejlg3la.b32.i2p/",
