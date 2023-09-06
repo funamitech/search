@@ -53,7 +53,6 @@
                 }
 
                 $url = $url->textContent;
-                $url = check_for_privacy_frontend($url, $this->opts);
 
                 $title = $xpath->evaluate(".//h3", $result)[0];
                 $description = $xpath->evaluate(".//div[contains(@class, 'VwiC3b')]", $result)[0];
@@ -62,6 +61,7 @@
                     array (
                         "title" => htmlspecialchars($title->textContent),
                         "url" =>  htmlspecialchars($url),
+                        // base_url is to be removed in the future, see #47
                         "base_url" => htmlspecialchars(get_base_url($url)),
                         "description" =>  $description == null ?
                                           "No description was provided for this site." :

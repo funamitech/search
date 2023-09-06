@@ -55,7 +55,7 @@
             return $results;
         }
 
-        public static function print_results($results) {
+        public static function print_results($results, $opts)  {
 
             if (empty($results)) {
                 echo "<div class=\"text-result-container\"><p>An error occured fetching results</p></div>";
@@ -69,8 +69,7 @@
 
             $special = $results[0];
 
-            if (array_key_exists("did_you_mean", $special)) 
-            {
+            if (array_key_exists("did_you_mean", $special)) {
                 $didyoumean = $special["did_you_mean"];
                 $new_url = "/search.php?q="  . urlencode($didyoumean);
                 echo "<p class=\"did-you-mean\">Did you mean ";
@@ -78,33 +77,34 @@
                 echo "?</p>";
             }
 
-            if (array_key_exists("special_response", $special)) 
-            {
+            if (array_key_exists("special_response", $special)) {
                 $response = $special["special_response"]["response"];
                 $source = $special["special_response"]["source"];
 
                 echo "<p class=\"special-result-container\">";
-                if (array_key_exists("image", $special["special_response"]))
-                {
+                if (array_key_exists("image", $special["special_response"])) {
                     $image_url = $special["special_response"]["image"];
                     echo "<img src=\"image_proxy.php?url=$image_url\">";
                 }
                 echo $response;
-                if ($source)
+                if ($source) {
+                    $source = check_for_privacy_frontend($source, $opts);
                     echo "<a href=\"$source\" target=\"_blank\">$source</a>";
+                }
                 echo "</p>";
             }
 
             echo "<div class=\"text-result-container\">";
 
-            foreach($results as $result)
-            {
+            foreach($results as $result) {
                 if (!array_key_exists("title", $result))
                     continue;
 
                 $title = $result["title"];
                 $url = $result["url"];
-                $base_url = $result["base_url"];
+                $url = check_for_privacy_frontend($url, $opts);
+
+                $base_url = get_base_url($url);
                 $description = $result["description"];
 
                 echo "<div class=\"text-result-wrapper\">";
@@ -120,8 +120,7 @@
         }
     }
 
-    function check_ddg_bang($query, $opts)
-    {
+    function check_ddg_bang($query, $opts) {
 
         $bangs_json = file_get_contents("static/misc/ddg_bang.json");
         $bangs = json_decode($bangs_json, true);
@@ -133,22 +132,18 @@
         
         $bang_url = null;
 
-        foreach($bangs as $bang)
-        {
-            if ($bang["t"] == $search_word)
-            {
+        foreach($bangs as $bang) {
+            if ($bang["t"] == $search_word) {
                 $bang_url = $bang["u"];
                 break;
             }
         }
 
-        if ($bang_url)
-        {
+        if ($bang_url) {
             $bang_query_array = explode("!" . $search_word, $query);
             $bang_query = trim(implode("", $bang_query_array));
 
             $request_url = str_replace("{{{s}}}", str_replace('%26quot%3B','%22', urlencode($bang_query)), $bang_url);
-            $request_url = check_for_privacy_frontend($request_url, $opts);
 
             header("Location: " . $request_url);
             die();
