@@ -54,7 +54,7 @@
             return $results;
         }
 
-        static public function print_results($results){}
+        public static function print_results($results, $opts) {}
     }
 
     function load_opts() {
@@ -165,7 +165,7 @@
             return $results;
 
         print_elapsed_time($start_time);
-        $search_category->print_results($results);
+        $search_category->print_results($results, $opts);
 
         return $results;
     }

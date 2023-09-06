@@ -14,7 +14,6 @@
                 if ($response["type"] == "video") {
                     $title = $response["title"];
                     $url = "https://youtube.com/watch?v=" . $response["videoId"];
-                    $url = check_for_privacy_frontend($url, $this->opts);
                     $uploader = $response["author"];
                     $views = $response["viewCount"];
                     $date = $response["publishedText"];
@@ -37,12 +36,13 @@
             return $results;
         }
 
-        public static function print_results($results) {
+        public static function print_results($results, $opts) {
             echo "<div class=\"text-result-container\">";
 
                 foreach($results as $result) {
                     $title = $result["title"];
                     $url = $result["url"];
+                    $url = check_for_privacy_frontend($url, $opts);
                     $base_url = $result["base_url"];
                     $uploader = $result["uploader"];
                     $views = $result["views"];

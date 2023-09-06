@@ -34,7 +34,7 @@
             return $results; 
         }
 
-        public static function print_results($results) {
+        public static function print_results($results, $opts) {
             echo "<div class=\"text-result-container\">";
 
             if (empty($results)) {

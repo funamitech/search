@@ -32,8 +32,8 @@
             return $results;
         }
 
-        public static function print_results($results) {
-            TextSearch::print_results($results);
+        public static function print_results($results, $opts) {
+            TextSearch::print_results($results, $opts);
         }
     }
 ?>

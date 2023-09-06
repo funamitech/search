@@ -24,7 +24,6 @@
                         $encoded_url_split1 = explode("==/", $encoded_url)[1];
                         $encoded_url_split2 = explode("?position", $encoded_url_split1)[0];
                         $real_url = urldecode(base64_decode($encoded_url_split2));
-                        $real_url = check_for_privacy_frontend($real_url, $this->opts);
 
                         $alt = $image->getAttribute("alt");
                         $thumbnail = urlencode($image->getAttribute("src"));
@@ -43,7 +42,7 @@
             return $results;
         }
         
-        public static function print_results($results) {
+        public static function print_results($results, $opts) {
             echo "<div class=\"image-result-container\">";
 
                 foreach($results as $result)
@@ -51,6 +50,7 @@
                     $thumbnail = urlencode($result["thumbnail"]);
                     $alt = $result["alt"];
                     $url = $result["url"];
+                    $url = check_for_privacy_frontend($url, $opts);
 
                     echo "<a title=\"$alt\" href=\"$url\" target=\"_blank\">";
                     echo "<img src=\"image_proxy.php?url=$thumbnail\">";
