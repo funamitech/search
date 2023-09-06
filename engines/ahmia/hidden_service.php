@@ -23,6 +23,7 @@
                     array (
                         "title" => $title ? htmlspecialchars($title) : "No description provided",
                         "url" =>  htmlspecialchars($url),
+                        // base_url is to be removed in the future, see #47
                         "base_url" => htmlspecialchars(get_base_url($url)),
                         "description" => htmlspecialchars($description)
                     )

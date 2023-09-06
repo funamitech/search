@@ -23,6 +23,7 @@
                         array (
                             "title" => htmlspecialchars($title),
                             "url" =>  htmlspecialchars($url),
+                            // base_url is to be removed in the future, see #47
                             "base_url" => htmlspecialchars(get_base_url($url)),
                             "uploader" => htmlspecialchars($uploader),
                             "views" => htmlspecialchars($views),
@@ -43,7 +44,7 @@
                     $title = $result["title"];
                     $url = $result["url"];
                     $url = check_for_privacy_frontend($url, $opts);
-                    $base_url = $result["base_url"];
+                    $base_url = get_base_url($url);
                     $uploader = $result["uploader"];
                     $views = $result["views"];
                     $date = $result["date"];

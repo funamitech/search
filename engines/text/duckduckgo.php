@@ -50,6 +50,7 @@
                     array (
                         "title" => htmlspecialchars($title->textContent),
                         "url" =>  htmlspecialchars($url),
+                        // base_url is to be removed in the future, see #47
                         "base_url" => htmlspecialchars(get_base_url($url)),
                         "description" =>  $description == null ?
                                           "No description was provided for this site." :

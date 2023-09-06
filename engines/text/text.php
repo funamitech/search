@@ -104,7 +104,7 @@
                 $url = $result["url"];
                 $url = check_for_privacy_frontend($url, $opts);
 
-                $base_url = $result["base_url"];
+                $base_url = get_base_url($url);
                 $description = $result["description"];
 
                 echo "<div class=\"text-result-wrapper\">";
