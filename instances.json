@@ -2,9 +2,16 @@
     "instances": [
           {
               "clearnet": "https://search.ahwx.org/",
-              "tor": "http://hyy7rcvknwb22v4nnoar635wntiwr4uwzhiuyimemyl4fz6k7tahj5id.onion/",
+              "tor": "http://wn5jl6fxlzzfenlyu3lc4q7jpw2saplrywxvxtvqbguotwd4y5cjeuqd.onion/",
               "i2p": null,
               "country": "NL",
+              "librey": true
+          },
+          {
+              "clearnet": "https://search2.ahwx.org/",
+              "tor": "http://hyy7rcvknwb22v4nnoar635wntiwr4uwzhiuyimemyl4fz6k7tahj5id.onion/",
+              "i2p": null,
+              "country": "FR",
               "librey": true
           },
           {
