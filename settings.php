@@ -1,6 +1,5 @@
 <?php
         require "misc/search_engine.php";
-        $opts = load_opts();
 
         // Reset all cookies when resetting, or before saving new cookies
         if (isset($_REQUEST["reset"]) || isset($_REQUEST["save"])) {
@@ -28,6 +27,8 @@
             header("Location: ./");
             die();
         }
+
+        $opts = load_opts();
 
         require "misc/header.php";
 ?>
@@ -59,7 +60,7 @@
                     <option value=\"ubuntu\">Ubuntu</option>
                     <option value=\"tokyo_night\">Tokyo night</option>";
 
-                    if (isset($_COOKIE["theme"])) {
+                    if (isset($opts->theme)) {
                         $theme = $opts->theme;
                         $themes = str_replace($theme . "\"", $theme . "\" selected", $themes);
                     }
@@ -97,10 +98,22 @@
                 <div class="settings-textbox-container">
                     <div>
                         <span>Language</span>
+                        <select name="language">
                         <?php
-                            // TODO make this a dropdown
-                            echo "<input type=\"text\" name=\"language\" placeholder=\"any\" value=\"" . htmlspecialchars($opts->language ?? "") . "\">";
+
+                           $languages = json_decode(file_get_contents("static/misc/languages.json"), true);
+                           $options = "";
+
+                           $options .= "<option value=\"\" " . (!isset($opts->language) ? "selected" : "") . ">Any</option>";
+
+                           foreach ($languages as $lang_code => $language) {
+                               $name = $language["name"];
+                               $selected = $opts->language == $lang_code ? "selected" : "";
+                               $options .= "<option value=\"$lang_code\" $selected>$name</option>";
+                           }
+                           echo $options;
                         ?>
+                        </select>
                     </div>
                     <div>
                         <label>Number of results per page</label>
