@@ -36,7 +36,7 @@
                 if ($url == null)
                     continue;
 
-                if (!empty($results)) // filter duplicate results {
+                if (!empty($results)) { // filter duplicate results
                     if (end($results)["url"] == $url->textContent)
                         continue;
                 }
