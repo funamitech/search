@@ -50,6 +50,13 @@
               "librey": true
           },
           {
+              "clearnet": "https://librex.supernets.org/",
+              "tor": "http://ouosr2fq3lktngcvbz4r4op2lab5hbiz5y6g6toorsgieb7elet76jad.onion/",
+              "i2p": null,
+              "country": "US",
+              "librey": true
+          },
+          {
               "clearnet": "https://search.davidovski.xyz/",
               "tor": null,
               "i2p": null,
@@ -124,13 +131,6 @@
               "tor": null,
               "i2p": null,
               "country": "DE",
-              "librey": true
-          },
-          {
-              "clearnet": "https://librex.supernets.org/",
-              "tor": null,
-              "i2p": null,
-              "country": "US",
               "librey": true
           },
           {
