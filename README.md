@@ -25,8 +25,10 @@ Instance list on [@codedipper](https://github.com/codedipper)'s instance:<br>
 [Tor](http://librex.revvybrr6pvbx4n3j4475h4ghw4elqr4t5xo2vtd3gfpu2nrsnhh57id.onion/instances.php)<br>
 [I2P](http://revekebotog64xrrammtsmjwtwlg3vqyzwdurzt2pu6botg4bejq.b32.i2p/instances.php)<br>
 <br>
-[@Ahwxorg](https://github.com/Ahwxorg)'s instance:<br>
+[@Ahwxorg](https://github.com/Ahwxorg)'s instances:<br>
 [search.ahwx.org](https://search.ahwx.org/instances.php)<br>
+[Tor](http://wn5jl6fxlzzfenlyu3lc4q7jpw2saplrywxvxtvqbguotwd4y5cjeuqd.onion/instances.php)<br>
+[search2.ahwx.org](https://search.ahwx.org/instances.php)<br>
 [Tor](http://hyy7rcvknwb22v4nnoar635wntiwr4uwzhiuyimemyl4fz6k7tahj5id.onion/instances.php)<br>
 <br>
 [@davidovski](https://github.com/davidovski)'s instance:<br>
