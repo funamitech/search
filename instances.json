@@ -134,6 +134,13 @@
               "librey": true
           },
           {
+            "clearnet": "https://ly.owo.si/",
+            "tor": "http://ly.pk47sgwhncn5cgidm7bofngmh7lc7ukjdpk5bjwfemmyp27ovl25ikyd.onion/",
+            "i2p": "http://d4vi3tvfui2rfzsxr33tin4a6542heulf4mhkokdpbhbcejlg3la.b32.i2p/",
+            "country": "DE",
+            "librey": true
+          },
+          {
               "clearnet": "https://librex.myroware.eu/",
               "tor": null,
               "i2p": null,
