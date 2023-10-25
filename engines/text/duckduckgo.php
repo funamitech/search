@@ -1,7 +1,6 @@
 <?php
     class DuckDuckGoRequest extends EngineRequest {
-        function get_request_url()
-        {
+        public function get_request_url() {
             $query_encoded = str_replace("%22", "\"", urlencode($this->query));
             $results = array();
 
@@ -53,7 +52,7 @@
                         // base_url is to be removed in the future, see #47
                         "base_url" => htmlspecialchars(get_base_url($url)),
                         "description" =>  $description == null ?
-                                          "No description was provided for this site." :
+                                          TEXTS["result_no_description"] :
                                           htmlspecialchars($description->textContent)
                     )
                 );

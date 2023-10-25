@@ -10,8 +10,8 @@
                 <input type="hidden" name="t" value="0"/>
                 <input type="submit" class="hide"/>
                 <div class="search-button-wrapper">
-                    <button name="t" value="0" type="submit">Search with LibreY</button>
-                    <button name="t" value="3" type="submit">Search torrents with LibreY</button>
+                <button name="t" value="0" type="submit"><?php printtext("search_button"); ?></button>
+                    <button name="t" value="3" type="submit"><?php printtext("torrent_search_button"); ?></button>
                 </div>
         </form>
 

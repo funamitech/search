@@ -51,7 +51,7 @@
                 list_instances($librey_instances);
             ?>
 
-            <p>The following instances are running the older <a href="https://github.com/hnhx/librex">LibreX</a>:</p>
+                <p><?php printtext("instances_librex", "<a href=\"https://github.com/hnhx/librex\">LibreX</a>")?>:</p>
             <?php
                 list_instances($librex_instances);
             ?>

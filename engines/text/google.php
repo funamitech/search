@@ -64,7 +64,7 @@
                         // base_url is to be removed in the future, see #47
                         "base_url" => htmlspecialchars(get_base_url($url)),
                         "description" =>  $description == null ?
-                                          "No description was provided for this site." :
+                                          TEXTS["result_no_description"] :
                                           htmlspecialchars($description->textContent)
                     )
                 );
@@ -72,7 +72,7 @@
 
             if (empty($results) && !str_contains($response, "Our systems have detected unusual traffic from your computer network.")) {
                 $results["error"] = array(
-                    "message" => "There are no results. Please try different keywords!"
+                    "message" => TEXTS["failure_empty"]
                 );
             }
 

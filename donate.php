@@ -10,8 +10,7 @@
     <div class="donate-container">
       <!-- librex dev -->
       <h2>
-        Donate to the original developer of Libre<span class="Y">X</span>, a
-        project LibreY tries to improve.
+<?php printftext("donate_original_developer", "Libre<span class=\"Y\">X</span>")?>
       </h2>
 
       <div class="flexbox-column">
@@ -46,11 +45,9 @@
         <hr class="small-line" />
 
         <!-- librey dev -->
-        <h2>
-          Donate to the person that forked LibreX into Libre<span class="Y"
-            >Y</span
-          >
-        </h2>
+      <h2>
+<?php printftext("donate_fork", "Libre<span class=\"Y\">X</span>")?>
+      </h2>
 
         <div class="qr-box">
           <div class="inner-wrap">

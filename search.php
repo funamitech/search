@@ -29,7 +29,7 @@
 <title>
 <?php
     echo $opts->query;
-?> - LibreY</title>
+    ?> - <?php printtext("page_title");?></title>
 </head>
     <body>
         <form class="sub-search-container" method="get" autocomplete="off">
@@ -65,7 +65,7 @@
                             continue;
                         }
 
-                        echo "<a " . (($category_index == $opts->type) ? "class=\"active\" " : "") . "href=\"./search.php?q=" . urlencode($opts->query) . "&p=0&t=" . $category_index . "\"><img src=\"static/images/" . $category . "_result.png\" alt=\"" . $category . " result\" />" . ucfirst($category)  . "</a>";
+                        echo "<a " . (($category_index == $opts->type) ? "class=\"active\" " : "") . "href=\"./search.php?q=" . urlencode($opts->query) . "&p=0&t=" . $category_index . "\"><img src=\"static/images/" . $category . "_result.png\" alt=\"" . $category . " result\" />" . TEXTS["category_$category"]  . "</a>";
                     }
                 ?>
             </div>
