@@ -19,6 +19,7 @@ if ($accept_language_header) {
     foreach(explode(",", explode(";", $accept_language_header)[0]) as $header_language) {
         if (file_exists("locale/$header_language.php")) {
             $locale = $header_language;
+            break;
         }
     }
 }
