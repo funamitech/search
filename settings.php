@@ -33,14 +33,14 @@
         require "misc/header.php";
 ?>
 
-    <title>LibreY - Settings</title>
+    <title>LibreY - <?php printtext("settings_title");?></title>
     </head>
     <body>
         <div class="misc-container">
             <h1>Settings</h1>
             <form method="post" enctype="multipart/form-data" autocomplete="off">
               <div>
-                <label for="theme">Theme:</label>
+                <label for="theme"><?php printtext("settings_theme");?>:</label>
                 <select name="theme">
                 <?php
                     $themes = "<option value=\"dark\">Dark</option>
@@ -70,12 +70,12 @@
                 </select>
                 </div>
                 <div>
-                    <label>Disable special queries (e.g.: currency conversion)</label>
+                    <label><?php printtext("settings_special_disabled");?></label>
                     <input type="checkbox" name="disable_special" <?php echo $opts->disable_special ? "checked"  : ""; ?> >
                 </div>
 
-                <h2>Privacy friendly frontends</h2>
-                <p>For an example if you want to view YouTube without getting spied on, click on "Invidious", find the instance that is most suitable for you then paste it in (correct format: https://example.com)</p>
+                <h2><?php printtext("settings_frontends");?></h2>
+                <p><?php printtext("settings_frontends_description");?></p>
                 <div class="settings-textbox-container">
                       <?php
                            foreach($opts->frontends as $frontend => $data)
@@ -90,14 +90,14 @@
                       ?>
                 </div>
                 <div>
-                    <label>Disable frontends</label>
+                    <label><?php printtext("settings_frontends_disable");?></label>
                     <input type="checkbox" name="disable_frontends" <?php echo $opts->disable_frontends ? "checked"  : ""; ?> >
                 </div>
 
-                <h2>Search settings</h2>
+                <h2><?php printtext("settings_search_settings");?></h2>
                 <div class="settings-textbox-container">
                     <div>
-                        <span>Language</span>
+                        <span><?php printtext("settings_language");?></span>
                         <select name="language">
                         <?php
 
@@ -116,18 +116,18 @@
                         </select>
                     </div>
                     <div>
-                        <label>Number of results per page</label>
+                        <label><?php printtext("settings_number_of_results");?></label>
                         <input type="number" name="number_of_results" value="<?php echo htmlspecialchars($opts->number_of_results ?? "10") ?>" >
                     </div>
                 </div>
                 <div>
-                    <label>Safe search</label>
+                    <label><?php printtext("settings_safe_search");?></label>
                     <input type="checkbox" name="safe_search" <?php echo $opts->safe_search ? "checked"  : ""; ?> >
                 </div>
 
                 <div>
-                  <button type="submit" name="save" value="1">Save</button>
-                  <button type="submit" name="reset" value="1">Reset</button>
+                  <button type="submit" name="save" value="1"><?php printtext("settings_save");?></button>
+                  <button type="submit" name="reset" value="1"><?php printtext("settings_reset");?></button>
                 </div>
             </form>
         </div>

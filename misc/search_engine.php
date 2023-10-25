@@ -120,7 +120,7 @@
 
             case 3:
                 if ($opts->disable_bittorent_search) {
-                    echo "<p class=\"text-result-container\">The host disabled this feature! :C</p>";
+                    echo "<p class=\"text-result-container\">" . TEXTS["feature_disabled"] . "</p>";
                     break;
                 }
 
@@ -129,7 +129,7 @@
 
             case 4:
                 if ($opts->disable_hidden_service_search) {
-                    echo "<p class=\"text-result-container\">The host disabled this feature! :C</p>";
+                    echo "<p class=\"text-result-container\">" . TEXTS["feature_disabled"] . "</p>";
                     break;
                 }
                 require "engines/ahmia/hidden_service.php";

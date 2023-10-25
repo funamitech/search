@@ -38,7 +38,7 @@
             echo "<div class=\"text-result-container\">";
 
             if (empty($results)) {
-                echo "<p>There are no results. Please try different keywords!</p>";
+                echo "<p>" . TEXTS["failure_empty"] . "</p>";
                 return;
             }
 

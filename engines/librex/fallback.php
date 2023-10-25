@@ -67,7 +67,7 @@
 
         return array(
             "error" => array(
-                "message" => "No results found. Unable to fallback to other instances."
+                "message" => TEXTS["failure_fallback"]
             )
         );
     }
