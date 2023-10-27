@@ -64,13 +64,6 @@
               "librey": true
           },
           {
-              "clearnet": "https://librey.spaceint.fr/",
-              "tor": null,
-              "i2p": null,
-              "country": "FR",
-              "librey": true
-          },
-          {
               "clearnet": "https://search.funami.tech/",
               "tor": null,
               "i2p": null,
