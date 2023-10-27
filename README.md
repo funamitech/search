@@ -13,6 +13,10 @@
 
 <br>
 
+## Matrix
+
+If there's an important announcement, we do have a Matrix chatroom which you can join over at #librey:ahwx.org.
+
 ### Instances
 
 You can find a list of instances on any LibreY instance by accessing /instances.php.<br>
