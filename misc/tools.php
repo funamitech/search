@@ -77,11 +77,9 @@
         return $xpath;
     }
 
-    function request($url) {
-        $config ??= require "config.php";
-
+    function request($url, $conf) {
         $ch = curl_init($url);
-        curl_setopt_array($ch, $config->curl_settings);
+        curl_setopt_array($ch, $conf);
         $response = curl_exec($ch);
 
         return $response;
