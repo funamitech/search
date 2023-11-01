@@ -25,7 +25,7 @@
                         $leechers = $torrent["peers"];
                         $size = $torrent["size"];
 
-                        $magnet = "magnet:?xt=urn:btih:$hash&dn=$name_encoded$this->opts->bittorrent_trackers";
+                        $magnet = "magnet:?xt=urn:btih:$hash&dn=$name_encoded" . $this->opts->bittorrent_trackers;
 
                         array_push($results,
                             array (
