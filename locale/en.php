@@ -47,7 +47,7 @@ return array(
 
     "donate_original_developer" => "Donate to the original developer of %s, a
         project LibreY tries to improve.",
-    "donate_fork" => "Donate to the person that forked LibreX into %s"
+    "donate_fork" => "Donate to the person that forked %s into LibreY"
 );
 
 ?>
