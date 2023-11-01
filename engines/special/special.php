@@ -13,7 +13,7 @@
             if ($amount_to_convert != 0)
                 return 1;
          }
-         else if (strpos($query_lower, "mean") && count($split_query) >= 2) // definition
+         else if ((strpos($query_lower, "mean")  || strpos($query_lower, "define")) && count($split_query) >= 2) // definition
          {
              return 2;
          }
