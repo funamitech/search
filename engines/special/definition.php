@@ -4,7 +4,7 @@
         public function get_request_url() {
             $split_query = explode(" ", $this->query);
             $reversed_split_q = array_reverse($split_query);
-            $word_to_define = $reversed_split_q[1];
+            $word_to_define = $reversed_split_q[1] == "define" ? $reversed_split_q[0] : $reversed_split_q[1];
             return "https://api.dictionaryapi.dev/api/v2/entries/en/$word_to_define";
         }
 
