@@ -1,6 +1,7 @@
 <?php
     require "misc/tools.php";
     require "misc/search_engine.php";
+    require "locale/localization.php";
 
     $opts = load_opts();
 
