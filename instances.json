@@ -42,7 +42,14 @@
             "country": "DE",
             "librey": true
           },
-          {
+	  {
+            "clearnet": "https://librey.danyaal.xyz/",
+            "tor": "http://libreytvcxak42f3p7nxh3filsp2pjqesjii5f5e4eivs2gpcn77tdid.onion/",
+            "i2p": "http://libreyqmoa2iuihoyyscolhaymrxxgdrmkgmiufnyaukwub2c7ya.b32.i2p/",
+            "country": "GB",
+            "librey": true
+          },
+           {
               "clearnet": "https://librey.org/",
               "tor": "http://jxhkfulu6wpdl4apuy4dyivuowmpprvsd7e3el2z73crq7fmyv7rjkyd.onion/",
               "i2p": null,
