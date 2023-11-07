@@ -11,6 +11,9 @@
         public function parse_results($response) {
             $json_response = json_decode($response, true);
 
+            if (!$json_response)
+                return array();
+
             if (!array_key_exists("title", $json_response))
             {
                 $definition = $json_response[0]["meanings"][0]["definitions"][0]["definition"];
