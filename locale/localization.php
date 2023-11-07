@@ -13,16 +13,16 @@ function printftext() {
 // default to language "en"
 $locale = "en";
 
-$accept_language_header = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+if (array_key_exists("HTTP_ACCEPT_LANGUAGE", $_SERVER))
+    $accept_language_header = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
 
-if ($accept_language_header) {
+if ($accept_language_header) 
     foreach(explode(",", explode(";", $accept_language_header)[0]) as $header_language) {
         if (file_exists("locale/$header_language.php")) {
             $locale = $header_language;
             break;
         }
     }
-}
 
 define("TEXTS", require "locale/$locale.php");
 ?>
