@@ -14,6 +14,8 @@
 
         public function parse_results($response) {
             $json_response = json_decode($response, true);
+            if (!$json_response)
+                return array();
 
             $first_page = array_values($json_response["query"]["pages"])[0];
 
