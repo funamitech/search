@@ -48,7 +48,9 @@ return array(
 
     "donate_original_developer" => "Donate to the original developer of %s, a
         project LibreY tries to improve.",
-    "donate_fork" => "Donate to the person that forked %s into LibreY"
+    "donate_fork" => "Donate to the person that forked %s into LibreY",
+
+    "api_unavailable" => "This LibreY API is unavailable at the moment"
 );
 
 ?>

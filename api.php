@@ -1,9 +1,14 @@
 <?php
-    require "misc/tools.php";
     require "misc/search_engine.php";
     require "locale/localization.php";
 
     $opts = load_opts();
+    if ($opts->disable_api) {
+        echo "<p>" . TEXTS["api_unavailable"] . "</p>";
+        die();
+    }
+
+    require "misc/tools.php";
 
     if (!$opts->query) {
         echo "<p>Example API request: <a href=\"./api.php?q=gentoo&p=2&t=0\">./api.php?q=gentoo&p=2&t=0</a></p>

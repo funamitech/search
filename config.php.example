@@ -26,6 +26,9 @@
         // how long in minutes to store results for in the cache
         "cache_time" => 20,
 
+        // Disable requests to /api.php - HIGHLY recommended to keep this at false, this is what allows LibreY to still show results when Google/DuckDuckGo blocks te requests.
+        "disable_api" => false,
+
         /*
             Preset privacy friendly frontends for users, these can be overwritten by users in the settings
             e.g.: Preset the invidious instance URL: "instance_url" => "https://yewtu.be",
