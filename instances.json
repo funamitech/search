@@ -71,6 +71,13 @@
               "librey": true
           },
           {
+              "clearnet": "https://librex.ix.tc/",
+              "tor": null,
+              "i2p": null,
+              "country": "GB",
+              "librey": true
+          },
+          {
               "clearnet": "https://search.funami.tech/",
               "tor": null,
               "i2p": null,
