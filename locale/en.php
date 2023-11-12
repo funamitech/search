@@ -18,6 +18,7 @@ return array(
     "category_videos" => "Videos",
     "category_torrents" => "Torrents",
     "category_tor" => "Tor",
+    "category_maps" => "Maps",
 
     "feature_disabled" => "The host has disabled this feature :C",
 

@@ -135,6 +135,10 @@
                 require "engines/ahmia/hidden_service.php";
                 return new TorSearch($opts, $mh);
 
+            case 5:
+                require "engines/maps/openstreetmap.php";
+                return new OSMRequest($opts, $mh);
+
             default:
                 require "engines/text/text.php";
                 return new TextSearch($opts, $mh);

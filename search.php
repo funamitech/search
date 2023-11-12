@@ -53,7 +53,7 @@
             <input type="hidden" name="p" value="0">
             <div class="sub-search-button-wrapper">
                 <?php
-                    $categories = array("general", "images", "videos", "torrents", "tor");
+                    $categories = array("general", "images", "videos", "torrents", "tor", "maps");
 
                     foreach ($categories as $category)
                     {
