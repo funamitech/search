@@ -29,6 +29,7 @@ export CONFIG_HIDDEN_SERVICE_SEARCH=${CONFIG_HIDDEN_SERVICE_SEARCH:-false}
 export CONFIG_INSTANCE_FALLBACK="${CONFIG_INSTANCE_FALLBACK:-true}"
 export CONFIG_RATE_LIMIT_COOLDOWN="${CONFIG_RATE_LIMIT_COOLDOWN:-25}"
 export CONFIG_CACHE_TIME="${CONFIG_CACHE_TIME:-20}"
+export CONFIG_DISABLE_API="${CONFIG_DISABLE_API:-false}"
 
 # Supported apps integration configuration. These empty spaces can be set up using free hosts as pointers
 # A particular example is using the "https://yewtu.be" or a self-hosted host to integrate the invidious app to librey

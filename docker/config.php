@@ -11,6 +11,7 @@
         "instance_fallback" => ${CONFIG_INSTANCE_FALLBACK},
         "request_cooldown" => ${CONFIG_RATE_LIMIT_COOLDOWN},
         "cache_time" => ${CONFIG_CACHE_TIME},
+        "disable_api" => ${CONFIG_DISABLE_API},
 
         "frontends" => array(
             "invidious" => array(

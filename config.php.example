@@ -26,7 +26,7 @@
         // how long in minutes to store results for in the cache
         "cache_time" => 20,
 
-        // disable the api feature
+        // Disable requests to /api.php
         "disable_api" => false,
 
         /*
