@@ -49,8 +49,9 @@
             if (!$instance)
                 break;
 
-            if (!filter_var($instance, FILTER_VALIDATE_URL) || !filter_var($_SERVER["HTTP_HOST"], FILTER_VALIDATE_URL))
+            if (!(filter_var($instance, FILTER_VALIDATE_URL)))
                 continue;
+
             if (parse_url($instance)["host"] == parse_url($_SERVER['HTTP_HOST'])["host"])
                 continue;
 
