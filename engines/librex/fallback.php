@@ -1,6 +1,7 @@
 <?php
 
     class LibreXFallback extends EngineRequest {
+        protected $instance;
         public function __construct($instance, $opts, $mh) {
             $this->instance = $instance;
             parent::__construct($opts, $mh);

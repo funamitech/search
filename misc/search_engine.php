@@ -1,6 +1,8 @@
 <?php
     require "misc/cooldowns.php";
     abstract class EngineRequest {
+        protected $url, $query, $page, $opts, $mh, $ch;
+
         protected $DO_CACHING = true;
         function __construct($opts, $mh) {
             $this->query = $opts->query;

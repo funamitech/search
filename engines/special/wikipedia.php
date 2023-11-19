@@ -1,5 +1,6 @@
 <?php
     class WikipediaRequest extends EngineRequest {
+        protected $wikipedia_domain;
         public function get_request_url() {
                 $this->wikipedia_domain = "wikipedia.org";
                 $query_encoded = urlencode($this->query);

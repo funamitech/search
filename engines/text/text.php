@@ -1,5 +1,6 @@
 <?php
     class TextSearch extends EngineRequest {
+        protected $engine, $engine_request, $special_request;
         public function __construct($opts, $mh) {
             $this->query = $opts->query;
             $this->page = $opts->page;
