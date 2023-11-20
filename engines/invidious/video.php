@@ -1,5 +1,6 @@
 <?php
     class VideoSearch extends EngineRequest {
+        protected $instance_url;
         public function get_request_url() {
             $this->instance_url = $this->opts->invidious_instance_for_video_results;
             $query = urlencode($this->query);

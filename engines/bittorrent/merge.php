@@ -1,5 +1,6 @@
 <?php
     class TorrentSearch extends EngineRequest {
+        protected $requests;
         public function __construct($opts, $mh) {
             parent::__construct($opts, $mh);
 
