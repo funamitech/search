@@ -60,8 +60,11 @@
 
             $results = $librex_request->get_results();
 
-            if (!empty($results))
+            if (!empty($results)) {
+                $results["fallback_source"] = parse_url($instance)["host"];
+                error_log($results["fallback_source"]);
                 return $results;
+            }
 
             // on fail then do this
             $timeout = ($opts->request_cooldown ?? "1") * 60;
