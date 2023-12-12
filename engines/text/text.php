@@ -13,6 +13,12 @@
             if (substr($this->query, 0, 1) == "!" || substr($last_word_query, 0, 1) == "!")
                 check_ddg_bang($this->query, $opts);
 
+            // TODO smart balance between engines
+            if ($this->engine == "auto") {
+                $engines = array("google", "duckduckgo", "brave");
+                $this->engine = $engines[array_rand($engines)];
+            }
+
             if ($this->engine == "google") {
                 require "engines/text/google.php";
                 $this->engine_request = new GoogleRequest($opts, $mh);
