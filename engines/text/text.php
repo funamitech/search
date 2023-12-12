@@ -50,7 +50,7 @@
             if (!has_cooldown($engine, $this->opts->cooldowns))
                 return $engine;
 
-            return select_engine();
+            return $this->select_engine();
         }
 
         private function get_engine_request($engine, $opts, $mh) {
