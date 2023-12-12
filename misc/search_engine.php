@@ -167,10 +167,10 @@
             $results = get_librex_results($opts);
         }
 
-        if (!$do_print)
+        if (!$do_print || empty($results))
             return $results;
 
-        print_elapsed_time($start_time);
+        print_elapsed_time($start_time, $results, $opts);
         $search_category->print_results($results, $opts);
 
         return $results;

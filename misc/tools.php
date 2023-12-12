@@ -97,9 +97,15 @@
         return trim(preg_replace("/\s+/", ' ', $string));
      }
 
-    function print_elapsed_time($start_time) {
+    function print_elapsed_time($start_time, $results, $opts) {
+            $source = "";
+            if (($opts->show_result_source ?? true) && array_key_exists("fallback_source", $results)) {
+                $source = " from " . $results["fallback_source"];
+                unset($results["fallback_source"]);
+            }
+
             $end_time = number_format(microtime(true) - $start_time, 2, '.', '');
-            echo "<p id=\"time\">Fetched the results in $end_time seconds</p>";
+            echo "<p id=\"time\">Fetched the results in $end_time seconds$source</p>";
         }
 
     function print_next_page_button($text, $page, $query, $type) {
