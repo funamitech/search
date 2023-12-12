@@ -127,13 +127,6 @@
               "librey": true
           },
           {
-              "clearnet": "https://librex.myroware.eu/",
-              "tor": null,
-              "i2p": null,
-              "country": "DE",
-              "librey": false
-          },
-          {
               "clearnet": "https://search.zeroish.xyz/",
               "tor": null,
               "i2p": null,
