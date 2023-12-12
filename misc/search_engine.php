@@ -92,6 +92,8 @@
 
         $opts->curl_settings[CURLOPT_FOLLOWLOCATION] ??= true;
 
+        $opts->engine = $_REQUEST["engine"] ?? $_COOKIE["engine"] ?? $opts->preferred_engines["text"] ?? "auto";
+
         return $opts;
     }
 

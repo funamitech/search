@@ -2,51 +2,73 @@
     class TextSearch extends EngineRequest {
         protected $engine, $engine_request, $special_request;
         public function __construct($opts, $mh) {
+            $this->engines = array("google", "duckduckgo", "brave");
+            shuffle($this->engines);
+            
             $this->query = $opts->query;
+            $this->cache_key = "text:" . $this->query;
+
             $this->page = $opts->page;
             $this->opts = $opts;
 
-            $this->engine = $opts->preferred_engines["text"] ?? "google";
+            $this->engine = $opts->engine;
 
             $query_parts = explode(" ", $this->query);
             $last_word_query = end($query_parts);
             if (substr($this->query, 0, 1) == "!" || substr($last_word_query, 0, 1) == "!")
                 check_ddg_bang($this->query, $opts);
 
+            if (has_cached_results($this->cache_key))
+                return;
+
             // TODO smart balance between engines
             if ($this->engine == "auto") {
-                $engines = array("google", "duckduckgo", "brave");
-                $this->engine = $engines[array_rand($engines)];
+                $this->engine = $this->select_engine();
             }
 
-            if ($this->engine == "google") {
-                require "engines/text/google.php";
-                $this->engine_request = new GoogleRequest($opts, $mh);
-            }
+            $this->engine_request = $this->get_engine_request($this->engine, $opts, $mh);
 
-            if ($this->engine == "duckduckgo") {
-                require "engines/text/duckduckgo.php";
-                $this->engine_request = new DuckDuckGoRequest($opts, $mh);
-            }
-
-            if ($this->engine == "brave") {
-                require "engines/text/brave.php";
-                $this->engine_request = new BraveSearchRequest($opts, $mh);
-            }
-
-            if (has_cooldown($this->engine, $this->opts->cooldowns) && !has_cached_results($this->engine_request->url)) {
-                // TODO dont add it in the first place
-                curl_multi_remove_handle($mh, $this->engine_request->ch);
-                $this->engine_request = null;
+            if (is_null($this->engine_request)) {
                 return;
             }
-
 
             require "engines/special/special.php";
             $this->special_request = get_special_search_request($opts, $mh);
         }
+        private function select_engine() {
+            if (sizeof($this->engines) == 0)
+                return null;
+
+            $engine = array_pop($this->engines);
+
+            // if this engine is on cooldown, try again
+            if (!has_cooldown($engine, $this->opts->cooldowns))
+                return $engine;
+
+            return select_engine();
+        }
+
+        private function get_engine_request($engine, $opts, $mh) {
+            if ($engine == "google") {
+                require "engines/text/google.php";
+                return new GoogleRequest($opts, $mh);
+            }
+
+            if ($engine == "duckduckgo") {
+                require "engines/text/duckduckgo.php";
+                return new DuckDuckGoRequest($opts, $mh);
+            }
+
+            if ($engine == "brave") {
+                require "engines/text/brave.php";
+                return new BraveSearchRequest($opts, $mh);
+            }
+        }
 
         public function parse_results($response) {
+            if (has_cached_results($this->cache_key))
+                return fetch_cached_results($this->cache_key);
+
             if (!isset($this->engine_request))
                 return array();
 
@@ -61,6 +83,11 @@
                     if ($special_result)
                         $results = array_merge(array($special_result), $results);
                 }
+            }
+
+            if (!empty($results)) {
+                $results["results_source"] = parse_url($this->engine_request->url)["host"];
+                store_cached_results($this->cache_key, $results);
             }
 
             return $results;
@@ -140,7 +167,7 @@
             $search_word = substr(explode(" ", $query)[0], 1);
         else
             $search_word = substr(end(explode(" ", $query)), 1);
-        
+
         $bang_url = null;
 
         foreach($bangs as $bang) {
