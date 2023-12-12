@@ -21,16 +21,21 @@
             if (has_cached_results($this->cache_key))
                 return;
 
-            // TODO smart balance between engines
-            if ($this->engine == "auto") {
+            if ($this->engine == "auto")
                 $this->engine = $this->select_engine();
-            }
+
+            // no engine was selected
+            if (is_null($this->engine))
+                return;
+
+            // this only happens if a specific engine was selected, not if auto is used
+            if (has_cooldown($engine, $this->opts->cooldowns))
+                return;
 
             $this->engine_request = $this->get_engine_request($this->engine, $opts, $mh);
 
-            if (is_null($this->engine_request)) {
+            if (is_null($this->engine_request))
                 return;
-            }
 
             require "engines/special/special.php";
             $this->special_request = get_special_search_request($opts, $mh);
@@ -63,6 +68,9 @@
                 require "engines/text/brave.php";
                 return new BraveSearchRequest($opts, $mh);
             }
+
+            // if an invalid engine is selected, don't give any results
+            return null;
         }
 
         public function parse_results($response) {
