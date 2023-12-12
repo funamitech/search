@@ -97,9 +97,9 @@
         return trim(preg_replace("/\s+/", ' ', $string));
      }
 
-    function print_elapsed_time($start_time, $results) {
+    function print_elapsed_time($start_time, $results, $opts) {
             $source = "";
-            if (array_key_exists("fallback_source", $results)) {
+            if (($opts->show_result_source ?? true) && array_key_exists("fallback_source", $results)) {
                 $source = " from " . $results["fallback_source"];
                 unset($results["fallback_source"]);
             }

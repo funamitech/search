@@ -170,7 +170,7 @@
         if (!$do_print || empty($results))
             return $results;
 
-        print_elapsed_time($start_time, $results);
+        print_elapsed_time($start_time, $results, $opts);
         $search_category->print_results($results, $opts);
 
         return $results;
