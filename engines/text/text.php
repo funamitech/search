@@ -14,7 +14,6 @@
                 check_ddg_bang($this->query, $opts);
 
             if ($this->engine == "google") {
-                
                 require "engines/text/google.php";
                 $this->engine_request = new GoogleRequest($opts, $mh);
             }
@@ -22,6 +21,11 @@
             if ($this->engine == "duckduckgo") {
                 require "engines/text/duckduckgo.php";
                 $this->engine_request = new DuckDuckGoRequest($opts, $mh);
+            }
+
+            if ($this->engine == "brave") {
+                require "engines/text/brave.php";
+                $this->engine_request = new BraveSearchRequest($opts, $mh);
             }
 
             if (has_cooldown($this->engine, $this->opts->cooldowns) && !has_cached_results($this->engine_request->url)) {

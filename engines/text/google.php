@@ -46,7 +46,7 @@
                 if ($url == null)
                     continue;
 
-                    if (!empty($results) && array_key_exists("url", $results) && end($results)["url"] == $url->textContent)
+                if (!empty($results) && array_key_exists("url", $results) && end($results)["url"] == $url->textContent)
                         continue;
 
                 $url = $url->textContent;
