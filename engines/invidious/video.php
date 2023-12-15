@@ -1,5 +1,6 @@
 <?php
     class VideoSearch extends EngineRequest {
+        protected $instance_url;
         public function get_request_url() {
             $this->instance_url = $this->opts->invidious_instance_for_video_results;
             $query = urlencode($this->query);
@@ -14,7 +15,6 @@
                 if ($response["type"] == "video") {
                     $title = $response["title"];
                     $url = "https://youtube.com/watch?v=" . $response["videoId"];
-                    $url = check_for_privacy_frontend($url, $this->opts);
                     $uploader = $response["author"];
                     $views = $response["viewCount"];
                     $date = $response["publishedText"];
@@ -24,6 +24,7 @@
                         array (
                             "title" => htmlspecialchars($title),
                             "url" =>  htmlspecialchars($url),
+                            // base_url is to be removed in the future, see #47
                             "base_url" => htmlspecialchars(get_base_url($url)),
                             "uploader" => htmlspecialchars($uploader),
                             "views" => htmlspecialchars($views),
@@ -37,13 +38,14 @@
             return $results;
         }
 
-        public static function print_results($results) {
+        public static function print_results($results, $opts) {
             echo "<div class=\"text-result-container\">";
 
                 foreach($results as $result) {
                     $title = $result["title"];
                     $url = $result["url"];
-                    $base_url = $result["base_url"];
+                    $url = check_for_privacy_frontend($url, $opts);
+                    $base_url = get_base_url($url);
                     $uploader = $result["uploader"];
                     $views = $result["views"];
                     $date = $result["date"];

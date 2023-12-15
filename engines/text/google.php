@@ -46,14 +46,10 @@
                 if ($url == null)
                     continue;
 
-                if (!empty($results)) // filter duplicate results, ignore special result
-                {
-                    if (end($results)["url"] == $url->textContent)
+                    if (!empty($results) && array_key_exists("url", $results) && end($results)["url"] == $url->textContent)
                         continue;
-                }
 
                 $url = $url->textContent;
-                $url = check_for_privacy_frontend($url, $this->opts);
 
                 $title = $xpath->evaluate(".//h3", $result)[0];
                 $description = $xpath->evaluate(".//div[contains(@class, 'VwiC3b')]", $result)[0];
@@ -62,9 +58,10 @@
                     array (
                         "title" => htmlspecialchars($title->textContent),
                         "url" =>  htmlspecialchars($url),
+                        // base_url is to be removed in the future, see #47
                         "base_url" => htmlspecialchars(get_base_url($url)),
                         "description" =>  $description == null ?
-                                          "No description was provided for this site." :
+                                          TEXTS["result_no_description"] :
                                           htmlspecialchars($description->textContent)
                     )
                 );
@@ -72,7 +69,7 @@
 
             if (empty($results) && !str_contains($response, "Our systems have detected unusual traffic from your computer network.")) {
                 $results["error"] = array(
-                    "message" => "There are no results. Please try different keywords!"
+                    "message" => TEXTS["failure_empty"]
                 );
             }
 

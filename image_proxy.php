@@ -11,7 +11,7 @@
     if (in_array($requested_root_domain, $allowed_domains))
     {
       $image = $url;
-      $image_src = request($image);
+      $image_src = request($image, $config->curl_settings);
 
       header("Content-Type: image/png");
       echo $image_src;

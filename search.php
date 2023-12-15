@@ -53,7 +53,7 @@
             <input type="hidden" name="p" value="0">
             <div class="sub-search-button-wrapper">
                 <?php
-                    $categories = array("general", "images", "videos", "torrents", "tor");
+                    $categories = array("general", "images", "videos", "torrents", "tor", "maps");
 
                     foreach ($categories as $category)
                     {
@@ -65,7 +65,7 @@
                             continue;
                         }
 
-                        echo "<a " . (($category_index == $opts->type) ? "class=\"active\" " : "") . "href=\"./search.php?q=" . urlencode($opts->query) . "&p=0&t=" . $category_index . "\"><img src=\"static/images/" . $category . "_result.png\" alt=\"" . $category . " result\" />" . ucfirst($category)  . "</a>";
+                        echo "<a " . (($category_index == $opts->type) ? "class=\"active\" " : "") . "href=\"./search.php?q=" . urlencode($opts->query) . "&p=0&t=" . $category_index . "\"><img src=\"static/images/" . $category . "_result.png\" alt=\"" . $category . " result\" />" . TEXTS["category_$category"]  . "</a>";
                     }
                 ?>
             </div>

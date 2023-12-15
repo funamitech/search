@@ -1,5 +1,6 @@
 <?php
     class TorrentSearch extends EngineRequest {
+        protected $requests;
         public function __construct($opts, $mh) {
             parent::__construct($opts, $mh);
 
@@ -34,11 +35,11 @@
             return $results; 
         }
 
-        public static function print_results($results) {
+        public static function print_results($results, $opts) {
             echo "<div class=\"text-result-container\">";
 
             if (empty($results)) {
-                echo "<p>There are no results. Please try different keywords!</p>";
+                echo "<p>" . TEXTS["failure_empty"] . "</p>";
                 return;
             }
 
