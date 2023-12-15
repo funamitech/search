@@ -6,7 +6,7 @@
             $results_language = $this->opts->language;
             $number_of_results = $this->opts->number_of_results;
 
-            $url = "https://yandex.com/search?text=$query_encoded&nfpr=1&p=$this->page";
+            $url = "https://yandex.com/search?text=$query_encoded&nfpr=1&p=$this->page&noreask=1";
 
             if (!is_null($results_language))
                 $url .= "&lang$results_language";

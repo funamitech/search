@@ -7,7 +7,7 @@
             $number_of_results = $this->opts->number_of_results;
 
             // TODO find the right parameters for the url
-            $url = "https://search.brave.com/search?q=$query_encoded&nfpr=1&start=$this->page";
+            $url = "https://search.brave.com/search?q=$query_encoded&nfpr=1&spellcheck=0&start=$this->page";
 
             if (3 > strlen($results_language) && 0 < strlen($results_language)) {
                 $url .= "&lr=lang_$results_language";
