@@ -148,6 +148,8 @@
             echo "<div class=\"text-result-container\">";
 
             foreach($results as $result) {
+                if (!is_array($result))
+                    continue;
                 if (!array_key_exists("title", $result))
                     continue;
 
