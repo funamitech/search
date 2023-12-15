@@ -2,9 +2,9 @@
     class TextSearch extends EngineRequest {
         protected $engine, $engine_request, $special_request;
         public function __construct($opts, $mh) {
-            $this->engines = array("google", "duckduckgo", "brave");
+            $this->engines = array("google", "duckduckgo", "brave", "yandex");
             shuffle($this->engines);
-            
+
             $this->query = $opts->query;
             $this->cache_key = "text:" . $this->query;
 
@@ -29,7 +29,7 @@
                 return;
 
             // this only happens if a specific engine was selected, not if auto is used
-            if (has_cooldown($engine, $this->opts->cooldowns))
+            if (has_cooldown($this->engine, $this->opts->cooldowns))
                 return;
 
             $this->engine_request = $this->get_engine_request($this->engine, $opts, $mh);
@@ -67,6 +67,11 @@
             if ($engine == "brave") {
                 require "engines/text/brave.php";
                 return new BraveSearchRequest($opts, $mh);
+            }
+
+            if ($engine == "yandex") {
+                require "engines/text/yandex.php";
+                return new YandexSearchRequest($opts, $mh);
             }
 
             // if an invalid engine is selected, don't give any results
