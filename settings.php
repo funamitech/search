@@ -97,6 +97,32 @@
                 <h2><?php printtext("settings_search_settings");?></h2>
                 <div class="settings-textbox-container">
                     <div>
+                        <span><?php printtext("settings_preferred_engine");?></span>
+                        <select name="engine">
+                        <?php
+                           require "engines/text/text.php";
+
+                           $engines = get_engines();
+
+                           $options = "";
+
+                           $options .= "<option value=\"\" " . (!isset($opts->engine) ? "selected" : "") . ">auto</option>";
+
+                           foreach ($engines as $engine) {
+                               $selected = $opts->engine == $engine ? "selected" : "";
+                               $options .= "<option value=\"$engine\" $selected>$engine</option>";
+                           }
+                           echo $options;
+                        ?>
+                        </select>
+                    </div>
+                    <div>
+                        <label><?php printtext("settings_number_of_results");?></label>
+                        <input type="number" name="number_of_results" value="<?php echo htmlspecialchars($opts->number_of_results ?? "10") ?>" >
+                    </div>
+                </div>
+                <div class="settings-textbox-container">
+                    <div>
                         <span><?php printtext("settings_language");?></span>
                         <select name="language">
                         <?php

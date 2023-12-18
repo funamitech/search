@@ -1,8 +1,12 @@
 <?php
+    function get_engines() {
+        return array("google", "duckduckgo", "brave", "yandex");
+    }
+
     class TextSearch extends EngineRequest {
         protected $engine, $engine_request, $special_request;
         public function __construct($opts, $mh) {
-            $this->engines = array("google", "duckduckgo", "brave", "yandex");
+            $this->engines = get_engines();
             shuffle($this->engines);
 
             $this->query = $opts->query;
