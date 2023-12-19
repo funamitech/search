@@ -1,136 +1,151 @@
 {
     "instances": [
           {
-              "clearnet": "https://librex.zzls.xyz/",
-              "tor": "http://librex.zzlsghu6mvvwyy75mvga6gaf4znbp3erk5xwfzedb4gg6qqh2j6rlvid.onion/",
-              "i2p": "http://zzlsaymhcfla7vibo3a223bybeecu3bd5z6rmw2u4y76maqeu76q.b32.i2p/",
-              "country": "CL"
-          },
-          {
-              "clearnet": "https://librex.me/",
-              "tor": "http://librex.revvybrr6pvbx4n3j4475h4ghw4elqr4t5xo2vtd3gfpu2nrsnhh57id.onion/",
-              "i2p": "http://revekebotog64xrrammtsmjwtwlg3vqyzwdurzt2pu6botg4bejq.b32.i2p/",
-              "country": "CA"
-          },
-          {
-              "clearnet": "https://s.dyox.in/",
-              "tor": "http://ddhigxwjz7elcl2erm7qzzukda4qmovoy4cepcueahggpwrpu24mi6qd.onion/",
-              "i2p": "http://s.dyoxin.i2p/",
-              "country": "IS"
-          },
-          {
-              "clearnet": "https://lx.vern.cc/",
-              "tor": "http://lx.vernccvbvyi5qhfzyqengccj7lkove6bjot2xhh5kajhwvidqafczrad.onion/",
-              "i2p": "http://vernziqfqvweijfaacmwazohgpdo2bt2ib2jlupt2pwwu27bhgxq.b32.i2p/",
-              "country": "US"
-          },
-          {
               "clearnet": "https://search.ahwx.org/",
-              "tor": "http://cosrpybbddzdfjquer3zfmb2h5avtacnctnbu4gucwocdb42s63gcqqd.onion/",
+              "tor": "http://wn5jl6fxlzzfenlyu3lc4q7jpw2saplrywxvxtvqbguotwd4y5cjeuqd.onion/",
               "i2p": null,
-              "country": "NL"
+              "country": "NL",
+              "librey": true
           },
           {
-              "clearnet": "https://search.spaceint.fr/",
-              "tor": "http://6d4nqt2rndvmhogpwrbqfvj2ur6e6nm2r6dzi7ny4wj6ai3j5hnvbhyd.onion/",
+              "clearnet": "https://search2.ahwx.org/",
+              "tor": "http://hyy7rcvknwb22v4nnoar635wntiwr4uwzhiuyimemyl4fz6k7tahj5id.onion/",
               "i2p": null,
-              "country": "FR"
+              "country": "FR",
+              "librey": true
+          },
+	  {
+              "clearnet": "https://search3.ahwx.org/",
+              "tor": "http://r7nesn6dnp2fssinw7n5uj4ob2na6g4jppakpjgioxb6v4ca4bbsqoyd.onion/",
+              "i2p": null,
+              "country": "DE",
+              "librey": true
+          },
+          {
+            "clearnet": "https://ly.owo.si/",
+            "tor": "http://ly.pk47sgwhncn5cgidm7bofngmh7lc7ukjdpk5bjwfemmyp27ovl25ikyd.onion/",
+            "i2p": "http://d4vi3tvfui2rfzsxr33tin4a6542heulf4mhkokdpbhbcejlg3la.b32.i2p/",
+            "country": "DE",
+            "librey": true
+          },
+	  {
+            "clearnet": "https://librey.danyaal.xyz/",
+            "tor": "http://libreytvcxak42f3p7nxh3filsp2pjqesjii5f5e4eivs2gpcn77tdid.onion/",
+            "i2p": "http://libreyqmoa2iuihoyyscolhaymrxxgdrmkgmiufnyaukwub2c7ya.b32.i2p/",
+            "country": "GB",
+            "librey": true
+          },
+           {
+              "clearnet": "https://librey.org/",
+              "tor": "http://jxhkfulu6wpdl4apuy4dyivuowmpprvsd7e3el2z73crq7fmyv7rjkyd.onion/",
+              "i2p": null,
+              "country": "US",
+              "librey": true
+          },
+          {
+              "clearnet": "https://librex.supernets.org/",
+              "tor": "http://ouosr2fq3lktngcvbz4r4op2lab5hbiz5y6g6toorsgieb7elet76jad.onion/",
+              "i2p": null,
+              "country": "US",
+              "librey": true
           },
           {
               "clearnet": "https://search.davidovski.xyz/",
               "tor": null,
               "i2p": null,
-              "country": "UK"
+              "country": "GB",
+              "librey": true
           },
           {
-              "clearnet": "https://search.madreyk.xyz/",
+              "clearnet": "https://librex.uk.to/",
               "tor": null,
               "i2p": null,
-              "country": "DE"
+              "country": "GB",
+              "librey": true
           },
           {
-              "clearnet": "https://search.pabloferreiro.es/",
+              "clearnet": "https://librex.ix.tc/",
               "tor": null,
               "i2p": null,
-              "country": "DE"
-          },
-          {
-              "clearnet": "https://librex.pufe.org/",
-              "tor": null,
-              "i2p": null,
-              "country": "NZ"
-          },
-          {
-              "clearnet": "https://librex.ratakor.com/",
-              "tor": null,
-              "i2p": null,
-              "country": "FR"
-          },
-          {
-              "clearnet": "https://search.tildevarsh.in/",
-              "tor": null,
-              "i2p": null,
-              "country": "IN"
-          },
-          {
-              "clearnet": "https://librex.myroware.eu/",
-              "tor": null,
-              "i2p": null,
-              "country": "DE"
-          },
-          {
-              "clearnet": "https://librex.bloatcat.tk/",
-              "tor": null,
-              "i2p": null,
-              "country": "IS"
-          },
-          {
-              "clearnet": "https://librex.retro-hax.net/",
-              "tor": null,
-              "i2p": null,
-              "country": "DE"
+              "country": "GB",
+              "librey": true
           },
           {
               "clearnet": "https://search.funami.tech/",
               "tor": null,
               "i2p": null,
-              "country": "KR"
+              "country": "KR",
+              "librey": true
           },
           {
-              "clearnet": "https://search.zeroish.xyz/",
+              "clearnet": "https://librex.retro-hax.net/",
               "tor": null,
               "i2p": null,
-              "country": "US"
-          },
-          {
-              "clearnet": "https://librex.baczek.me/",
-              "tor": null,
-              "i2p": null,
-              "country": "PL"
-          },
-          {
-              "clearnet": "https://librex.yogeshlamichhane.com.np/",
-              "tor": null,
-              "i2p": null,
-              "country": "US"
-          },
-          {
-              "clearnet": "https://lx.benike.monster/",
-              "tor": null,
-              "i2p": null,
-              "country": "DE"
+              "country": "DE",
+              "librey": true
           },
           {
               "clearnet": "https://librex.nohost.network/",
               "tor": null,
               "i2p": null,
-              "country": "MX"
+              "country": "MX",
+              "librey": true
           },
           {
-              "clearnet": "https://search.decentrala.org/",
+              "clearnet": "https://search.pabloferreiro.es/",
               "tor": null,
               "i2p": null,
-              "country": "US"
+              "country": "DE",
+              "librey": true
+          },
+          {
+              "clearnet": "https://search.ratakor.com/",
+              "tor": null,
+              "i2p": null,
+              "country": "FR",
+              "librey": true
+          },
+          {
+              "clearnet": "https://librex.yogeshlamichhane.com.np/",
+              "tor": null,
+              "i2p": null,
+              "country": "FI",
+              "librey": true
+          },
+          {
+              "clearnet": "https://librey.baczek.me/",
+              "tor": null,
+              "i2p": null,
+              "country": "PL",
+              "librey": true
+          },
+          {
+              "clearnet": "https://lx.benike.me/",
+              "tor": null,
+              "i2p": null,
+              "country": "DE",
+              "librey": true
+          },
+          {
+              "clearnet": "https://search.seitan-ayoub.lol/",
+              "tor": null,
+              "i2p": null,
+              "country": "DE",
+              "librey": true
+          },
+          {
+              "clearnet": "https://search.zeroish.xyz/",
+              "tor": null,
+              "i2p": null,
+              "country": "US",
+              "librey": false
+          },
+          {
+              "clearnet": "https://librex.baczek.me/",
+              "tor": null,
+              "i2p": null,
+              "country": "PL",
+              "librey": false
           }
     ]
 }

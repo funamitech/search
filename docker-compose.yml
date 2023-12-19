@@ -1,21 +1,32 @@
-version: "2.1"
+version: "3"
 services:
-  librex:
-    image: librex/librex:latest
-    container_name: librex
+  librey:
+    image: ghcr.io/ahwxorg/librey:latest
+    container_name: librey
     network_mode: bridge
     ports:
       - 8080:8080
     environment:
-      - PUID=1000
-      - PGID=1000
-      - VERSION=docker
-      - TZ=America/New_York
       - CONFIG_GOOGLE_DOMAIN=com
-      - CONFIG_GOOGLE_LANGUAGE_SITE=en
-      - CONFIG_GOOGLE_LANGUAGE_RESULTS=en
-      - CONFIG_WIKIPEDIA_LANGUAGE=en
+      - CONFIG_LANGUAGE=en
+      - CONFIG_NUMBER_OF_RESULTS=10
+      - CONFIG_INVIDIOUS_INSTANCE=https://invidious.snopyta.org
+      - CONFIG_DISABLE_BITTORRENT_SEARCH=false
+      - CONFIG_HIDDEN_SERVICE_SEARCH=false
+      - CONFIG_INSTANCE_FALLBACK=true
+      - CONFIG_RATE_LIMIT_COOLDOWN=25
+      - CONFIG_CACHE_TIME=20
+      - CONFIG_TEXT_SEARCH_ENGINE=google
+      - CURLOPT_PROXY_ENABLED=false
+      - CURLOPT_PROXY=192.0.2.53:8388
+      - CURLOPT_PROXYTYPE=CURLPROXY_HTTP
+      - CURLOPT_USERAGENT=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:116.0) Gecko/20100101 Firefox/116.0
+      - CURLOPT_FOLLOWLOCATION=true
     volumes:
       - ./nginx_logs:/var/log/nginx
       - ./php_logs:/var/log/php7
     restart: unless-stopped
+  watchtower: # Watchtower is not required but highly recommended, since Watchtower will re-pull and restart the LibreY container automatically whenever there's an update.
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

@@ -1,89 +1,49 @@
 <?php
+    class TorrentSearch extends EngineRequest {
+        protected $requests;
+        public function __construct($opts, $mh) {
+            parent::__construct($opts, $mh);
 
-    function get_merged_torrent_results($query)
-    {
-        global $config;
+            require "engines/bittorrent/thepiratebay.php";
+            require "engines/bittorrent/rutor.php";
+            require "engines/bittorrent/yts.php";
+            require "engines/bittorrent/torrentgalaxy.php";
+            require "engines/bittorrent/1337x.php";
+            require "engines/bittorrent/sukebei.php";
 
-        require "engines/bittorrent/thepiratebay.php";
-        require "engines/bittorrent/rutor.php";
-        require "engines/bittorrent/nyaa.php";
-        require "engines/bittorrent/yts.php";
-        require "engines/bittorrent/torrentgalaxy.php";
-        require "engines/bittorrent/1337x.php";
-        require "engines/bittorrent/sukebei.php";
-
-        $query = urlencode($query);
-
-        $torrent_urls = array(
-            $thepiratebay_url,
-            $rutor_url,
-            $nyaa_url,
-            $yts_url,
-            $torrentgalaxy_url,
-            $_1337x_url,
-            $sukebei_url
-        );
- 
-        $mh = curl_multi_init();
-        $chs = $results = array();
-
-        foreach ($torrent_urls as $url)
-        {
-            $ch = curl_init($url);
-            curl_setopt_array($ch, $config->curl_settings);
-            array_push($chs, $ch);
-            curl_multi_add_handle($mh, $ch);    
+            $this->requests = array(
+                new PirateBayRequest($opts, $mh),
+                new _1337xRequest($opts, $mh),
+                new NyaaRequest($opts, $mh),
+                new RutorRequest($opts, $mh),
+                new SukebeiRequest($opts, $mh),
+                new TorrentGalaxyRequest($opts, $mh),
+                new YTSRequest($opts, $mh),
+            );
         }
 
-        $running = null;
-        do {
-            curl_multi_exec($mh, $running);
-        } while ($running);
-
-        for ($i=0; count($chs)>$i; $i++)
-        {
-            $response = curl_multi_getcontent($chs[$i]);
-
-            switch ($i)
-            {
-                case 0:
-                    $results = array_merge($results, get_thepiratebay_results($response));
-                    break;
-                case 1:
-                    $results = array_merge($results, get_rutor_results($response));
-                    break;
-                case 2:
-                    $results = array_merge($results, get_nyaa_results($response));
-                    break;
-                case 3:
-                    $results = array_merge($results, get_yts_results($response));
-                    break;
-                case 4:
-                    $results = array_merge($results, get_torrentgalaxy_results($response));
-                    break;
-                case 5:
-                    $results = array_merge($results, get_1337x_results($response));
-                    break;
-                case 6:
-                    $results = array_merge($results, get_sukebei_results($response));
-                    break;
+        public function parse_results($response) {
+            $results = array();
+            foreach ($this->requests as $request) {
+                if ($request->successful())
+                    $results = array_merge($results, $request->get_results());
             }
+
+            $seeders = array_column($results, "seeders");
+            array_multisort($seeders, SORT_DESC, $results);
+
+            return $results; 
         }
-        
-        $seeders = array_column($results, "seeders");
-        array_multisort($seeders, SORT_DESC, $results);
 
-        return $results; 
-    }
+        public static function print_results($results, $opts) {
+            echo "<div class=\"text-result-container\">";
 
-    function print_merged_torrent_results($results)
-    {
-        echo "<div class=\"text-result-container\">";
+            if (empty($results)) {
+                echo "<p>" . TEXTS["failure_empty"] . "</p>";
+                return;
+            }
 
-        if (!empty($results)) 
-        {
-            foreach($results as $result)
-            {
+            foreach($results as $result) {
                 $source = $result["source"];
                 $name = $result["name"];
                 $magnet = $result["magnet"];
@@ -101,11 +61,9 @@
                 echo "$size</span>";
                 echo "</div>";
             }
-        }
-        else
-            echo "<p>There are no results. Please try different keywords!</p>";
 
-        echo "</div>";
+            echo "</div>";
+        }
     }
 
 ?>
