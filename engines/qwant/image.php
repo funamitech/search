@@ -3,38 +3,28 @@
     {
         global $config;
 
-        $page = $page / 10 + 1; // qwant has a different page system
+        $offset = $page * 5; // load 50 images per page
         
-        $url = "https://lite.qwant.com/?q=$query&t=images&p=$page";
+        $url = "https://api.qwant.com/v3/search/images?q=$query&t=images&count=50&locale=en_us&offset=$offset&device=desktop&tgp=3&safesearch=1";
         $response = request($url);
-        $xpath = get_xpath($response);
-
+        $json = json_decode($response, true);
         $results = array();
 
-        foreach($xpath->query("//a[@rel='noopener']") as $result)
-        {       
-                $image = $xpath->evaluate(".//img", $result)[0];
+        if ($json["status"] != "success")
+            return $results; // no results
 
-                if ($image)
-                {
-                    $encoded_url = $result->getAttribute("href");
-                    $encoded_url_split1 = explode("==/", $encoded_url)[1];
-                    $encoded_url_split2 = explode("?position", $encoded_url_split1)[0];
-                    $real_url = urldecode(base64_decode($encoded_url_split2));
-                    $real_url = check_for_privacy_frontend($real_url);
+        $imgs = $json["data"]["result"]["items"];
+        $imgCount = $json["data"]["result"]["total"];
 
-                    $alt = $image->getAttribute("alt");
-                    $thumbnail = urlencode($image->getAttribute("src"));
-
-                    array_push($results, 
-                        array (
-                            "thumbnail" => urldecode(htmlspecialchars($thumbnail)),
-                            "alt" => htmlspecialchars($alt),
-                            "url" => htmlspecialchars($real_url)
-                        )
-                    );
-    
-                }
+        for ($i = 0; $i < $imgCount; $i++)
+        {
+            array_push($results, 
+                array (
+                    "thumbnail" => htmlspecialchars($imgs[$i]["thumbnail"]),
+                    "alt" => htmlspecialchars($imgs[$i]["title"]),
+                    "url" => htmlspecialchars($imgs[$i]["url"])
+                )
+            );
         }
 
         return $results;
