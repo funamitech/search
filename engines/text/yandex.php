@@ -22,11 +22,10 @@
                 return $results;
 
             $r = $xpath->query("//ul[@id='search-result']");
-            if (empty($r)) {
+            if (empty($r))
                 return array("error" => array(
                     "message" => TEXTS["failure_empty"]
                 ));
-            }
 
             foreach($xpath->query("//li[contains(@class, 'serp-item')]") as $result) {
                 $url = $xpath->evaluate(".//div//div//a[contains(@class, 'link')]//@href", $result)[0];
