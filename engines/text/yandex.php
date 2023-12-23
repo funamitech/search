@@ -9,7 +9,7 @@
             $url = "https://yandex.com/search?text=$query_encoded&nfpr=1&p=$this->page&noreask=1";
 
             if (!is_null($results_language))
-                $url .= "&lang$results_language";
+                $url .= "&lang=$results_language";
 
             return $url;
         }

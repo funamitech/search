@@ -1,6 +1,6 @@
 <?php
     function get_engines() {
-        return array("google", "duckduckgo", "brave", "yandex", "ecosia");
+        return array("google", "duckduckgo", "brave", "yandex", "ecosia", "mojeek");
     }
 
     class TextSearch extends EngineRequest {
@@ -81,6 +81,11 @@
             if ($engine == "ecosia") {
                 require "engines/text/ecosia.php";
                 return new EcosiaSearchRequest($opts, $mh);
+            }
+
+            if ($engine == "mojeek") {
+                require "engines/text/mojeek.php";
+                return new MojeekSearchRequest($opts, $mh);
             }
 
             // if an invalid engine is selected, don't give any results

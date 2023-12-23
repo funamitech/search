@@ -10,7 +10,7 @@
             $url = "https://www.ecosia.org/search?method=index&q=$query_encoded&p=$this->page";
 
             if (!is_null($results_language))
-                $url .= "&lang$results_language";
+                $url .= "&lang=$results_language";
 
             return $url;
         }
