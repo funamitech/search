@@ -92,6 +92,8 @@
 
         $opts->curl_settings[CURLOPT_FOLLOWLOCATION] ??= true;
 
+        $opts->engine = $_REQUEST["engine"] ?? $_COOKIE["engine"] ?? $opts->preferred_engines["text"] ?? "auto";
+
         return $opts;
     }
 
@@ -105,6 +107,7 @@
         $params .= "&safe=" . ($opts->safe_search ? 1 : 0);
         $params .= "&nf=" . ($opts->disable_frontends ? 1 : 0);
         $params .= "&ns=" . ($opts->disable_special ? 1 : 0);
+        $params .= "&engine=" . ($opts->engine ?? "auto");
 
         return $params;
     }

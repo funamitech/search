@@ -99,9 +99,9 @@
 
     function print_elapsed_time($start_time, $results, $opts) {
             $source = "";
-            if (($opts->show_result_source ?? true) && array_key_exists("fallback_source", $results)) {
-                $source = " from " . $results["fallback_source"];
-                unset($results["fallback_source"]);
+            if (array_key_exists("results_source", $results)) {
+                $source = " from " . $results["results_source"];
+                unset($results["results_source"]);
             }
 
             $end_time = number_format(microtime(true) - $start_time, 2, '.', '');
