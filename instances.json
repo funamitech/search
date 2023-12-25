@@ -153,6 +153,13 @@
               "i2p": null,
               "country": "PL",
               "librey": false
+          },
+          {
+              "clearnet": "https://librey.myroware.net/",
+              "tor": null,
+              "i2p": null,
+              "country": "DE",
+              "librey": false
           }
     ]
 }
