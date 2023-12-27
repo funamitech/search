@@ -27,7 +27,7 @@ ARG WWW_CONFIG="/etc/php83/php-fpm.d/www.conf"
 ENV TZ="America/New_York"
 
 # Install required packages
-RUN apk add gettext php83 php83-fpm php83-dom php83-curl php83-json php83-apcu nginx --no-cache
+RUN apk add gettext php83 php83-fpm php83-dom php83-curl php83-json php83-pecl-apcu nginx --no-cache
 
 # Configure PHP-FPM to listen on a Unix socket instead of a TCP port, which is more secure and efficient
 RUN touch /run/php-fpm83.sock && chown nginx:nginx "/run/php-fpm83.sock"
