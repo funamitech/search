@@ -32,6 +32,7 @@ return array(
 
     "settings_search_settings" => "Search settings",
     "settings_language" => "Language",
+    "settings_preferred_engine" => "Preferred Engine",
 
     "settings_number_of_results" => "Number of results per page",
 
