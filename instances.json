@@ -10,7 +10,7 @@
           {
               "clearnet": "https://ly.owo.si/",
               "tor": "http://ly.pk47sgwhncn5cgidm7bofngmh7lc7ukjdpk5bjwfemmyp27ovl25ikyd.onion/",
-              "i2p": "http://d4vi3tvfui2rfzsxr33tin4a6542heulf4mhkokdpbhbcejlg3la.b32.i2p/",
+              "i2p": null,
               "country": "DE",
               "librey": true
           },
@@ -23,7 +23,7 @@
           },
           {
               "clearnet": "https://librex.supernets.org/",
-              "tor": "http://ouosr2fq3lktngcvbz4r4op2lab5hbiz5y6g6toorsgieb7elet76jad.onion/",
+              "tor": null,
               "i2p": null,
               "country": "US",
               "librey": true
@@ -110,7 +110,7 @@
               "tor": null,
               "i2p": null,
               "country": "US",
-              "librey": false
+              "librey": true
           }
     ]
 }
