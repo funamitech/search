@@ -8,6 +8,20 @@
               "librey": true
           },
           {
+              "clearnet": "https://search2.ahwx.org/",
+              "tor": "http://hyy7rcvknwb22v4nnoar635wntiwr4uwzhiuyimemyl4fz6k7tahj5id.onion/",
+              "i2p": null,
+              "country": "FR",
+              "librey": true
+          },
+          {
+              "clearnet": "https://search3.ahwx.org/",
+              "tor": "http://r7nesn6dnp2fssinw7n5uj4ob2na6g4jppakpjgioxb6v4ca4bbsqoyd.onion/",
+              "i2p": null,
+              "country": "DE",
+              "librey": true
+          },
+          {
               "clearnet": "https://ly.owo.si/",
               "tor": "http://ly.pk47sgwhncn5cgidm7bofngmh7lc7ukjdpk5bjwfemmyp27ovl25ikyd.onion/",
               "i2p": "http://d4vi3tvfui2rfzsxr33tin4a6542heulf4mhkokdpbhbcejlg3la.b32.i2p/",
