@@ -22,13 +22,6 @@
               "librey": true
           },
           {
-              "clearnet": "https://librex.supernets.org/",
-              "tor": null,
-              "i2p": null,
-              "country": "US",
-              "librey": true
-          },
-          {
               "clearnet": "https://search.davidovski.xyz/",
               "tor": null,
               "i2p": null,
@@ -103,6 +96,19 @@
               "tor": null,
               "i2p": null,
               "country": "DE",
+              "librey": true
+          },
+              "clearnet": "https://librey.nezumi.party/",
+              "tor": null,
+              "i2p": null,
+              "country": "IT",
+              "librey": true
+          },
+          {
+              "clearnet": "https://search.zeroish.xyz/",
+              "tor": null,
+              "i2p": null,
+              "country": "US",
               "librey": true
           },
           {
