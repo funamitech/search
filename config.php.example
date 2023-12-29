@@ -127,11 +127,10 @@
 
 
         "preferred_engines" => array(
-
-            /* replace with "text" => "duckduckgo" to use duckduckgo instead
-            * (recommended if being ratelimited */
-            "text" => "google"
-            // "text" => "duckduckgo"
+            /* replace "auto" with a specific engine if you wish to use only that one engine, which may increase rate limiting
+               use default "auto" to automatically use any engine that is working
+               available engines: "brave", "duckduckgo", "ecosia", "google", "mojeek", "yandex" */
+            "text" => "auto"
         ),
 
 

@@ -128,7 +128,7 @@ This docker image was developed with high configurability in mind, so here is th
 ### Engines
 | Variables | Default | Examples | Description |
 |:----------|:-------------|:---------|:------|
-| CONFIG_TEXT_SEARCH_ENGINE | "google" | "google", "duckduckgo" | Integration with external self-hosted apps, configure the desired host. |
+| CONFIG_TEXT_SEARCH_ENGINE | "auto" | "brave", "duckduckgo", "ecosia", "google", "mojeek", "yandex" | Use a specific search engine, or "auto" to use any available search engine. |
 
 ### cURL
 | Variables | Default | Examples | Description |
