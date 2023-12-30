@@ -32,7 +32,7 @@ return array(
 
     "settings_search_settings" => "Zoek-gerelateerde instellingen",
     "settings_language" => "Taal",
-    "settings_preferred_engine" => "Preferred Engine", // TRANSLATE
+    "settings_preferred_engine" => "Favoriete zoekmachine",
 
     "settings_number_of_results" => "Resulaten per pagina (in nummers)",
 
