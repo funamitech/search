@@ -10,7 +10,7 @@
             shuffle($this->engines);
 
             $this->query = $opts->query;
-            $this->cache_key = "text:" . $this->query;
+            $this->cache_key = "text:" . $this->query . "p" . $opts->page . "l" . $opts->language;
 
             $this->page = $opts->page;
             $this->opts = $opts;
