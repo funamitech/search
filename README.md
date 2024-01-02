@@ -1,6 +1,6 @@
 <h1 align="center">LibreY</h1>
 
-# Disclaimer
+[![Docker Image CI](https://github.com/Ahwxorg/LibreY/actions/workflows/docker-image.yml/badge.svg)](https://github.com/Ahwxorg/LibreY/actions/workflows/docker-image.yml)
 
 > LibreY is a fork of LibreX, a framework-less and javascript-free privacy respecting meta search engine, made by [hnhx](https://github.com/hnhx). LibreY changed some features like automatic redirection. The original code is written by [hnhx and contributors](https://github.com/hnhx/LibreX/contributors)
 
