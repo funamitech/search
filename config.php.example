@@ -128,9 +128,9 @@
 
         "preferred_engines" => array(
 
-            /* replace with "text" => "duckduckgo" to use duckduckgo instead
-            * (recommended if being ratelimited */
-            "text" => "google"
+            /* search engine to use to search, auto will automatically balance between all scrapers, which is recommended. */
+            "text" => "auto"
+            // "text" => "google"
             // "text" => "duckduckgo"
         ),
 
