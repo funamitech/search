@@ -62,6 +62,13 @@
     function load_opts() {
         $opts = require "config.php";
 
+        # account for the old, misspelled options
+        if (isset($opts->disable_bittorent_search))
+            $opts->disable_bittorrent_search = $opts->disable_bittorent_search;
+        
+        if (isset($opts->bittorent_trackers))
+            $opts->bittorrent_trackers = $opts->bittorent_trackers;
+
         $opts->request_cooldown ??= 25;
         $opts->cache_time ??= 25;
 
@@ -124,7 +131,7 @@
                 return new VideoSearch($opts, $mh);
 
             case 3:
-                if ($opts->disable_bittorent_search) {
+                if ($opts->disable_bittorrent_search) {
                     echo "<p class=\"text-result-container\">" . TEXTS["feature_disabled"] . "</p>";
                     break;
                 }
