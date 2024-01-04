@@ -1,7 +1,7 @@
 <?php
     class QwantImageSearch extends EngineRequest {
         public function get_request_url() {
-            $offset = $page * 5; // load 50 images per page
+            $offset = $this->page * 5; // load 50 images per page
             $query = urlencode($this->query);
             return "https://api.qwant.com/v3/search/images?q=$query&t=images&count=50&locale=en_us&offset=$offset&device=desktop&tgp=3&safesearch=1";
         }

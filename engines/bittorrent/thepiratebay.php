@@ -26,7 +26,7 @@
                 if ($name == "No results returned")
                     break;
 
-                array_push($results, 
+                array_push($results,
                     array (
                         "size" => htmlspecialchars($size),
                         "name" => htmlspecialchars($name),
@@ -39,7 +39,7 @@
             }
 
             return $results;
-           
+
         }
     }
 ?>
