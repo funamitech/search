@@ -1,4 +1,4 @@
-FROM alpine:3.18
+FROM alpine:3.19
 
 WORKDIR "/var/www/html"
 
@@ -19,7 +19,7 @@ LABEL name="LibreY" \
 ARG DOCKER_SCRIPTS="docker"
 ARG NGINX_PORT=8080
 # Set this argument during build time to indicate that the path is for php's www.conf
-ARG WWW_CONFIG="/etc/php82/php-fpm.d/www.conf"
+ARG WWW_CONFIG="/etc/php83/php-fpm.d/www.conf"
 
 # Customize the environment during both execution and build time by modifying the environment variables added to the container's shell
 # When building your image, make sure to set the 'TZ' environment variable to your desired time zone location, for example 'America/Sao_Paulo'
@@ -27,11 +27,11 @@ ARG WWW_CONFIG="/etc/php82/php-fpm.d/www.conf"
 ENV TZ="America/New_York"
 
 # Install required packages
-RUN apk add gettext php82 php82-fpm php82-dom php82-curl php82-json php82-apcu nginx --no-cache
+RUN apk add gettext php83 php83-fpm php83-dom php83-curl php83-json php83-pecl-apcu nginx --no-cache
 
 # Configure PHP-FPM to listen on a Unix socket instead of a TCP port, which is more secure and efficient
-RUN touch /run/php-fpm82.sock && chown nginx:nginx "/run/php-fpm82.sock"
-RUN sed -i 's/^\s*listen = 127.0.0.1:9000/listen = \/run\/php-fpm82.sock/' ${WWW_CONFIG} &&\
+RUN touch /run/php-fpm83.sock && chown nginx:nginx "/run/php-fpm83.sock"
+RUN sed -i 's/^\s*listen = 127.0.0.1:9000/listen = \/run\/php-fpm83.sock/' ${WWW_CONFIG} &&\
     sed -i 's/^\s*;\s*listen.owner = nobody/listen.owner = nginx/' ${WWW_CONFIG} &&\
     sed -i 's/^\s*;\s*listen.group = nobody/listen.group = nginx/' ${WWW_CONFIG} &&\
     sed -i 's/^\s*;\s*listen.mode = 0660/listen.mode = 0660/' ${WWW_CONFIG}

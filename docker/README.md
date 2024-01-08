@@ -74,7 +74,7 @@ services:
       - CURLOPT_FOLLOWLOCATION=true
     volumes:
       - ./nginx_logs:/var/log/nginx
-      - ./php_logs:/var/log/php7
+      - ./php_logs:/var/log/php83
     restart: unless-stopped
   watchtower: # Watchtower is not required but highly recommended, since Watchtower will re-pull and restart the LibreY container automatically whenever there's an update.
     image: containrrr/watchtower
@@ -105,6 +105,7 @@ This docker image was developed with high configurability in mind, so here is th
 | CONFIG_RATE_LIMIT_COOLDOWN | 25 | integer | Time in minutes to wait before sending requests to Google again after a rate limit. |
 | CONFIG_CACHE_TIME | 20 | integer | Time in minutes to store results for in the cache. |
 | CONFIG_DISABLE_API | false | boolean | Disable requests to /api.php |
+| CONFIG_SHOW_RESULT_SOURCE | true | boolean | Whether to show where the result is from on the results page |
 
 ### Frontends
 | Variables | Default | Examples | Description |
@@ -127,7 +128,7 @@ This docker image was developed with high configurability in mind, so here is th
 ### Engines
 | Variables | Default | Examples | Description |
 |:----------|:-------------|:---------|:------|
-| CONFIG_TEXT_SEARCH_ENGINE | "google" | "google", "duckduckgo" | Integration with external self-hosted apps, configure the desired host. |
+| CONFIG_TEXT_SEARCH_ENGINE | "auto" | "brave", "duckduckgo", "ecosia", "google", "mojeek", "yandex" | Use a specific search engine, or "auto" to use any available search engine. |
 
 ### cURL
 | Variables | Default | Examples | Description |

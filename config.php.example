@@ -127,7 +127,6 @@
 
 
         "preferred_engines" => array(
-
             /* search engine to use to search, auto will automatically balance between all scrapers, which is recommended. */
             "text" => "auto"
             // "text" => "google"

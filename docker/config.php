@@ -12,6 +12,7 @@
         "request_cooldown" => ${CONFIG_RATE_LIMIT_COOLDOWN},
         "cache_time" => ${CONFIG_CACHE_TIME},
         "disable_api" => ${CONFIG_DISABLE_API},
+	"show_result_source" => ${CONFIG_SHOW_RESULT_SOURCE},
 
         "frontends" => array(
             "invidious" => array(
