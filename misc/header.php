@@ -1,3 +1,4 @@
+<?php require "locale/localization.php"; ?>
 <!DOCTYPE html >
 <html lang="en">
     <head>

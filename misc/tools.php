@@ -1,8 +1,7 @@
 <?php
     function get_base_url($url) {
-        $split_url = explode("/", $url);
-        $base_url = $split_url[0] . "//" . $split_url[2] . "/";
-        return $base_url;
+        $parsed = parse_url($url);
+        return $parsed["scheme"] . "://" . $parsed["host"] . "/";
     }
 
     function get_root_domain($url) {
@@ -78,11 +77,9 @@
         return $xpath;
     }
 
-    function request($url) {
-        $config ??= require "config.php";
-
+    function request($url, $conf) {
         $ch = curl_init($url);
-        curl_setopt_array($ch, $config->curl_settings);
+        curl_setopt_array($ch, $conf);
         $response = curl_exec($ch);
 
         return $response;
@@ -100,9 +97,15 @@
         return trim(preg_replace("/\s+/", ' ', $string));
      }
 
-    function print_elapsed_time($start_time) {
+    function print_elapsed_time($start_time, $results) {
+            $source = "";
+            if (array_key_exists("fallback_source", $results)) {
+                $source = " from " . $results["fallback_source"];
+                unset($results["fallback_source"]);
+            }
+
             $end_time = number_format(microtime(true) - $start_time, 2, '.', '');
-            echo "<p id=\"time\">Fetched the results in $end_time seconds</p>";
+            echo "<p id=\"time\">Fetched the results in $end_time seconds$source</p>";
         }
 
     function print_next_page_button($text, $page, $query, $type) {

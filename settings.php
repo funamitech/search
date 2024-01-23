@@ -1,6 +1,5 @@
 <?php
         require "misc/search_engine.php";
-        $opts = load_opts();
 
         // Reset all cookies when resetting, or before saving new cookies
         if (isset($_REQUEST["reset"]) || isset($_REQUEST["save"])) {
@@ -29,6 +28,8 @@
             die();
         }
 
+        $opts = load_opts();
+
         require "misc/header.php";
 ?>
 
@@ -39,7 +40,7 @@
             <h1>Settings</h1>
             <form method="post" enctype="multipart/form-data" autocomplete="off">
               <div>
-                <label for="theme">Theme:</label>
+                <label for="theme"><?php printtext("settings_theme");?>:</label>
                 <select name="theme">
                 <?php
                     $themes = "<option value=\"dark\">Dark</option>
@@ -59,7 +60,7 @@
                     <option value=\"ubuntu\">Ubuntu</option>
                     <option value=\"tokyo_night\">Tokyo night</option>";
 
-                    if (isset($_COOKIE["theme"])) {
+                    if (isset($opts->theme)) {
                         $theme = $opts->theme;
                         $themes = str_replace($theme . "\"", $theme . "\" selected", $themes);
                     }
@@ -69,12 +70,12 @@
                 </select>
                 </div>
                 <div>
-                    <label>Disable special queries (e.g.: currency conversion)</label>
+                    <label><?php printtext("settings_special_disabled");?></label>
                     <input type="checkbox" name="disable_special" <?php echo $opts->disable_special ? "checked"  : ""; ?> >
                 </div>
 
-                <h2>Privacy friendly frontends</h2>
-                <p>For an example if you want to view YouTube without getting spied on, click on "Invidious", find the instance that is most suitable for you then paste it in (correct format: https://example.com)</p>
+                <h2><?php printtext("settings_frontends");?></h2>
+                <p><?php printtext("settings_frontends_description");?></p>
                 <div class="settings-textbox-container">
                       <?php
                            foreach($opts->frontends as $frontend => $data)
@@ -89,32 +90,44 @@
                       ?>
                 </div>
                 <div>
-                    <label>Disable frontends</label>
+                    <label><?php printtext("settings_frontends_disable");?></label>
                     <input type="checkbox" name="disable_frontends" <?php echo $opts->disable_frontends ? "checked"  : ""; ?> >
                 </div>
 
-                <h2>Search settings</h2>
+                <h2><?php printtext("settings_search_settings");?></h2>
                 <div class="settings-textbox-container">
                     <div>
-                        <span>Language</span>
+                        <span><?php printtext("settings_language");?></span>
+                        <select name="language">
                         <?php
-                            // TODO make this a dropdown
-                            echo "<input type=\"text\" name=\"language\" placeholder=\"any\" value=\"" . htmlspecialchars($opts->language ?? "") . "\">";
+
+                           $languages = json_decode(file_get_contents("static/misc/languages.json"), true);
+                           $options = "";
+
+                           $options .= "<option value=\"\" " . (!isset($opts->language) ? "selected" : "") . ">Any</option>";
+
+                           foreach ($languages as $lang_code => $language) {
+                               $name = $language["name"];
+                               $selected = $opts->language == $lang_code ? "selected" : "";
+                               $options .= "<option value=\"$lang_code\" $selected>$name</option>";
+                           }
+                           echo $options;
                         ?>
+                        </select>
                     </div>
                     <div>
-                        <label>Number of results per page</label>
+                        <label><?php printtext("settings_number_of_results");?></label>
                         <input type="number" name="number_of_results" value="<?php echo htmlspecialchars($opts->number_of_results ?? "10") ?>" >
                     </div>
                 </div>
                 <div>
-                    <label>Safe search</label>
+                    <label><?php printtext("settings_safe_search");?></label>
                     <input type="checkbox" name="safe_search" <?php echo $opts->safe_search ? "checked"  : ""; ?> >
                 </div>
 
                 <div>
-                  <button type="submit" name="save" value="1">Save</button>
-                  <button type="submit" name="reset" value="1">Reset</button>
+                  <button type="submit" name="save" value="1"><?php printtext("settings_save");?></button>
+                  <button type="submit" name="reset" value="1"><?php printtext("settings_reset");?></button>
                 </div>
             </form>
         </div>

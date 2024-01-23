@@ -21,8 +21,9 @@
 
                 array_push($results,
                     array (
-                        "title" => $title ? htmlspecialchars($title) : "No description provided",
+                        "title" => $title ? htmlspecialchars($title) : TEXTS["result_no_description"],
                         "url" =>  htmlspecialchars($url),
+                        // base_url is to be removed in the future, see #47
                         "base_url" => htmlspecialchars(get_base_url($url)),
                         "description" => htmlspecialchars($description)
                     )
@@ -32,8 +33,8 @@
             return $results;
         }
 
-        public static function print_results($results) {
-            TextSearch::print_results($results);
+        public static function print_results($results, $opts) {
+            TextSearch::print_results($results, $opts);
         }
     }
 ?>
