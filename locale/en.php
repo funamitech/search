@@ -1,9 +1,9 @@
 <?php
 
 return array(
-    "page_title" => "LibreY search",
-    "search_button" => "Search with LibreY",
-    "torrent_search_button" => "Search torrents with LibreY",
+    "page_title" => "YuruSearch search",
+    "search_button" => "Search with YuruSearch",
+    "torrent_search_button" => "Search torrents with YuruSearch",
 
     "source_code_link" => "Source",
     "instances_link" => "Instances",
@@ -47,10 +47,10 @@ return array(
 
     "instances_librex" => "The following instances are running the older %s",
 
-    "donate_original_developer" => "Donate to the original developer of %s, a project LibreY tries to improve.",
-    "donate_fork" => "Donate to the person that forked %s into LibreY",
+    "donate_original_developer" => "Donate to the original developer of %s, a project YuruSearch tries to improve.",
+    "donate_fork" => "Donate to the person that forked %s into YuruSearch",
 
-    "api_unavailable" => "This LibreY API is unavailable at the moment"
+    "api_unavailable" => "This YuruSearch API is unavailable at the moment"
 );
 
 ?>
