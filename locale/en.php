@@ -32,6 +32,7 @@ return array(
 
     "settings_search_settings" => "Search settings",
     "settings_language" => "Language",
+    "settings_preferred_engine" => "Preferred Engine",
 
     "settings_number_of_results" => "Number of results per page",
 
@@ -46,8 +47,7 @@ return array(
 
     "instances_librex" => "The following instances are running the older %s",
 
-    "donate_original_developer" => "Donate to the original developer of %s, a
-        project LibreY tries to improve.",
+    "donate_original_developer" => "Donate to the original developer of %s, a project LibreY tries to improve.",
     "donate_fork" => "Donate to the person that forked %s into LibreY",
 
     "api_unavailable" => "This LibreY API is unavailable at the moment"

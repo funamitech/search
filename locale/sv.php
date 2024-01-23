@@ -18,6 +18,7 @@ return array(
     "category_videos" => "Videor",
     "category_torrents" => "Torrents",
     "category_tor" => "Tor",
+    "category_maps" => "Kartor", 
 
     "feature_disabled" => "Funktionen är inaktiverad av serverägaren :C",
 
@@ -31,10 +32,12 @@ return array(
 
     "settings_search_settings" => "Sökinställningar",
     "settings_language" => "Språk",
+    "settings_preferred_engine" => "Föredragen sökmotor",
+
 
     "settings_number_of_results" => "Antal resultat per sida",
 
-    "settings_safe_search" => "Safe search",
+    "settings_safe_search" => "Safe search", //typically not translated
     "settings_save" => "Spara",
     "settings_reset" => "Återställ",
 
@@ -47,7 +50,9 @@ return array(
 
     "donate_original_developer" => "Donera till orginalutvecklaren av %s, ett
         projekt som LibreY försöker förbättra.",
-    "donate_fork" => "Donera till personen som forkade %s till LibreY"
+    "donate_fork" => "Donera till personen som forkade %s till LibreY",
+
+    "api_unavailable" => "Denna LibreY API är för närvarande otillgänglig."
 );
 
 ?>

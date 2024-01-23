@@ -62,6 +62,13 @@
     function load_opts() {
         $opts = require "config.php";
 
+        # account for the old, misspelled options
+        if (isset($opts->disable_bittorent_search))
+            $opts->disable_bittorrent_search = $opts->disable_bittorent_search;
+        
+        if (isset($opts->bittorent_trackers))
+            $opts->bittorrent_trackers = $opts->bittorent_trackers;
+
         $opts->request_cooldown ??= 25;
         $opts->cache_time ??= 25;
 
@@ -92,6 +99,8 @@
 
         $opts->curl_settings[CURLOPT_FOLLOWLOCATION] ??= true;
 
+        $opts->engine = $_REQUEST["engine"] ?? $_COOKIE["engine"] ?? $opts->preferred_engines["text"] ?? "auto";
+
         return $opts;
     }
 
@@ -105,6 +114,7 @@
         $params .= "&safe=" . ($opts->safe_search ? 1 : 0);
         $params .= "&nf=" . ($opts->disable_frontends ? 1 : 0);
         $params .= "&ns=" . ($opts->disable_special ? 1 : 0);
+        $params .= "&engine=" . ($opts->engine ?? "auto");
 
         return $params;
     }
@@ -121,7 +131,7 @@
                 return new VideoSearch($opts, $mh);
 
             case 3:
-                if ($opts->disable_bittorent_search) {
+                if ($opts->disable_bittorrent_search) {
                     echo "<p class=\"text-result-container\">" . TEXTS["feature_disabled"] . "</p>";
                     break;
                 }
@@ -170,7 +180,7 @@
         if (!$do_print || empty($results))
             return $results;
 
-        print_elapsed_time($start_time, $results);
+        print_elapsed_time($start_time, $results, $opts);
         $search_category->print_results($results, $opts);
 
         return $results;

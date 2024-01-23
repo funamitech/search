@@ -11,8 +11,8 @@
         // You can use any Invidious instance here
         "invidious_instance_for_video_results" => "https://invidious.snopyta.org",
 
-        "disable_bittorent_search" => false,
-        "bittorent_trackers" => "&tr=http://nyaa.tracker.wf:7777/announce&tr=udp://open.stealth.si:80/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://exodus.desync.com:6969/announce&tr=udp://tracker.torrent.eu.org:451/announce",
+        "disable_bittorrent_search" => false,
+        "bittorrent_trackers" => "&tr=http://nyaa.tracker.wf:7777/announce&tr=udp://open.stealth.si:80/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://exodus.desync.com:6969/announce&tr=udp://tracker.torrent.eu.org:451/announce",
 
         "disable_hidden_service_search" => false,
 
@@ -28,6 +28,9 @@
 
         // Disable requests to /api.php - HIGHLY recommended to keep this at false, this is what allows LibreY to still show results when Google/DuckDuckGo blocks te requests.
         "disable_api" => false,
+
+        // whether to show where the result is from on the results page
+        "show_result_source" => true,
 
         /*
             Preset privacy friendly frontends for users, these can be overwritten by users in the settings
@@ -123,10 +126,9 @@
 
 
         "preferred_engines" => array(
-
-            /* replace with "text" => "duckduckgo" to use duckduckgo instead
-            * (recommended if being ratelimited */
-            "text" => "google"
+            /* search engine to use to search, auto will automatically balance between all scrapers, which is recommended. */
+            "text" => "auto"
+            // "text" => "google"
             // "text" => "duckduckgo"
         ),
 

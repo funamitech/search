@@ -1,42 +1,101 @@
 <?php
+    function get_engines() {
+        return array("google", "duckduckgo", "brave", "yandex", "ecosia", "mojeek");
+    }
+
     class TextSearch extends EngineRequest {
         protected $engine, $engine_request, $special_request;
         public function __construct($opts, $mh) {
+            $this->engines = get_engines();
+            shuffle($this->engines);
+
             $this->query = $opts->query;
+            $this->cache_key = "text:" . $this->query . "p" . $opts->page . "l" . $opts->language;
+
             $this->page = $opts->page;
             $this->opts = $opts;
 
-            $this->engine = $opts->preferred_engines["text"] ?? "google";
+            $this->engine = $opts->engine;
 
             $query_parts = explode(" ", $this->query);
             $last_word_query = end($query_parts);
             if (substr($this->query, 0, 1) == "!" || substr($last_word_query, 0, 1) == "!")
                 check_ddg_bang($this->query, $opts);
 
-            if ($this->engine == "google") {
-                
-                require "engines/text/google.php";
-                $this->engine_request = new GoogleRequest($opts, $mh);
-            }
-
-            if ($this->engine == "duckduckgo") {
-                require "engines/text/duckduckgo.php";
-                $this->engine_request = new DuckDuckGoRequest($opts, $mh);
-            }
-
-            if (has_cooldown($this->engine, $this->opts->cooldowns) && !has_cached_results($this->engine_request->url)) {
-                // TODO dont add it in the first place
-                curl_multi_remove_handle($mh, $this->engine_request->ch);
-                $this->engine_request = null;
+            if (has_cached_results($this->cache_key))
                 return;
-            }
 
+            if ($this->engine == "auto")
+                $this->engine = $this->select_engine();
+
+            // no engine was selected
+            if (is_null($this->engine))
+                return;
+
+            // this only happens if a specific engine was selected, not if auto is used
+            if (has_cooldown($this->engine, $this->opts->cooldowns))
+                return;
+
+            $this->engine_request = $this->get_engine_request($this->engine, $opts, $mh);
+
+            if (is_null($this->engine_request))
+                return;
 
             require "engines/special/special.php";
             $this->special_request = get_special_search_request($opts, $mh);
         }
+        private function select_engine() {
+            if (sizeof($this->engines) == 0)
+                return null;
+
+            $engine = array_pop($this->engines);
+
+            // if this engine is on cooldown, try again
+            if (!has_cooldown($engine, $this->opts->cooldowns))
+                return $engine;
+
+            return $this->select_engine();
+        }
+
+        private function get_engine_request($engine, $opts, $mh) {
+            if ($engine == "google") {
+                require "engines/text/google.php";
+                return new GoogleRequest($opts, $mh);
+            }
+
+            if ($engine == "duckduckgo") {
+                require "engines/text/duckduckgo.php";
+                return new DuckDuckGoRequest($opts, $mh);
+            }
+
+            if ($engine == "brave") {
+                require "engines/text/brave.php";
+                return new BraveSearchRequest($opts, $mh);
+            }
+
+            if ($engine == "yandex") {
+                require "engines/text/yandex.php";
+                return new YandexSearchRequest($opts, $mh);
+            }
+
+            if ($engine == "ecosia") {
+                require "engines/text/ecosia.php";
+                return new EcosiaSearchRequest($opts, $mh);
+            }
+
+            if ($engine == "mojeek") {
+                require "engines/text/mojeek.php";
+                return new MojeekSearchRequest($opts, $mh);
+            }
+
+            // if an invalid engine is selected, don't give any results
+            return null;
+        }
 
         public function parse_results($response) {
+            if (has_cached_results($this->cache_key))
+                return fetch_cached_results($this->cache_key);
+
             if (!isset($this->engine_request))
                 return array();
 
@@ -51,6 +110,11 @@
                     if ($special_result)
                         $results = array_merge(array($special_result), $results);
                 }
+            }
+
+            if (!empty($results)) {
+                $results["results_source"] = parse_url($this->engine_request->url)["host"];
+                store_cached_results($this->cache_key, $results);
             }
 
             return $results;
@@ -98,6 +162,8 @@
             echo "<div class=\"text-result-container\">";
 
             foreach($results as $result) {
+                if (!is_array($result))
+                    continue;
                 if (!array_key_exists("title", $result))
                     continue;
 
@@ -130,7 +196,7 @@
             $search_word = substr(explode(" ", $query)[0], 1);
         else
             $search_word = substr(end(explode(" ", $query)), 1);
-        
+
         $bang_url = null;
 
         foreach($bangs as $bang) {
