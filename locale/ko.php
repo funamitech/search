@@ -27,7 +27,7 @@ return array(
     "settings_special_disabled" => "특수 검색어 비활성화 (예: 환전 등)",
 
     "settings_frontends" => "프라이버시 친화적 프론트엔드",
-    "settings_frontends_description" => "For an example if you want to view YouTube without getting spied on, click on \"Invidious\", find the instance that is most suitable for you then paste it in (correct format: https://example.com)",
+    "settings_frontends_description" => "예를 들어 YouTube를 감시 없이 보고 싶다면, \"Invidious\"를 클릭하고, 당신에게 가장 맞는 인스턴스를 고른 다음 링크를 붙여넣으세요. (링크는 https://example.com 처럼 생겨야 합니다)",
     "settings_frontends_disable" => "프론트엔드 비활성화",
 
     "settings_search_settings" => "검색 설정",
@@ -47,8 +47,8 @@ return array(
 
     "instances_librex" => "다음 인스턴스들은 예전 %s을(를) 구동 중입니다",
 
-    "donate_original_developer" => "Donate to the original developer of %s, a project YuruSearch tries to improve.",
-    "donate_fork" => "Donate to the person that forked %s into YuruSearch",
+    "donate_original_developer" => "LibreY가 개선하고자 하는 프로젝트인 %s을(를) 개발한 사람에게 기부하기",
+    "donate_fork" => "%s을(를) LibreY로 포크 한 사람에게 기부하기",
 
     "api_unavailable" => "이 YuruSearch API는 현재 사용할 수 없습니다"
 );
