@@ -1,6 +1,6 @@
 <?php
-    require "../../misc/tools.php";
-    $config = require "../../config.php";
+    require_once "../../misc/tools.php";
+    $config = require_once "../../config.php";
 
     $url = $_REQUEST["url"];
 
@@ -9,7 +9,7 @@
     
     $magnet = $xpath->query("//main/div/div/div/div/div/ul/li/a/@href")[0]->textContent;
     $magnet_without_tracker = explode("&tr=", $magnet)[0];
-    $magnet = $magnet_without_tracker . $config->bittorent_trackers;
+    $magnet = $magnet_without_tracker . $config->bittorrent_trackers;
 
     header("Location: $magnet")
 ?>

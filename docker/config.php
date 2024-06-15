@@ -45,9 +45,9 @@
                 "original_name" => "Twitter",
                 "original_url" => "twitter.com"
             ),
-            "libreddit" => array(
-                "instance_url" => "${APP_LIBREREDDIT}",
-                "project_url" => "https://github.com/libreddit/libreddit-instances/blob/master/instances.md",
+            "redlib" => array(
+                "instance_url" => "${APP_REDLIB}",
+                "project_url" => "https://github.com/redlib-org/redlib-instances/blob/main/instances.md",
                 "original_name" => "Reddit",
                 "original_url" => "reddit.com"
             ),

@@ -1,8 +1,15 @@
 <?php
     function get_base_url($url) {
         $parsed = parse_url($url);
-        return $parsed["scheme"] . "://" . $parsed["host"] . "/";
+
+        if (isset($parsed["scheme"]) && isset($parsed["host"]) && !empty($parsed["scheme"]) && !empty($parsed["host"])) {
+            return $parsed["scheme"] . "://" . $parsed["host"] . "/";
+        } else {
+			logStackTrace();
+            return "";
+        }
     }
+
 
     function get_root_domain($url) {
         return parse_url($url, PHP_URL_HOST);
@@ -135,6 +142,36 @@
         }
 
         return join($emoji);
+    }
+
+    function logStackTrace() {
+        // Get the stack trace
+        $stackTrace = debug_backtrace();
+
+        // Format the stack trace for logging
+        $logMessage = "Stack Trace: ";
+        foreach ($stackTrace as $index => $trace) {
+            // Skip the first entry as it's the current function call
+            if ($index === 0) {
+                continue;
+            }
+
+            // Build the log message for each stack frame
+            $logMessage .= "#{$index} ";
+            if (isset($trace['file'])) {
+                $logMessage .= "File: {$trace['file']} ";
+            }
+            if (isset($trace['line'])) {
+                $logMessage .= "Line: {$trace['line']} ";
+            }
+            if (isset($trace['function'])) {
+                $logMessage .= "Function: {$trace['function']} ";
+            }
+            $logMessage .= "\n";
+        }
+
+        // Log the stack trace to the error log
+        error_log($logMessage);
     }
 
 ?>

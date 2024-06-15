@@ -44,7 +44,7 @@
                     $url = $result["url"];
                     $url = check_for_privacy_frontend($url, $opts);
 
-                    echo "<a title=\"$alt\" href=\"$url\" target=\"_blank\">";
+                    echo "<a title=\"$alt\" href=\"$url\" rel=\"noreferer noopener\" target=\"_blank\">";
                     echo "<img src=\"image_proxy.php?url=$thumbnail\">";
                     echo "</a>";
                 }

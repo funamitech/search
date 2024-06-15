@@ -7,7 +7,7 @@ function printtext($key) {
 function printftext() {
     $argv = func_get_args();
     $key = array_shift($argv);
-    vprintf(TEXTS[$key], $argv);
+    return vprintf(TEXTS[$key], $argv);
 }
 
 // default to language "en"
@@ -24,5 +24,5 @@ if (array_key_exists("HTTP_ACCEPT_LANGUAGE", $_SERVER)) {
     }
 }
 
-define("TEXTS", require "locale/$locale.php");
+define("TEXTS", require_once "locale/$locale.php");
 ?>

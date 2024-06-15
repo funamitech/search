@@ -31,7 +31,7 @@
 
                 $url = $url->textContent;
 
-                if (!empty($results) && array_key_exists("url", $results) && end($results)["url"] == $url->textContent)
+                if (!empty($results) && array_key_exists("url", end($results)) && end($results)["url"] == $url->textContent)
                     continue;
 
                 $title = $xpath->evaluate(".//article//div[contains(@class, 'result__body')]//div[contains(@class, 'result__header')]//div[contains(@class, 'result__title')]//a//h2", $result)[0];

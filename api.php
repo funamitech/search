@@ -1,6 +1,6 @@
 <?php
-    require "misc/search_engine.php";
-    require "locale/localization.php";
+    require_once "misc/search_engine.php";
+    require_once "locale/localization.php";
 
     $opts = load_opts();
     if ($opts->disable_api) {
@@ -8,7 +8,7 @@
         die();
     }
 
-    require "misc/tools.php";
+    require_once "misc/tools.php";
 
     if (!$opts->query) {
         echo "<p>Example API request: <a href=\"./api.php?q=gentoo&p=2&t=0\">./api.php?q=gentoo&p=2&t=0</a></p>

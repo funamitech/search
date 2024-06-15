@@ -8,6 +8,9 @@
         "language" => "",
         "number_of_results" => 10,
 
+        // The default theme css to use
+        "default_theme" => "dark",
+
         // You can use any Invidious instance here
         "invidious_instance_for_video_results" => "https://invidious.snopyta.org",
 
@@ -26,7 +29,7 @@
         // how long in minutes to store results for in the cache
         "cache_time" => 20,
 
-        // Disable requests to /api.php - HIGHLY recommended to keep this at false, this is what allows LibreY to still show results when Google/DuckDuckGo blocks te requests.
+        // Disable requests to /api.php - HIGHLY recommended to keep this at false, this is what allows LibreY to still show results when Google/DuckDuckGo blocks the requests.
         "disable_api" => false,
 
         // whether to show where the result is from on the results page
@@ -68,9 +71,9 @@
                 "original_url" => "twitter.com"
             ),
 
-            "libreddit" => array(
+            "redlib" => array(
                 "instance_url" => "",
-                "project_url" => "https://github.com/libreddit/libreddit-instances/blob/master/instances.md",
+                "project_url" => "https://github.com/redlib-org/redlib-instances/blob/main/instances.md",
                 "original_name" => "Reddit",
                 "original_url" => "reddit.com"
             ),
@@ -134,7 +137,7 @@
 
 
         /*
-            To send requests trough a proxy uncomment CURLOPT_PROXY and CURLOPT_PROXYTYPE:
+            To send requests through a proxy uncomment CURLOPT_PROXY and CURLOPT_PROXYTYPE:
 
             CURLOPT_PROXYTYPE options:
 

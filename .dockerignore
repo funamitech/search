@@ -1,5 +1,4 @@
 .github/
-.git/
 .gitignore
 .dockerignore
 config.php.example

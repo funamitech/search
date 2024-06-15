@@ -4,12 +4,12 @@
         public function __construct($opts, $mh) {
             parent::__construct($opts, $mh);
 
-            require "engines/bittorrent/thepiratebay.php";
-            require "engines/bittorrent/rutor.php";
-            require "engines/bittorrent/yts.php";
-            require "engines/bittorrent/torrentgalaxy.php";
-            require "engines/bittorrent/1337x.php";
-            require "engines/bittorrent/sukebei.php";
+            require_once "engines/bittorrent/thepiratebay.php";
+            require_once "engines/bittorrent/rutor.php";
+            require_once "engines/bittorrent/yts.php";
+            require_once "engines/bittorrent/torrentgalaxy.php";
+            require_once "engines/bittorrent/1337x.php";
+            require_once "engines/bittorrent/sukebei.php";
 
             $this->requests = array(
                 new PirateBayRequest($opts, $mh),

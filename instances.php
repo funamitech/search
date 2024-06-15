@@ -1,6 +1,6 @@
 <?php 
-    require "misc/header.php";
-    require "misc/tools.php";
+    require_once "misc/header.php";
+    require_once "misc/tools.php";
             
     $instances_json = json_decode(file_get_contents("instances.json"), true);
 
@@ -59,4 +59,4 @@
         </div>
     
 
-<?php require "misc/footer.php"; ?>
+<?php require_once "misc/footer.php"; ?>

@@ -57,31 +57,31 @@
 
         switch ($special_search) {
             case 1:
-                require "engines/special/currency.php";
+                require_once "engines/special/currency.php";
                 $special_request = new CurrencyRequest($opts, $mh);
                 break;
             case 2:
-                require "engines/special/definition.php";
+                require_once "engines/special/definition.php";
                 $special_request = new DefinitionRequest($opts, $mh);
                 break;
             case 3:
-                require "engines/special/ip.php";
+                require_once "engines/special/ip.php";
                 $special_request = new IPRequest($opts, $mh);
                 break;
             case 4:
-                require "engines/special/user_agent.php";
+                require_once "engines/special/user_agent.php";
                 $special_request = new UserAgentRequest($opts, $mh);
                 break;
             case 5:
-                require "engines/special/weather.php";
+                require_once "engines/special/weather.php";
                 $special_request = new WeatherRequest($opts, $mh);
                 break;
             case 6:
-                require "engines/special/tor.php";
+                require_once "engines/special/tor.php";
                 $special_request = new TorRequest($opts, $mh);
                 break;
             case 7:
-                require "engines/special/wikipedia.php";
+                require_once "engines/special/wikipedia.php";
                 $special_request = new WikipediaRequest($opts, $mh);
                 break;
         }

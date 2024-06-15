@@ -5,5 +5,5 @@
   <InputEncoding>${OPEN_SEARCH_ENCODING}</InputEncoding>
   <LongName>${OPEN_SEARCH_LONG_NAME}</LongName>
   <Url rel="results" type="text/html" method="get" template="${OPEN_SEARCH_HOST}/search.php?q={searchTerms}" />
-  <Url type="application/opensearchdescription+xml" rel="self" template="/opensearch.xml?method=GET" />
+  <Url type="application/opensearchdescription+xml" rel="self" template="${OPEN_SEARCH_HOST}/opensearch.xml?method=GET" />
 </OpenSearchDescription>

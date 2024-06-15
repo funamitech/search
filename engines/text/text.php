@@ -4,7 +4,7 @@
     }
 
     class TextSearch extends EngineRequest {
-        protected $engine, $engine_request, $special_request;
+        protected $cache_key, $engine, $engines, $engine_request, $special_request;
         public function __construct($opts, $mh) {
             $this->engines = get_engines();
             shuffle($this->engines);
@@ -41,7 +41,7 @@
             if (is_null($this->engine_request))
                 return;
 
-            require "engines/special/special.php";
+            require_once "engines/special/special.php";
             $this->special_request = get_special_search_request($opts, $mh);
         }
         private function select_engine() {
@@ -59,32 +59,32 @@
 
         private function get_engine_request($engine, $opts, $mh) {
             if ($engine == "google") {
-                require "engines/text/google.php";
+                require_once "engines/text/google.php";
                 return new GoogleRequest($opts, $mh);
             }
 
             if ($engine == "duckduckgo") {
-                require "engines/text/duckduckgo.php";
+                require_once "engines/text/duckduckgo.php";
                 return new DuckDuckGoRequest($opts, $mh);
             }
 
             if ($engine == "brave") {
-                require "engines/text/brave.php";
+                require_once "engines/text/brave.php";
                 return new BraveSearchRequest($opts, $mh);
             }
 
             if ($engine == "yandex") {
-                require "engines/text/yandex.php";
+                require_once "engines/text/yandex.php";
                 return new YandexSearchRequest($opts, $mh);
             }
 
             if ($engine == "ecosia") {
-                require "engines/text/ecosia.php";
+                require_once "engines/text/ecosia.php";
                 return new EcosiaSearchRequest($opts, $mh);
             }
 
             if ($engine == "mojeek") {
-                require "engines/text/mojeek.php";
+                require_once "engines/text/mojeek.php";
                 return new MojeekSearchRequest($opts, $mh);
             }
 
@@ -102,7 +102,7 @@
             $results = $this->engine_request->get_results();
 
             if (empty($results)) {
-                set_cooldown($this->engine, ($opts->request_cooldown ?? "1") * 60, $this->opts->cooldowns);
+                set_cooldown($this->engine, ($this->opts->request_cooldown ?? "1") * 60, $this->opts->cooldowns);
             } else {
                 if ($this->special_request) {
                     $special_result = $this->special_request->get_results();
@@ -154,7 +154,7 @@
                 echo $response;
                 if ($source) {
                     $source = check_for_privacy_frontend($source, $opts);
-                    echo "<a href=\"$source\" target=\"_blank\">$source</a>";
+                    echo "<a href=\"$source\" rel=\"noreferer noopener\" target=\"_blank\">$source</a>";
                 }
                 echo "</p>";
             }
@@ -175,7 +175,7 @@
                 $description = $result["description"];
 
                 echo "<div class=\"text-result-wrapper\">";
-                echo "<a href=\"$url\">";
+                echo "<a rel=\"noreferer noopener\"  href=\"$url\">";
                 echo "$base_url";
                 echo "<h2>$title</h2>";
                 echo "</a>";

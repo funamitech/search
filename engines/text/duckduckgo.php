@@ -28,10 +28,10 @@
 
             if (!$xpath)
                 return $results;
-            
+
             foreach($xpath->query("/html/body/div[1]/div[". count($xpath->query('/html/body/div[1]/div')) ."]/div/div/div[contains(@class, 'web-result')]/div") as $result) {
                 $url = $xpath->evaluate(".//h2[@class='result__title']//a/@href", $result)[0];
-                
+
                 if ($url == null)
                     continue;
 

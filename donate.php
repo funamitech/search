@@ -1,5 +1,5 @@
 <?php
-    require "misc/header.php";
+    require_once "misc/header.php";
 
     // Feel free to add your donation options here, but please don't remove mine.
     // Why not? I'm gonna remove yours. LMAO jkjk I'll leave them.
@@ -8,7 +8,7 @@
     <title>YuruSearch - Donate</title>
     </head>
     <body>
-        <div class="misc-container">
+        <div class="donate-container">
 	    <h1>Donate to YuruVerse</h1>
 	      <a href="https://toss.me/yuifmirror">Toss (South Korean residents only)</a>
 	      <a href="https://github.com/sponsors/NoaHimesaka1873">GitHub Sponsors</a>

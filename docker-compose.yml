@@ -1,4 +1,3 @@
-version: "3"
 services:
   librey:
     image: ghcr.io/ahwxorg/librey:latest
@@ -10,21 +9,22 @@ services:
       - CONFIG_GOOGLE_DOMAIN=com
       - CONFIG_LANGUAGE=en
       - CONFIG_NUMBER_OF_RESULTS=10
-      - CONFIG_INVIDIOUS_INSTANCE=https://invidious.snopyta.org
+      - CONFIG_INVIDIOUS_INSTANCE=https://yt.ahwx.org
       - CONFIG_DISABLE_BITTORRENT_SEARCH=false
       - CONFIG_HIDDEN_SERVICE_SEARCH=false
       - CONFIG_INSTANCE_FALLBACK=true
       - CONFIG_RATE_LIMIT_COOLDOWN=25
       - CONFIG_CACHE_TIME=20
-      - CONFIG_TEXT_SEARCH_ENGINE=google
+      - CONFIG_DISABLE_API=false
+      - CONFIG_TEXT_SEARCH_ENGINE=auto
       - CURLOPT_PROXY_ENABLED=false
       - CURLOPT_PROXY=192.0.2.53:8388
       - CURLOPT_PROXYTYPE=CURLPROXY_HTTP
       - CURLOPT_USERAGENT=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:116.0) Gecko/20100101 Firefox/116.0
       - CURLOPT_FOLLOWLOCATION=true
     volumes:
-      - ./nginx_logs:/var/log/nginx
-      - ./php_logs:/var/log/php83
+      # - ./nginx_logs:/var/log/nginx # Disabled by default. These are the NGINX request logs.
+      - ./php_logs:/var/log/php83 # Enabled by default. These are the PHP error logs.
     restart: unless-stopped
   watchtower: # Watchtower is not required but highly recommended, since Watchtower will re-pull and restart the LibreY container automatically whenever there's an update.
     image: containrrr/watchtower

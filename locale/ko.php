@@ -4,7 +4,6 @@ return array(
     "page_title" => "YuruSearch 검색",
     "search_button" => "YuruSearch로 검색하기",
     "torrent_search_button" => "YuruSearch로 토렌트 검색하기",
-
     "source_code_link" => "소스 코드",
     "instances_link" => "인스턴스",
     "settings_link" => "설정",

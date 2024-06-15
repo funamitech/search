@@ -15,7 +15,7 @@
 
 ## Matrix
 
-If there's an important announcement, we do have a Matrix chatroom which you can join over at #librey:ahwx.org.
+If there's an important announcement, we do have a Matrix chatroom which you can join over at [#librey:ahwx.org](https://matrix.to/#/#librey:ahwx.org).
 
 ### Instances
 
@@ -31,16 +31,18 @@ Support the community. ❤️<br><br>
 [search3.ahwx.org](https://search3.ahwx.org/instances.php)<br>
 [Tor](http://r7nesn6dnp2fssinw7n5uj4ob2na6g4jppakpjgioxb6v4ca4bbsqoyd.onion/instances.php)<br>
 <br>
+[@codedipper](https://github.com/codedipper)'s instance:<br>
+[search.revvy.de](https://search.revvy.de/instances.php)<br>
+[Tor](http://search.revvybrr6pvbx4n3j4475h4ghw4elqr4t5xo2vtd3gfpu2nrsnhh57id.onion/instances.php)<br>
+[I2P](http://revekebotog64xrrammtsmjwtwlg3vqyzwdurzt2pu6botg4bejq.b32.i2p/instances.php)<br>
+<br>
 [@davidovski](https://github.com/davidovski)'s instance:<br>
 [search.davidovski.xyz](https://search.davidovski.xyz/instances.php)<br>
 <br>
-[@codedipper](https://github.com/codedipper)'s instance:<br>
-[librex.me](https://librex.me/instances.php)<br>
-[librex.revvy.de](https://librex.revvy.de/instances.php)<br>
-[Tor](http://librex.revvybrr6pvbx4n3j4475h4ghw4elqr4t5xo2vtd3gfpu2nrsnhh57id.onion/instances.php)<br>
-[I2P](http://revekebotog64xrrammtsmjwtwlg3vqyzwdurzt2pu6botg4bejq.b32.i2p/instances.php)<br>
-<br>
 
+### How to host LibreY
+
+[This section has been moved](https://github.com/Ahwxorg/LibreY/tree/main/docs) to clear up some README space.
 
 ### About LibreY
 
@@ -49,8 +51,8 @@ LibreY gives you text results from Google, DuckDuckGo, Brave Search, Ecosia, Yan
 
 ### LibreY compared to other metasearch engines
 
-| Name |  Works without JS | Privacy frontend redirect | Torrent results | API | No 3rd party libs used |
-|-|-|-|-|-|-|
-| LibreY | ✅ | ✅ | ✅ | ✅ | ✅ |
-| SearXNG | ❓ Not user friendly | ❓ Only host can set it | ✅ | ✅ | ❌ |
-| Whoogle | ✅ | ❓ Only host can set it | ❌ | ❌ | ❌ |
+| Name    | Works without JS     | Privacy frontend redirect | Torrent results | API | No 3rd party libs used |
+| ------- | -------------------- | ------------------------- | --------------- | --- | ---------------------- |
+| LibreY  | ✅                   | ✅                        | ✅              | ✅  | ✅                     |
+| SearXNG | ❓ Not user friendly | ❓ Only host can set it   | ✅              | ✅  | ❌                     |
+| Whoogle | ✅                   | ❓ Only host can set it   | ❌              | ❌  | ❌                     |

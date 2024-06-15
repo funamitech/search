@@ -53,7 +53,7 @@
             if (!(filter_var($instance, FILTER_VALIDATE_URL)))
                 continue;
 
-            if (parse_url($instance)["host"] == parse_url($_SERVER['HTTP_HOST'])["host"])
+            if (parse_url($instance)["host"] == $_SERVER['HTTP_HOST'])
                 continue;
 
             $librex_request = new LibreXFallback($instance, $opts, null);
@@ -62,7 +62,6 @@
 
             if (!empty($results)) {
                 $results["results_source"] = parse_url($instance)["host"];
-                error_log($results["results_source"]);
                 return $results;
             }
 

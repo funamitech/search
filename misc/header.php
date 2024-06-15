@@ -1,4 +1,6 @@
-<?php require "locale/localization.php"; ?>
+<?php require_once "locale/localization.php";
+      $GLOBALS["opts"] = require_once "config.php";
+ ?>
 <!DOCTYPE html >
 <html lang="en">
     <head>
@@ -9,6 +11,6 @@
         <link rel="stylesheet" type="text/css" href="static/css/styles.css"/>
         <link title="YuruSearch powered by LibreY" type="application/opensearchdescription+xml" href="opensearch.xml?method=POST" rel="search"/>
         <link rel="stylesheet" type="text/css" href="<?php
-$theme = $_REQUEST["theme"] ?? trim(htmlspecialchars($_COOKIE["theme"] ?? "dark"));
+$theme = $_REQUEST["theme"] ?? trim(htmlspecialchars($_COOKIE["theme"] ?? $GLOBALS["opts"]->default_theme ?? "dark"));
                 echo "static/css/" . $theme . ".css";
         ?>"/>

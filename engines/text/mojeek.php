@@ -42,7 +42,7 @@
 
                 $title = $title->textContent;
 
-                $description = $xpath->evaluate(".//p[contains(@class, 's')]", $result)[0]->textContent;
+                $description = ($xpath->evaluate(".//p[contains(@class, 's')]", $result)[0] ?? null) ?->textContent ?? '';
 
                 array_push($results,
                     array (

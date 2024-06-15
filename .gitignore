@@ -1,2 +1,4 @@
-config.php
-opensearch.xml
+/config.php
+/opensearch.xml
+/nginx_logs
+/php_logs

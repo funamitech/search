@@ -24,6 +24,7 @@ return array(
 
     "settings_title" => "Settings",
     "settings_theme" => "Theme",
+    "settings_special_warning" => "This checkbox will persist until the 'Reset' button is clicked or your cookies are cleared.",
     "settings_special_disabled" => "Disable special queries (e.g.: currency conversion)",
 
     "settings_frontends" => "Privacy friendly frontends",
