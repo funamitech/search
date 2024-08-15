@@ -24,6 +24,7 @@ return array(
 
     "settings_title" => "Inställningar",
     "settings_theme" => "Tema",
+    "settings_special_warning" => "Rutorna sparas tills du klickar på 'Återställ' eller rensar cookies.",
     "settings_special_disabled" => "Inaktivera specialförfrågningar (t.ex. valutaomvandlare)",
 
     "settings_frontends" => "Privata frontends",

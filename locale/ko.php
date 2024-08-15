@@ -23,6 +23,7 @@ return array(
 
     "settings_title" => "설정",
     "settings_theme" => "테마",
+    "settings_special_warning" => "이 체크박스는 '초기화' 버튼을 누르거나 쿠키를 제거하기 전까지 선택이 유지됩니다.",
     "settings_special_disabled" => "특수 검색어 비활성화 (예: 환전 등)",
 
     "settings_frontends" => "프라이버시 친화적 프론트엔드",

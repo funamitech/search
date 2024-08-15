@@ -13,6 +13,7 @@
         "cache_time" => ${CONFIG_CACHE_TIME},
         "disable_api" => ${CONFIG_DISABLE_API},
 	"show_result_source" => ${CONFIG_SHOW_RESULT_SOURCE},
+	"default_theme" => "${CONFIG_DEFAULT_THEME}",
 
         "frontends" => array(
             "invidious" => array(

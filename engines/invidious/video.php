@@ -50,7 +50,7 @@
                 $uploader = $result["uploader"] ?? '';
                 $views = $result["views"] ?? '';
                 $date = $result["date"] ?? '';
-                $thumbnail = preg_replace('/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^\s]+)/', 'https://i.ytimg.com/vi/$1/maxresdefault.jpg', $url) ?? '';
+                $thumbnail = "https://i.ytimg.com/vi/" . htmlspecialchars(explode("=", $url)[1]) . "/maxresdefault.jpg" ?? '';
 
                 echo "<div class=\"text-result-wrapper\">";
                 echo "<a rel=\"noreferer noopener\" href=\"$url\">";

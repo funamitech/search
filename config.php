@@ -9,6 +9,7 @@
         "number_of_results" => 10,
 
         // The default theme css to use
+        // use `ls --ignore={styles,auto}.css static/css | cut -d. -f1` to list valid themes
         "default_theme" => "dark",
 
         // You can use any Invidious instance here

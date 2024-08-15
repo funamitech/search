@@ -24,6 +24,7 @@ return array(
 
     "settings_title" => "Impostazioni",
     "settings_theme" => "Tema",
+    "settings_special_warning" => "Questa casella di spunta persisterà fino a il bottone di 'Ripristina' è cliccato o i tui cookies sono sgombrati.",
     "settings_special_disabled" => "Disabilitare le ricerche speciali (ad es.: conversione di valuta)",
 
     "settings_frontends" => "Intermediari che rispettano la privacy",
