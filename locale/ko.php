@@ -1,5 +1,7 @@
 <?php
 
+// github.com/NoaHimesaka1873
+
 return array(
     "page_title" => "YuruSearch 검색",
     "search_button" => "YuruSearch로 검색하기",

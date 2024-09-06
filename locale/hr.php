@@ -1,5 +1,7 @@
 <?php
 
+// github.com/SectorV5
+
 return array(
    "page_title" => "LibreY Pretraživanje",
    "search_button" => "LibreY Pretraživanje",

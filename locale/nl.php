@@ -1,5 +1,7 @@
 <?php
 
+// github.com/Ahwxorg
+
 return array(
     "page_title" => "LibreY search",
     "search_button" => "Zoek met LibreY",

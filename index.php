@@ -12,7 +12,9 @@
                 <div class="search-button-wrapper">
 
                 <button name="t" value="0" type="submit"><?php printtext("search_button"); ?></button>
-                    <button name="t" value="3" type="submit"><?php printtext("torrent_search_button"); ?></button>
+                <?php if (!$opts->disable_bittorrent_search) {
+                    echo '<button name="t" value="3" type="submit">', printtext("torrent_search_button"), '</button>';
+                } ?>
                 </div>
         </form>
 

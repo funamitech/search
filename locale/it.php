@@ -1,5 +1,7 @@
 <?php
 
+// github.com/ThomasDC84 github.com/codedipper
+
 return array(
     "page_title" => "LibreY Ricerca",
     "search_button" => "Cerca con LibreY",

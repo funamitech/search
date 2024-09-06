@@ -1,5 +1,7 @@
 <?php
 
+// github.com/norrlandxyz
+
 return array(
     "page_title" => "LibreY search",
     "search_button" => "Sök med LibreY",
